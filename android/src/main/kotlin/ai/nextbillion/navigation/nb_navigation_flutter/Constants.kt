@@ -1,0 +1,25 @@
+package ai.nextbillion.navigation.nb_navigation_flutter
+
+/**
+ * @author qiuyu
+ * @Date 2023/3/8
+ **/
+object Constants {
+
+    const val NAVIGATION_CHANNEL = "nb_navigation_flutter"
+
+
+}
+
+object MethodID {
+    const val NAVIGATION_FETCH_ROUTE = "route/fetchRoute"
+    const val NAVIGATION_FIND_SELECTED_ROUTE = "route/findSelectedRouteIndex"
+    const val NAVIGATION_LAUNCH_NAVIGATION = "navigation/startNavigation"
+    const val NAVIGATION_INIT_NAVIGATION = "config/initNBNavigation"
+    const val NAVIGATION_GET_ACCESS_KEY = "config/getAccessKey"
+}
+
+object ResultID {
+    const val NAVIGATION_ROUTE_RESULT = "route/routeResult"
+
+}

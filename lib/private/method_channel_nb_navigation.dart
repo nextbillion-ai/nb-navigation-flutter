@@ -1,0 +1,74 @@
+part of nb_navigation_flutter;
+
+class MethodChannelNBNavigation extends NBNavigationPlatform {
+  MethodChannel? _channel;
+
+  MethodChannelNBNavigation() {
+    _channel = NBNavigationChannelFactory.nbNavigationChannel;
+    _channel?.setMethodCallHandler(_handleMethodCall);
+  }
+
+  Future<dynamic> _handleMethodCall(MethodCall call) async {
+    switch (call.method) {
+      case NBRouteMethodID.nbRouteResultMethod:
+        List<String> routeJson = List<String>.from(call.arguments["routeResult"] ?? []);
+        String error = call.arguments["error"] ?? "";
+        Map<dynamic, dynamic> routeRequest = call.arguments["routeOptions"] ?? {};
+
+        RouteOptions? requestParams;
+        if (routeRequest.isNotEmpty) {
+          requestParams = RouteOptions.fromJson(json.decode(json.encode(routeRequest)));
+        }
+
+        List<DirectionsRoute> routes = [];
+        if (routeJson.isNotEmpty) {
+          for (var json in routeJson) {
+            DirectionsRoute route = DirectionsRoute.fromJson(jsonDecode(json));
+            if (requestParams != null) {
+              route.routeOptions = requestParams;
+            }
+            routes.add(route);
+          }
+        }
+
+        if (onGetRouteResultCallBack != null) {
+          onGetRouteResultCallBack!(routes, error);
+        }
+        break;
+    }
+  }
+
+  @override
+  Future<void> fetchRoute(RouteRequestParams routeRequestParams, OnGetRouteResultCallBack routeResultCallBack) async {
+    onGetRouteResultCallBack = routeResultCallBack;
+    try {
+      await _channel?.invokeMethod(NBRouteMethodID.nbFetchRouteMethod, routeRequestParams.toJson());
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  Future<void> startNavigation(NavigationLauncherConfig launcherConfig) async {
+    try {
+      Map<String, dynamic> arguments = {};
+      if (Platform.isIOS) {
+        arguments["routeOptions"] = launcherConfig.route.routeOptions?.toJson();
+      }
+      arguments["launcherConfig"] = launcherConfig.toJson();
+      await _channel?.invokeMethod(NBNavigationLauncherMethodID.nbNavigationLauncherMethod, arguments);
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  Future<int> findSelectedRouteIndex(LatLng clickPoint, List<List<LatLng>> coordinates) async {
+    Map<String, dynamic> arguments = {};
+    arguments["clickPoint"] = clickPoint.toJson();
+    arguments["coordinates"] = coordinates
+        .map((coordinate) => coordinate.map((point) => point.toJson()).toList())
+        .toList();
+    return await _channel?.invokeMethod(NBRouteMethodID.nbRouteSelectedIndexMethod, arguments);
+  }
+}

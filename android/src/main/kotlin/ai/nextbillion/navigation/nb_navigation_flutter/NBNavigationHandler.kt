@@ -1,0 +1,39 @@
+package ai.nextbillion.navigation.nb_navigation_flutter
+
+import ai.nextbillion.maps.Nextbillion
+import android.app.Activity
+import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.MethodChannel
+
+/**
+ * @author qiuyu
+ * @Date 2023/3/7
+ **/
+class NBNavigationHandler : MethodChannelHandler() {
+
+    init {
+        methodChannel = MethodChannelManager.getInstance().navigationChannel
+    }
+
+    override fun handleMethodCallResult(activity: Activity?, call: MethodCall?, result: MethodChannel.Result?) {
+        super.handleMethodCallResult(activity, call, result)
+        if (methodChannel == null || call == null || result == null) {
+            return
+        }
+        when (call.method) {
+            MethodID.NAVIGATION_INIT_NAVIGATION -> {
+                activity?.let {
+                    val args = call.arguments as? Map<*,*>
+                    Nextbillion.getInstance(it.applicationContext, args?.get("accessKey")?.toString())
+//                    NBGNSLocation.getInstance().init(it)
+                }
+                result.success(true)
+            }
+            MethodID.NAVIGATION_GET_ACCESS_KEY -> {
+                val accessKey = Nextbillion.getAccessKey()
+                result.success(accessKey)
+            }
+        }
+    }
+
+}
