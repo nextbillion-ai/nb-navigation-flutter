@@ -116,7 +116,6 @@ class DrawRouteLineState extends State<DrawRouteLine> {
     NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
     config.enableDissolvedRouteLine = false;
-    config.shouldSimulateRoute = true;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = false;
     NBNavigation.startNavigation(config);
