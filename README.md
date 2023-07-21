@@ -33,6 +33,9 @@ import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 ### Initialization
 To run the Navigation Flutter Plugin you will need to configure the NB Maps Token at the beginning of your flutter app using `NextBillion.initNextBillion(YOUR_ACCESS_KEY)`. 
 ```
+import 'package:nb_maps_flutter/nb_maps_flutter.dart';
+import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
+
 class _NavigationDemoState extends State<NavigationDemo> {
   @override
   void initState() {
@@ -92,7 +95,7 @@ await NBNavigation.fetchRoute(requestParams, (routes, error) async { });
 
 
 ### Draw routes
-After getting the routes, you can draw routes on the map view using `NavNextBillionMap`
+After getting the routes, you can draw routes on the map view using `NavNextBillionMap`, If you need to use Maps related functions, for example: Display a Map widget, please refer to NB [Flutter Maps Plugin](https://pub.dev/packages/nb_maps_flutter)
 
 Create `NavNextBillionMap` with `NextbillionMapController` in NBMap widget’s `onStyleLoadedCallback` callback:
 ```
