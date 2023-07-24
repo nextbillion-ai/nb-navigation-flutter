@@ -1,4 +1,4 @@
-## v0.1.3, July 24, 2023
+## v0.1.4, July 24, 2023
 * Fix Navigation Reroute issue
 * Add permissions annotation
 
