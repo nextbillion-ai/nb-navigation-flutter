@@ -21,7 +21,7 @@
 Add the following dependency to your project pubspec.yaml file to use the NB Navigation Flutter Plugin add the dependency to the pubspec.yaml (change the version to actual version that you want to use):
 ```
 dependencies:
-  nb_navigation_flutter: 0.1.0
+  nb_navigation_flutter: {version}
 ```
 
 ### Import
