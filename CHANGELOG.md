@@ -1,4 +1,8 @@
-## v0.0.1, July 19, 2023
+## v0.1.3
+* Fix Navigation Reroute issue
+* Add permissions annotation
+
+## v0.1.0, July 19, 2023
 * Maps Plugin
 * Support fetch route
   * RouteRequestParams
