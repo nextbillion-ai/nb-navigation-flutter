@@ -17,6 +17,8 @@ class RouteOptions {
   SupportedOption? option;
   SupportedGeometry? geometryType;
   String? geometry;
+  List<dynamic>? origin;
+  List<dynamic>? destination;
 
   RouteOptions({
     this.altCount,
@@ -35,6 +37,8 @@ class RouteOptions {
     this.option,
     this.geometryType,
     this.geometry,
+    this.origin,
+    this.destination,
   });
 
   factory RouteOptions.fromJson(Map<String, dynamic> map) {
@@ -55,6 +59,8 @@ class RouteOptions {
       geometryType: enumValue(map["geometryType"]) as SupportedGeometry?,
       geometry: map["geometry"],
       waypoints: _decodeWayPoints(map['waypoints']),
+      origin: map["origin"] ?? [],
+      destination: map["destination"] ?? [],
     );
   }
 
@@ -102,6 +108,8 @@ class RouteOptions {
       'geometry': geometry,
       'geometryType': geometryType?.description,
       'waypoints': _encodeWayPoints(waypoints),
+      "origin": origin,
+      "destination": destination,
     };
   }
 
