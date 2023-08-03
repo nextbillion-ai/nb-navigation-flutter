@@ -1,3 +1,9 @@
+## v0.1.5, August 03, 2023
+* Update the location coordinate type in RouteRequestParams
+* Complete the route result module
+* Update iOS framework
+
+
 ## v0.1.4, July 24, 2023
 * Fix Navigation Reroute issue
 * Add permissions annotation
