@@ -4,10 +4,10 @@ part of nb_navigation_flutter;
 /// Refer to Navigation API https://docs.nextbillion.ai/docs/navigation/api/navigation
 class RouteRequestParams {
   /// The origin point of route request.
-  Coordinate origin;
+  LatLng origin;
 
   /// The destination point of route request.
-  Coordinate destination;
+  LatLng destination;
 
   int? altCount;
 
@@ -66,7 +66,7 @@ class RouteRequestParams {
   /// A list of Points to visit in order.
   /// Note that these coordinates are different than the direction responses
   /// waypoints that these are the non-snapped coordinates.
-  List<Coordinate>? waypoints;
+  List<LatLng>? waypoints;
 
   ///Use this option to switch to truck-specific routing or time based routing
   ///or if you want to choose between the fastest and shortest route types
@@ -101,26 +101,29 @@ class RouteRequestParams {
   });
 
   factory RouteRequestParams.fromJson(Map<String, dynamic> map) {
+    if (map.isEmpty) {
+      return RouteRequestParams(origin: const LatLng(0, 0), destination: const LatLng(0, 0),);
+    }
     return RouteRequestParams(
       altCount: map['altCount'],
       alternatives: map['alternatives'],
-      avoid: List<SupportedAvoid>.from(map['avoid']?.map((x) => enumValue(x)) ?? []),
+      // avoid: List<SupportedAvoid>.from((map['avoid'] as List<dynamic>?)?.map((x) => enumValue(x)) ?? []),
       baseUrl: map['baseUrl'],
       departureTime: map['departureTime'],
-      destination: Coordinate.fromJson(map['destination'] ?? {}),
+      destination: LatLng(map['destination'][1], map['destination'][0]),
       key: map['key'],
       language: map['language'],
       mode: enumValue(map['mode']) as ValidModes?,
-      origin: Coordinate.fromJson(map['origin'] ?? {}),
+      origin: LatLng(map['origin'][1], map['origin'][0]),
       overview: enumValue(map['overview']) as ValidOverview?,
       simulation: map['simulation'],
       truckWeight: map['truckWeight'],
-      truckSize: List<int>.from(map["truckSize"] ?? []),
+      truckSize: (map['truckSize'] as List<dynamic>?)?.map((item) => int.parse(item)).toList(),
       unit: enumValue(map['unit']) as SupportedUnits?,
       option: enumValue(map['option']) as SupportedOption?,
       geometryType: enumValue(map["geometryType"]) as SupportedGeometry?,
       geometry: map["geometry"],
-      waypoints: List<Coordinate>.from(map['waypoints']?.map((x) => Coordinate.fromJson(x)) ?? []),
+      waypoints: List<LatLng>.from(map['waypoints']?.map((point) => LatLng(point[1], point[0])) ?? []),
     );
   }
 
@@ -131,11 +134,11 @@ class RouteRequestParams {
       'avoid': avoid?.map((e) => e.description).toList(),
       'baseUrl': baseUrl,
       'departureTime': departureTime,
-      'destination': destination.toJson(),
+      'destination': destination.toGeoJsonCoordinates(),
       'key': key,
       'language': language,
       'mode': mode?.description,
-      'origin': origin.toJson(),
+      'origin': origin.toGeoJsonCoordinates(),
       'overview': overview?.description,
       'simulation': simulation,
       'truckWeight': truckWeight,
@@ -144,7 +147,7 @@ class RouteRequestParams {
       'option': option?.description,
       'geometry': geometry,
       'geometryType': geometryType?.description,
-      'waypoints': waypoints?.map((e) => e.toJson()).toList(),
+      'waypoints': waypoints?.map((e) => e.toGeoJsonCoordinates()).toList(),
     };
   }
 }

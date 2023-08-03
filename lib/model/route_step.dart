@@ -9,8 +9,9 @@ class RouteStep {
   String? name;
   Distance? distance;
   TimeDuration? duration;
-  Map<String, dynamic>? roadShield;
+  RoadShield? roadShield;
   List<VoiceInstruction>? voiceInstructions;
+  String? reference;
 
   RouteStep({
     this.bannerInstructions,
@@ -23,6 +24,7 @@ class RouteStep {
     this.duration,
     this.roadShield,
     this.voiceInstructions,
+    this.reference,
   });
 
   factory RouteStep.fromJson(Map<String, dynamic> json) {
@@ -37,9 +39,11 @@ class RouteStep {
         name: json['name'] ?? '',
         distance: Distance.fromJson(json['distance'] ?? {}),
         duration: TimeDuration.fromJson(json['duration'] ?? {}),
-        roadShield: json['road_shield_type'] ?? {},
+        roadShield: RoadShield.fromJson(json['road_shield_type'] ?? {}),
+        reference: json['reference'] ?? "",
         voiceInstructions:
-            List<VoiceInstruction>.from(json['voiceInstructions']?.map((vi) => VoiceInstruction.fromJson(vi)) ?? []));
+            List<VoiceInstruction>.from(json['voiceInstructions']?.map((vi) => VoiceInstruction.fromJson(vi)) ?? [])
+        );
   }
 
   Map<String, dynamic> toJson() {
@@ -52,8 +56,33 @@ class RouteStep {
       'name': name,
       'distance': distance?.toJson(),
       'duration': duration?.toJson(),
-      'road_shield_type': roadShield,
+      'road_shield_type': roadShield?.toJson(),
+      'reference': reference,
       'voiceInstructions': voiceInstructions?.map((vi) => vi.toJson()).toList(),
+    };
+  }
+}
+
+class RoadShield {
+  String? imageUrl;
+  String? label;
+
+  RoadShield({
+    this.imageUrl,
+    this.label,
+  });
+
+  factory RoadShield.fromJson(Map<String, dynamic> map) {
+    return RoadShield(
+      imageUrl: map['image_url'],
+      label: map['label'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'image_url': imageUrl,
+      'label': label,
     };
   }
 }

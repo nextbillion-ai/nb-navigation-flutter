@@ -16,7 +16,6 @@ part 'model/directions_route.dart';
 part 'model/intersections.dart';
 part 'model/maneuver.dart';
 part 'model/navigation_launcher_config.dart';
-part 'model/route_options.dart';
 part 'model/route_request_params.dart';
 part 'model/route_request_params_constants.dart';
 part 'model/route_step.dart';

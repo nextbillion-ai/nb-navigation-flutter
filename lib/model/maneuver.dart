@@ -1,12 +1,14 @@
 part of nb_navigation_flutter;
 
 class Maneuver {
-  double? bearingAfter;
-  double? bearingBefore;
+  num? bearingAfter;
+  num? bearingBefore;
+  num? bearing;
   Coordinate? coordinate;
   String? instruction;
   String? modifier;
   String? type;
+  bool? muted;
   List<VoiceInstruction>? voiceInstructions;
 
   Maneuver({
@@ -17,6 +19,8 @@ class Maneuver {
     this.modifier,
     this.type,
     this.voiceInstructions,
+    this.bearing,
+    this.muted,
   });
 
   factory Maneuver.fromJson(Map<String, dynamic> map) {
@@ -27,6 +31,8 @@ class Maneuver {
       instruction: map['instruction'],
       modifier: map['modifier'],
       type: map['maneuver_type'],
+      bearing: map['bearing'],
+      muted: map['muted'],
       voiceInstructions:
           List<VoiceInstruction>.from(map['voice_instruction']?.map((vi) => VoiceInstruction.fromJson(vi)) ?? []),
     );
@@ -39,6 +45,8 @@ class Maneuver {
       'coordinate': coordinate?.toJson(),
       'instruction': instruction,
       'maneuver_type': type,
+      'bearing': bearing,
+      'muted': muted,
       'voice_instruction': voiceInstructions?.map((vi) => vi.toJson()).toList(),
     };
 

@@ -3,19 +3,22 @@ part of nb_navigation_flutter;
 class BannerInstructions {
   double? distanceAlongGeometry;
   Primary? primary;
-  Sub? sub;
+  Primary? secondary;
+  Primary? sub;
 
   BannerInstructions({
     this.distanceAlongGeometry,
     this.primary,
     this.sub,
+    this.secondary,
   });
 
   factory BannerInstructions.fromJson(Map<String, dynamic> map) {
     return BannerInstructions(
       distanceAlongGeometry: map['distanceAlongGeometry'],
-      primary: Primary.fromJson(map['primary'] ?? {}),
-      sub: Sub.fromJson(map['sub'] ?? {}),
+      primary: map['primary'] != null ? Primary.fromJson(map['primary'] ?? {}) : null,
+      sub: map['sub'] != null ? Primary.fromJson(map['sub'] ?? {}) : null,
+      secondary: map['secondary'] != null ? Primary.fromJson( map['secondary'] ?? {}) : null,
     );
   }
 
@@ -24,17 +27,19 @@ class BannerInstructions {
       'distanceAlongGeometry': distanceAlongGeometry,
       'primary': primary?.toJson(),
       'sub': sub?.toJson(),
+      'secondary': secondary?.toJson(),
     };
   }
 }
 
 class Primary {
   List<Component>? components;
-  double? degrees;
+  num? degrees;
   String? instruction;
   String? modifier;
   String? text;
   String? type;
+  String? drivingSide;
 
   Primary({
     this.components,
@@ -43,16 +48,18 @@ class Primary {
     this.modifier,
     this.text,
     this.type,
+    this.drivingSide,
   });
 
   factory Primary.fromJson(Map<String, dynamic> map) {
     return Primary(
       components: List<Component>.from(map['components']?.map((x) => Component.fromJson(x)) ?? []),
-      degrees: map['degrees'] ?? 0 ,
+      degrees: map['degrees'],
       instruction: map['instruction'] ?? "",
       modifier: map['modifier'] ?? "",
       text: map['text'] ?? "",
       type: map['type'] ?? "",
+      drivingSide: map['driving_side'],
     );
   }
 
@@ -64,61 +71,52 @@ class Primary {
       'modifier': modifier,
       'text': text,
       'type': type,
+      'driving_side': drivingSide,
     };
   }
-}
-
-class Sub {
-  List<Component>? components;
-  double? degrees;
-  String? modifier;
-  String? text;
-  String? type;
-
-  Sub({
-    this.components,
-    this.degrees,
-    this.modifier,
-    this.text,
-    this.type,
-  });
-
-  factory Sub.fromJson(Map<String, dynamic> json) {
-    return Sub(
-      components: List<Component>.from(json['components']?.map((x) => Component.fromJson(x)) ?? []),
-      degrees: json["degrees"] ?? 0,
-      modifier: json["modifier"] ?? "",
-      text: json["text"] ?? "",
-      type: json["type"] ?? "",
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        "components": components?.map((x) => x.toJson()).toList(),
-        "degrees": degrees,
-        "modifier": modifier,
-        "text": text,
-        "type": type,
-      };
 }
 
 class Component {
   String? countryCode;
   String? text;
   String? type;
+  String? subType;
+  String? abbreviation;
+  num? abbreviationPriority;
+  String? imageBaseUrl;
+  String? imageUrl;
+  List<String>? directions;
+  bool? active;
+  String? reference;
 
   Component({
     this.countryCode,
     this.text,
     this.type,
+    this.subType,
+    this.abbreviation,
+    this.abbreviationPriority,
+    this.imageBaseUrl,
+    this.imageUrl,
+    this.directions,
+    this.active,
+    this.reference,
   });
 
   factory Component.fromJson(Map<String, dynamic> map) {
     return Component(
-        countryCode: map['countryCode'] ?? "",
-        text: map['text'] ?? "",
-        type: map['type'] ?? "",
-        );
+      countryCode: map['countryCode'] ?? "",
+      text: map['text'] ?? "",
+      type: map['type'] ?? "",
+      subType: map['subType'] ?? "",
+      abbreviation: map['abbr'] ?? "",
+      abbreviationPriority: map['abbr_priority'],
+      imageBaseUrl: map['imageBaseURL'],
+      imageUrl: map['imageURL'],
+      directions: map['directions'],
+      active: map['active'],
+      reference: map['reference'],
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -126,6 +124,13 @@ class Component {
       'countryCode': countryCode,
       'text': text,
       'type': type,
+      'subType': subType,
+      'abbr': abbreviation,
+      'abbr_priority': abbreviationPriority,
+      'imageBaseURL': imageBaseUrl,
+      'imageURL': imageUrl,
+      'directions': directions,
+      'reference': reference,
     };
   }
 }

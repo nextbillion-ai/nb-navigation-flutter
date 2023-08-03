@@ -36,14 +36,15 @@ class Convert {
         var allWayPoints: [Waypoint] = []
         if let points = options["waypoints"] as? [Any], !points.isEmpty {
             let waypoints = points.map { point in
-                return convertWayPoint(point: point as! [String : Any])
+                return convertWayPoint(point: point as! [Double])
             }
             allWayPoints.append(contentsOf: waypoints)
         }
         
-        if let origin = options["origin"] as? [String: Double], let destination = options["destination"] as? [String: Double] {
+        if let origin = options["origin"] as? [Double], let destination = options["destination"] as? [Double] {
             let originWayPoint = convertWayPoint(point: origin)
             let destinationWayPoint = convertWayPoint(point: destination)
+
             allWayPoints.insert(originWayPoint, at: 0)
             allWayPoints.append(destinationWayPoint)
         }
@@ -109,9 +110,9 @@ class Convert {
         return navigationMode[mode]
     }
     
-    class func convertWayPoint(point: [String: Any]) -> Waypoint {
-        let latitude = point["latitude"] as? Double ?? 0
-        let longitude = point["longitude"] as? Double ?? 0
+    class func convertWayPoint(point: [Double]) -> Waypoint {
+        let latitude = point[1]
+        let longitude = point[0]
         
         let pointLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let wayPoint = Waypoint(coordinate: pointLocation)
@@ -121,13 +122,17 @@ class Convert {
     class func convertRouteOptionsToMap(routeOptions: RouteOptions) -> [String: Any] {
         var options: [String: Any] = [:]
         
-        var wayPoints: [Any] = []
+        var wayPoints: [[Double]] = []
         let optionWayPoints = routeOptions.waypoints
-        if !optionWayPoints.isEmpty {
+        if !optionWayPoints.isEmpty, optionWayPoints.count > 1 {
             optionWayPoints.forEach { wayPoint in
                 wayPoints.append(convertCoordinateToMap(coordinate: wayPoint.coordinate))
             }
-            options["waypoints"] = wayPoints
+            options["origin"] = wayPoints.first
+            options["destination"] = wayPoints.last
+            if optionWayPoints.count > 2 {
+                options["waypoints"] = Array(wayPoints.dropFirst().dropLast())
+            }
         }
     
         options["mode"] = routeOptions.profileIdentifier.rawValue
@@ -143,11 +148,8 @@ class Convert {
         return options
     }
     
-    class func convertCoordinateToMap(coordinate: CLLocationCoordinate2D) -> [String: Double] {
-        var point: [String: Double] = [:]
-        point["latitude"] = coordinate.latitude
-        point["longitude"] = coordinate.longitude
-        return point
+    class func convertCoordinateToMap(coordinate: CLLocationCoordinate2D) -> [Double] {
+        return [coordinate.longitude, coordinate.latitude]
     }
     
     class func convertNavigationOptions(arguments: [String: Any]) -> [Route] {
