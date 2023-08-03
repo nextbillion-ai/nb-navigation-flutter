@@ -49,16 +49,22 @@ class Intersection {
 class Lane {
   List<String>? indications;
   bool? valid;
+  bool? active;
+  String? validIndication;
 
   Lane({
     this.indications,
     this.valid,
+    this.active,
+    this.validIndication,
   });
 
   factory Lane.fromJson(Map<String, dynamic> map) {
     return Lane(
       indications: List<String>.from(map['indications'] ?? []),
-      valid: map['valid'] ?? false,
+      valid: map['valid'],
+      active: map['active'],
+      validIndication: map['valid_indication'],
     );
   }
 
@@ -66,6 +72,8 @@ class Lane {
     return {
       'indications': indications,
       'valid': valid,
+      'active': active,
+      'valid_indication': validIndication,
     };
   }
 }

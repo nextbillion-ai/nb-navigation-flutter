@@ -59,4 +59,10 @@
         <item name="navigationDissolvedRouteColor">#FFFFC0A8</item>
         <item name="navigationDissolvedAnimatedRouteColor">#FF54E910</item>
     </style>
+
+    <style name="CustomNavigationViewDark" parent="NavigationViewDark">
+        <!--customize your navigation style-->
+
+    </style>
+
 </resources>

@@ -17,8 +17,8 @@ class DrawRouteLineState extends State<DrawRouteLine> {
   List<DirectionsRoute> routes = [];
   late NavNextBillionMap navNextBillionMap;
 
-  Coordinate origin = Coordinate(latitude: 17.457302037173775, longitude: 78.37463792413473, );
-  Coordinate dest = Coordinate(latitude: 17.466320809357967, longitude: 78.3726774987914, );
+  LatLng origin = LatLng( 17.457302037173775, 78.37463792413473, );
+  LatLng dest = LatLng(17.466320809357967, 78.3726774987914, );
 
   bool enableAlternativeRoutes = true;
   bool enableRouteDurationSymbol = true;

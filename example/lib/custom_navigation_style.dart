@@ -17,8 +17,8 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
   List<DirectionsRoute> routes = [];
   late NavNextBillionMap navNextBillionMap;
 
-  Coordinate origin = Coordinate(latitude: 1.312533169133601, longitude: 103.75986708439264);
-  Coordinate dest = Coordinate(latitude: 1.310473772283314, longitude: 103.77982271935586);
+  LatLng origin = LatLng(1.312533169133601, 103.75986708439264);
+  LatLng dest = LatLng(1.310473772283314, 103.77982271935586);
 
   void _onMapCreated(NextbillionMapController controller) {
     this.controller = controller;

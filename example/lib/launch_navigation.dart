@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
-
+import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 class LaunchNavigation extends StatefulWidget {
   static const String title = "Route Request and Launch Navigation";
 
@@ -62,8 +62,8 @@ class LaunchNavigationState extends State<LaunchNavigation> {
   }
 
   void _fetchRoute() async {
-    Coordinate origin = Coordinate(latitude: 1.312533169133601, longitude: 103.75986708439264);
-    Coordinate dest = Coordinate(latitude: 1.310473772283314, longitude: 103.77982271935586);
+    LatLng origin = LatLng(1.312533169133601, 103.75986708439264);
+    LatLng dest = LatLng( 1.310473772283314, 103.77982271935586);
 
     RouteRequestParams requestParams = RouteRequestParams(
       origin: origin,

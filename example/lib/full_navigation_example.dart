@@ -21,6 +21,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
 
   String locationTrackImage = "assets/location_on.png";
   UserLocation? currentLocation;
+  List<LatLng> waypoints = [];
 
   void _onMapCreated(NextbillionMapController controller) {
     this.controller = controller;
@@ -38,7 +39,6 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
   }
 
   _onMapLongClick(Point<double> point, LatLng coordinates) {
-    addImageFromAsset(coordinates);
     _fetchRoute(coordinates);
   }
 
@@ -116,12 +116,22 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
                           backgroundColor: MaterialStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
                           enableFeedback: routes.isNotEmpty),
                       onPressed: () {
+                        clearRouteResult();
+                        waypoints.clear();
+                      },
+                      child: const Text("Clear Routes")),
+                  const Padding(padding: EdgeInsets.only(left: 8)),
+                  ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                          enableFeedback: routes.isNotEmpty),
+                      onPressed: () {
                         _startNavigation();
                       },
                       child: const Text("Start Navigation")),
                 ],
               ),
-              const Padding(padding: EdgeInsets.only(top: 8)),
+              const Padding(padding: EdgeInsets.only(top: 48)),
               // Padding(
               //   padding: const EdgeInsets.only(top: 8.0),
               //   child: Text("route response: ${routeResult}"),
@@ -133,19 +143,16 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
     );
   }
 
+
   void _fetchRoute(LatLng destination) async {
-    clearRouteResult();
     if (currentLocation == null) {
       return;
     }
-    Coordinate origin =
-        Coordinate(latitude: currentLocation!.position.latitude, longitude: currentLocation!.position.longitude);
-    Coordinate dest = Coordinate(latitude: destination.latitude, longitude: destination.longitude);
-
+    LatLng origin = currentLocation!.position;
+    waypoints.add(destination);
     RouteRequestParams requestParams = RouteRequestParams(
       origin: origin,
-      destination: dest,
-      // waypoints: [Coordinate(latitude: wayP2.latitude, longitude: wayP2.longitude)],
+      destination: waypoints.last,
       // overview: ValidOverview.simplified,
       // avoid: [SupportedAvoid.toll, SupportedAvoid.ferry],
       // option: SupportedOption.flexible,
@@ -157,12 +164,18 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
       geometryType: SupportedGeometry.polyline,
     );
 
+    if (waypoints.length > 1) {
+      requestParams.waypoints = waypoints.sublist(0, waypoints.length - 1);
+    }
+
     await NBNavigation.fetchRoute(requestParams, (routes, error) async {
       if (routes.isNotEmpty) {
+        clearRouteResult();
         setState(() {
           this.routes = routes;
         });
         await drawRoutes(routes);
+        addImageFromAsset(destination);
       } else if (error != null) {
         print("====error====${error}");
       }
@@ -176,6 +189,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
 
   void clearRouteResult() {
     navNextBillionMap.clearRoute();
+    controller?.clearSymbols();
     setState(() {
       routes.clear();
     });
@@ -186,7 +200,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
     NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
     config.enableDissolvedRouteLine = false;
-    config.shouldSimulateRoute = true;
+    config.shouldSimulateRoute = false;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = false;
     NBNavigation.startNavigation(config);
@@ -199,14 +213,12 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
   }
 
   Future<void> addImageFromAsset(LatLng coordinates) async {
-    if (mapMarkerSymbol != null) {
-      controller?.removeSymbol(mapMarkerSymbol!);
-    }
+    controller?.clearSymbols();
     var symbolOptions = SymbolOptions(
       geometry: coordinates,
       iconImage: "ic_marker_destination",
     );
-    mapMarkerSymbol = await controller?.addSymbol(symbolOptions);
+    await controller?.addSymbol(symbolOptions);
     controller?.symbolManager?.setTextAllowOverlap(false);
   }
 

@@ -2,20 +2,17 @@ package ai.nextbillion.navigation.nb_navigation_flutter
 
 import ai.nextbillion.kits.directions.models.DirectionsResponse
 import ai.nextbillion.kits.directions.models.RouteRequestParams
-import ai.nextbillion.kits.geojson.LineString
 import ai.nextbillion.kits.geojson.Point
 import ai.nextbillion.kits.turf.TurfConstants
 import ai.nextbillion.kits.turf.TurfMeasurement
 import ai.nextbillion.kits.turf.TurfMisc
 import ai.nextbillion.navigation.core.routefetcher.RouteFetcher
 import android.app.Activity
-import android.icu.text.UFormat
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 /**
  * @author qiuyu
@@ -80,17 +77,12 @@ class RouteFetcherHandler : MethodChannelHandler() {
     }
 
     private fun fetchRoute(call: MethodCall, result: MethodChannel.Result) {
-        val data = call.arguments as Map<*, *>
-        val builder = RouteRequestParams.builder()
-        Convert.convertRequestParams(call.arguments, builder)
-
-        val origin = data["origin"] as? Map<*, *>
-        val destination = data["destination"] as? Map<*, *>
-        if (origin == null || destination == null) {
+        val data = call.arguments as? Map<*, *>
+        if (data == null || data.isEmpty()) {
             return
         }
-
-        RouteFetcher.getRoute(builder.build(), object : Callback<DirectionsResponse> {
+        val params = RouteRequestParams.fromJson(data.toString())
+        RouteFetcher.getRoute(params, object : Callback<DirectionsResponse> {
             override fun onResponse(call: Call<DirectionsResponse>, response: Response<DirectionsResponse>) {
                 val args = mutableMapOf<String, Any>()
                 if (response.code() >= 200 && response.code() < 300) {

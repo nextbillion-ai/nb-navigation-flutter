@@ -7,6 +7,8 @@ class TimeFormatter {
 
     if (hours > 0) {
       return '${hours} hr ${minutes} min';
+    } else if (minutes < 1) {
+      return '<1 min';
     } else {
       return '${minutes} min';
     }

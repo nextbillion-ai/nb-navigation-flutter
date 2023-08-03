@@ -98,7 +98,7 @@ class NavNextBillionMap {
     await controller.setGeoJsonSource(ROUTE_SOURCE_ID, buildFeatureCollection(reversed));
   }
 
-  int _getDecodePrecision(RouteOptions? routeOptions) {
+  int _getDecodePrecision(RouteRequestParams? routeOptions) {
     return routeOptions?.geometryType == SupportedGeometry.polyline ? PRECISION : PRECISION_6;
   }
 

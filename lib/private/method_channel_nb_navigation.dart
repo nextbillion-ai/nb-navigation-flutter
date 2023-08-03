@@ -14,10 +14,10 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
         List<String> routeJson = List<String>.from(call.arguments["routeResult"] ?? []);
         String error = call.arguments["error"] ?? "";
         Map<dynamic, dynamic> routeRequest = call.arguments["routeOptions"] ?? {};
+        RouteRequestParams? requestParams;
 
-        RouteOptions? requestParams;
         if (routeRequest.isNotEmpty) {
-          requestParams = RouteOptions.fromJson(json.decode(json.encode(routeRequest)));
+          requestParams = RouteRequestParams.fromJson(json.decode(json.encode(routeRequest)));
         }
 
         List<DirectionsRoute> routes = [];

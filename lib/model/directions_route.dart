@@ -6,9 +6,11 @@ class DirectionsRoute {
   String? geometry;
   List<Leg> legs;
   String? routeIndex;
-  RouteOptions? routeOptions;
+  RouteRequestParams? routeOptions;
   num? weight;
+  String? weightName;
   String? countryCode;
+  String? voiceLanguage;
 
   DirectionsRoute({
     this.distance,
@@ -19,6 +21,8 @@ class DirectionsRoute {
     this.routeOptions,
     this.weight,
     this.countryCode,
+    this.weightName,
+    this.voiceLanguage,
   });
 
   factory DirectionsRoute.fromJson(Map<String, dynamic> map) {
@@ -28,9 +32,11 @@ class DirectionsRoute {
       geometry: map['geometry'] ?? '',
       legs: List<Leg>.from(map['legs']?.map((leg) => Leg.fromJson(leg)) ?? []),
       routeIndex: map['routeIndex'] ?? '',
-      routeOptions: RouteOptions.fromJson(map['routeOptions'] ?? {}),
+      routeOptions: RouteRequestParams.fromJson(map['routeOptions'] ?? {}),
       weight: map['weight'],
       countryCode: map['countryCode'],
+      weightName: map['weight_name'],
+      voiceLanguage: map['voiceLocale'],
     );
   }
 
@@ -44,6 +50,8 @@ class DirectionsRoute {
       'routeOptions': routeOptions?.toJson(),
       'weight': weight,
       'countryCode': countryCode,
+      'weight_name': weightName,
+      'voiceLocale': voiceLanguage,
     };
   }
 }
@@ -52,11 +60,13 @@ class Leg {
   Distance? distance;
   TimeDuration? duration;
   List<RouteStep>? steps;
+  String? summary;
 
   Leg({
     this.distance,
     this.duration,
     this.steps,
+    this.summary
   });
 
   factory Leg.fromJson(Map<String, dynamic> map) {
@@ -64,6 +74,7 @@ class Leg {
       distance: Distance.fromJson(map['distance'] ?? {}),
       duration: TimeDuration.fromJson(map['duration'] ?? {}),
       steps: List<RouteStep>.from(map['steps']?.map((step) => RouteStep.fromJson(step)) ?? []),
+      summary: map['summary'] ?? "",
     );
   }
 
@@ -72,6 +83,7 @@ class Leg {
       'distance': distance?.toJson(),
       'duration': duration?.toJson(),
       'steps': steps?.map((x) => x.toJson()).toList(),
+      'summary': summary,
     };
   }
 }
