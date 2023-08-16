@@ -43,6 +43,7 @@
         <item name="navigationCurrentSpeedBackgroundColor">#FF6E7ACA</item>
         <item name="navigationCurrentSpeedTextColor">#FF000000</item>
         <item name="navigationCurrentSpeedUnitTextColor">#FF9E10FF</item>
+        <item name="navViewMapStyle">https://api.nextbillion.io/tt/style/1/style/22.2.1-9?map=2/basic_street-light</item>
     </style>
 
 
@@ -59,10 +60,4 @@
         <item name="navigationDissolvedRouteColor">#FFFFC0A8</item>
         <item name="navigationDissolvedAnimatedRouteColor">#FF54E910</item>
     </style>
-
-    <style name="CustomNavigationViewDark" parent="NavigationViewDark">
-        <!--customize your navigation style-->
-
-    </style>
-
 </resources>

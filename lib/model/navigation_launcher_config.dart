@@ -42,7 +42,11 @@ class NavigationLauncherConfig {
   /// AppDelegate for iOS (`customDayStyle`, `customNightStyle`)
   bool? useCustomNavigationStyle;
 
-  // String? navigationMapStyle;
+  /// Indicates the map style in Navigation view.
+  /// Its priority is higher than
+  /// the navViewMapStyle of (`CustomNavigationViewLight`, `CustomNavigationViewDark`) set in the styles.xml for Android
+  /// the mapStyleURL of (`customDayStyle`, `customNightStyle`) set in the AppDelegate for iOS
+  String? navigationMapStyleUrl;
   // bool? showSpeedometer;
   // double? maxNavCameraTilt;
   // double? minNavCameraTilt;
@@ -57,7 +61,7 @@ class NavigationLauncherConfig {
     this.shouldSimulateRoute,
     this.enableDissolvedRouteLine = true,
     this.useCustomNavigationStyle = true,
-    // this.navigationMapStyle,
+    this.navigationMapStyleUrl,
     // this.showSpeedometer = true,
     // this.maxNavCameraTilt,
     // this.minNavCameraTilt,
@@ -74,7 +78,7 @@ class NavigationLauncherConfig {
       'shouldSimulateRoute': shouldSimulateRoute,
       'enableDissolvedRouteLine': enableDissolvedRouteLine,
       'useCustomNavigationStyle': useCustomNavigationStyle,
-      // 'navigationMapStyle': navigationMapStyle,
+      'navigationMapStyleUrl': navigationMapStyleUrl,
       // 'showSpeedometer': showSpeedometer,
       // 'maxNavCameraTilt': maxNavCameraTilt,
       // 'minNavCameraTilt': minNavCameraTilt,

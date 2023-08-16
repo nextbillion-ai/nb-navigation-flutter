@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
+import 'package:nb_navigation_flutter_example/constants.dart';
 
 class FullNavigationExample extends StatefulWidget {
   static const String title = "Full Navigation Experience Example";
@@ -30,12 +31,12 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
   _onStyleLoadedCallback() async {
     if (controller != null) {
       navNextBillionMap = NavNextBillionMap(controller!);
-      loadAssetImage();
+      await loadAssetImage();
     }
     Fluttertoast.showToast(msg: "Long click to select destination and fetch a route");
-    Future.delayed(const Duration(milliseconds: 80), () {
-      controller?.updateMyLocationTrackingMode(MyLocationTrackingMode.Tracking);
-    });
+    if (currentLocation != null) {
+      controller?.animateCamera(CameraUpdate.newLatLngZoom(currentLocation!.position, 14), duration: Duration(milliseconds: 400));
+    }
   }
 
   _onMapLongClick(Point<double> point, LatLng coordinates) {
@@ -85,6 +86,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
           onUserLocationUpdated: _onUserLocationUpdate,
           onCameraTrackingDismissed: _onCameraTrackingChanged,
           onMapClick: _onMapClick,
+          styleString: NbNavigationStyles.nbMapDefaultLightStyle,
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),

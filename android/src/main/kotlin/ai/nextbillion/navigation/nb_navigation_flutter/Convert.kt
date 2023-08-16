@@ -41,7 +41,7 @@ object Convert {
                 configBuilder.waynameChipEnabled(wayNameChipEnabled)
             }
 
-            val navigationMapStyle = arguments["navigationMapStyle"] as? String
+            val navigationMapStyle = arguments["navigationMapStyleUrl"] as? String
             if (navigationMapStyle != null) {
                 configBuilder.navigationMapStyle(navigationMapStyle)
             }
