@@ -203,4 +203,7 @@ import nb_navigation_flutter
 }
 ```
 
+## Running the example code
+Please refer to the [RUN_EXAMPLE_CODE.md](https://github.com/nextbillion-ai/nb-navigation-flutter/blob/main/doc/RUN_EXAMPLE_CODE.md)
+
 
