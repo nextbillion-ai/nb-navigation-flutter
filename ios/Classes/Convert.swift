@@ -15,7 +15,8 @@ class Convert {
         "2w": NBNavigationMode.mode2W,
         "car": NBNavigationMode.car,
         "auto": NBNavigationMode.auto,
-        "bike": NBNavigationMode.bike
+        "bike": NBNavigationMode.bike,
+        "truck": NBNavigationMode.mode6W
     ]
     
     static let mapOptions = [

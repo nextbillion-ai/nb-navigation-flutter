@@ -45,10 +45,17 @@ class NavigationLauncherHandler: MethodChannelHandler {
                     enableDissolvedRoute = dissolvedRoute
                 }
                 if let themeMode = config["themeMode"] as? String, let useCustom = config["useCustomNavigationStyle"] as? Bool {
+                    let navigationDayStyle = dayStyle(useCustom)
+                    let navigationNightStyle = nightStyle(useCustom)
+                    
+                    if let mapStyleUrl = config["navigationMapStyleUrl"] as? String {
+                        navigationDayStyle.mapStyleURL = URL(string: mapStyleUrl)!
+                    }
+                    
                     navigationModeStyle =
-                    themeMode == "light" ? [dayStyle(useCustom)] :
-                    themeMode == "dark" ? [nightStyle(useCustom)] :
-                    [dayStyle(useCustom), nightStyle(useCustom)]
+                    themeMode == "light" ? [navigationDayStyle] :
+                    themeMode == "dark" ? [navigationNightStyle] :
+                    [navigationDayStyle, navigationNightStyle]
                 }
             }
             let viewController = UIApplication.shared.keyWindow?.rootViewController
