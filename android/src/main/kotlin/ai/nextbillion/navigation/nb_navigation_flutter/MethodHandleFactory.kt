@@ -34,8 +34,11 @@ class MethodHandleFactory {
     }
 
 
-
-    fun dispatchMethodHandler(activity: Activity?, call: MethodCall?, result: MethodChannel.Result?) {
+    fun dispatchMethodHandler(
+        activity: Activity?,
+        call: MethodCall?,
+        result: MethodChannel.Result?
+    ) {
         if (null == call || null == result) {
             return
         }
@@ -45,9 +48,14 @@ class MethodHandleFactory {
             return
         }
         when (method) {
-            MethodID.NAVIGATION_FETCH_ROUTE, MethodID.NAVIGATION_FIND_SELECTED_ROUTE -> methodChannelHandler = routeFetchHandler
-            MethodID.NAVIGATION_LAUNCH_NAVIGATION -> methodChannelHandler = navigationLauncherHandler
-            MethodID.NAVIGATION_INIT_NAVIGATION, MethodID.NAVIGATION_GET_ACCESS_KEY -> methodChannelHandler = nbNavigationHandler
+            MethodID.NAVIGATION_FETCH_ROUTE, MethodID.NAVIGATION_FIND_SELECTED_ROUTE -> methodChannelHandler =
+                routeFetchHandler
+
+            MethodID.NAVIGATION_LAUNCH_NAVIGATION -> methodChannelHandler =
+                navigationLauncherHandler
+
+            MethodID.NAVIGATION_INIT_NAVIGATION, MethodID.NAVIGATION_GET_ACCESS_KEY, MethodID.NAVIGATION_GET_BASE_URL, MethodID.NAVIGATION_SET_BASE_URL -> methodChannelHandler =
+                nbNavigationHandler
 
             else -> {}
         }

@@ -66,9 +66,24 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
   Future<int> findSelectedRouteIndex(LatLng clickPoint, List<List<LatLng>> coordinates) async {
     Map<String, dynamic> arguments = {};
     arguments["clickPoint"] = clickPoint.toJson();
-    arguments["coordinates"] = coordinates
-        .map((coordinate) => coordinate.map((point) => point.toJson()).toList())
-        .toList();
+    arguments["coordinates"] =
+        coordinates.map((coordinate) => coordinate.map((point) => point.toJson()).toList()).toList();
     return await _channel?.invokeMethod(NBRouteMethodID.nbRouteSelectedIndexMethod, arguments);
+  }
+
+  @override
+  Future<String> getRoutingBaseUri() async {
+    return await _channel?.invokeMethod(NBNavigationLauncherMethodID.nbGetNavigationUriMethod);
+  }
+
+  @override
+  Future<void> setRoutingBaseUri(String baseUri) async {
+    Map<String, dynamic> arguments = {};
+    arguments["navigationBaseUri"] = baseUri;
+    try {
+      await _channel?.invokeMethod(NBNavigationLauncherMethodID.nbSetNavigationUriMethod, arguments);
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
   }
 }

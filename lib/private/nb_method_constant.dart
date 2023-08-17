@@ -9,11 +9,12 @@ class NBRouteMethodID {
 
   static const nbRouteResultMethod = "route/routeResult";
   static const nbRouteSelectedIndexMethod = "route/findSelectedRouteIndex";
-
 }
 
 class NBNavigationLauncherMethodID {
   static const nbNavigationLauncherMethod = "navigation/startNavigation";
+  static const nbGetNavigationUriMethod = "navigation/getBaseUri";
+  static const nbSetNavigationUriMethod = "navigation/setBaseUri";
 }
 
 class NBNavigationConfigMethodID {

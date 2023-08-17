@@ -11,10 +11,14 @@ import NbmapDirections
 import NbmapCoreNavigation
 
 class NBNavRouteOptions: NavigationRouteOptions {
-
+    
     override var accessToken: String {
         return NGLAccountManager.accessToken ?? ""
     }
     
+    
+    override var apiEndpoint: URL {
+        return URL(string: RoutingApiUtils.shared().baseUri)!
+    }
     
 }
