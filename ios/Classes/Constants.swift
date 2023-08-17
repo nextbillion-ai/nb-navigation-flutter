@@ -10,6 +10,8 @@ import Foundation
 struct MethodID {
     static let NAVIGATION_FETCH_ROUTE = "route/fetchRoute"
     static let NAVIGATION_FIND_SELECTED_ROUTE = "route/findSelectedRouteIndex"
+    static let NAVIGATION_GET_BASE_URL = "navigation/getBaseUri"
+    static let NAVIGATION_SET_BASE_URL = "navigation/setBaseUri"
     static let NAVIGATION_LAUNCH_NAVIGATION = "navigation/startNavigation"
     static let NAVIGATION_INIT_NAVIGATION = "config/initNBNavigation"
     static let NAVIGATION_GET_ACCESS_KEY = "config/getAccessKey"

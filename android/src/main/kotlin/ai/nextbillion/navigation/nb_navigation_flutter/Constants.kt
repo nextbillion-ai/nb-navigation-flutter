@@ -14,6 +14,8 @@ object Constants {
 object MethodID {
     const val NAVIGATION_FETCH_ROUTE = "route/fetchRoute"
     const val NAVIGATION_FIND_SELECTED_ROUTE = "route/findSelectedRouteIndex"
+    const val NAVIGATION_GET_BASE_URL = "navigation/getBaseUri"
+    const val NAVIGATION_SET_BASE_URL = "navigation/setBaseUri"
     const val NAVIGATION_LAUNCH_NAVIGATION = "navigation/startNavigation"
     const val NAVIGATION_INIT_NAVIGATION = "config/initNBNavigation"
     const val NAVIGATION_GET_ACCESS_KEY = "config/getAccessKey"

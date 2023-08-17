@@ -5,14 +5,24 @@ class NBNavigation {
 
   /// Fetches a route based on the provided [routeRequestParams].
   /// The [routeResultCallBack] will be invoked with the result.
-  static Future<void> fetchRoute(RouteRequestParams routeRequestParams,
-      OnGetRouteResultCallBack routeResultCallBack) async {
+  static Future<void> fetchRoute(
+      RouteRequestParams routeRequestParams, OnGetRouteResultCallBack routeResultCallBack) async {
     await _nbNavigationPlatform.fetchRoute(routeRequestParams, routeResultCallBack);
   }
 
   /// Starts the navigation using the provided [launcherConfig].
   static Future<void> startNavigation(NavigationLauncherConfig launcherConfig) async {
     await _nbNavigationPlatform.startNavigation(launcherConfig);
+  }
+
+  /// get the base url for navigation related api
+  static Future<String> getRoutingBaseUri() async {
+    return await _nbNavigationPlatform.getRoutingBaseUri();
+  }
+
+  /// set the base url for navigation related api with the provided [baseUri]
+  static Future<void> setRoutingBaseUri(String baseUri) async {
+    await _nbNavigationPlatform.setRoutingBaseUri(baseUri);
   }
 
   /// Finds the index of the selected route based on the [clickPoint] and [coordinates] of route line.

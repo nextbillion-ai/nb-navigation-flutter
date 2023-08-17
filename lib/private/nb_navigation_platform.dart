@@ -12,5 +12,9 @@ abstract class NBNavigationPlatform {
 
   Future<void> startNavigation(NavigationLauncherConfig launcherConfig);
 
+  Future<String> getRoutingBaseUri();
+
+  Future<void> setRoutingBaseUri(String baseUri);
+
   Future<int> findSelectedRouteIndex(LatLng clickPoint, List<List<LatLng>> coordinates);
 }
