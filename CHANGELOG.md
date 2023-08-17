@@ -1,7 +1,11 @@
-## v0.1.6, August 16, 2023
-* Update nb_maps_flutter dependency from 0.1.1 to 0.1.4
-* Update the android navigation native framework from 1.0.0 to 1.0.3
+## v0.1.6, August 17, 2023
+* Update nb_maps_flutter dependency from 0.1.1 to 0.1.5
+* Update the android navigation native framework from 1.0.0 to 1.0.5
 * Update iOS navigation native framework from 1.1.5 to 1.2.1
+* Update the default map style
+* Support to custom the routing baseUri
+
+
 ## v0.1.5, August 03, 2023
 * Update the location coordinate type in RouteRequestParams
 * Complete the route result module
