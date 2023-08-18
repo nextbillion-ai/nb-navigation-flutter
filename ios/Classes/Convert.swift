@@ -166,6 +166,7 @@ class Convert {
                     let json = jsonStringToDictionary(jsonString)
                     let countryCode = json["countryCode"] as? String ?? ""
                     let route = Route.init(json: json, waypoints: routeOptions.waypoints, options: routeOptions, countryCode: countryCode)
+                    route.speechLocale = routeOptions.locale
                     route.modifyRoute()
                     routes.append(route)
                 }

@@ -132,7 +132,7 @@ class RouteRequestParams {
       'altCount': altCount,
       'alternatives': alternatives,
       'avoid': avoid?.map((e) => e.description).toList(),
-      'baseUrl': baseUrl,
+      'baseUrl': jsonEncode(baseUrl),
       'departureTime': departureTime,
       'destination': destination.toGeoJsonCoordinates(),
       'key': key,
