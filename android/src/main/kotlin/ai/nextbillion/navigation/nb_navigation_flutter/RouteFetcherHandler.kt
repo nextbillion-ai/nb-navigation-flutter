@@ -34,7 +34,6 @@ class RouteFetcherHandler : MethodChannelHandler() {
         when (call.method) {
             MethodID.NAVIGATION_FETCH_ROUTE -> {
                 fetchRoute(call, result)
-                result.success(true)
             }
             MethodID.NAVIGATION_FIND_SELECTED_ROUTE -> {
                 findSelectedRouteIndex(call, result)
@@ -97,14 +96,14 @@ class RouteFetcherHandler : MethodChannelHandler() {
                 } else {
                     args["error"] = response.code().toString()
                 }
-                methodChannel?.invokeMethod(ResultID.NAVIGATION_ROUTE_RESULT, args)
+                result.success(args)
 
             }
 
             override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
                 val args = mutableMapOf<String,String>()
                 args["error"] = t?.message ?: "Request failed"
-                methodChannel?.invokeMethod(ResultID.NAVIGATION_ROUTE_RESULT, args)
+                result.success(args)
             }
 
         })
