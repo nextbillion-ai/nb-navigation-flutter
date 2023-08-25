@@ -76,7 +76,7 @@ class RouteFetcherHandler: MethodChannelHandler {
         
         Directions.shared.calculate(options, completionHandler: {(potentialRoutes, potentialError) in
             if let error = potentialError {
-                self.methodChannel?.invokeMethod(ResultID.NAVIGATION_ROUTE_RESULT, arguments: ["error": error.toastError()])
+                result(["error": error.toastError()])
             }
             
             guard let routes = potentialRoutes else { return }
@@ -88,8 +88,7 @@ class RouteFetcherHandler: MethodChannelHandler {
             var args: [String: Any] = [:]
             args["routeResult"] = routeResult
             args["routeOptions"] = routeOptions
-            self.methodChannel?.invokeMethod("route/routeResult", arguments: args)
-            
+            result(args)
         })
     }
     

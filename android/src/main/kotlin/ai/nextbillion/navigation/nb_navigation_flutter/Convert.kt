@@ -47,9 +47,7 @@ object Convert {
             }
 
             val showSpeedometer = arguments["showSpeedometer"] as? Boolean
-            if (showSpeedometer != null) {
-                configBuilder.showSpeedometer(showSpeedometer)
-            }
+            configBuilder.showSpeedometer(showSpeedometer ?: true)
 
             val dissolvedRouteLineStyle = arguments["enableDissolvedRouteLine"] as? Boolean
             if (dissolvedRouteLineStyle != null) {
