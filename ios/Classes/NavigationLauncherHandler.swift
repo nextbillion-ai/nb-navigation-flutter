@@ -35,7 +35,7 @@ class NavigationLauncherHandler: MethodChannelHandler {
             }
             var simulate = SimulationMode.onPoorGPS
             var enableDissolvedRoute = true
-            var navigationModeStyle: [NbmapNavigation.Style] = [customDayStyle, customNightStyle]
+            var navigationModeStyle: [NbmapNavigation.Style] = [NavStyleManager.customDayStyle, NavStyleManager.customNightStyle]
 
             if let config = args["launcherConfig"] as? [String : Any] {
                 if let isSimulate = config["shouldSimulateRoute"] as? Bool {
@@ -73,11 +73,11 @@ class NavigationLauncherHandler: MethodChannelHandler {
     }
     
     func dayStyle(_ useCustomNavigationStyle: Bool) -> Style {
-        return useCustomNavigationStyle ? customDayStyle : DayStyle()
+        return useCustomNavigationStyle ? NavStyleManager.customDayStyle : DayStyle()
     }
     
     func nightStyle(_ useCustomNavigationStyle: Bool) -> Style {
-        return useCustomNavigationStyle ? customNightStyle : NightStyle()
+        return useCustomNavigationStyle ? NavStyleManager.customNightStyle : NightStyle()
     }
     
 }

@@ -5,9 +5,6 @@ import NbmapNavigation
 import NbmapCoreNavigation
 import Nbmap
 
-public var customDayStyle = CustomDayStyle()
-public var customNightStyle = CustomNightStyle()
-
 public class NbNavigationFlutterPlugin: NSObject, FlutterPlugin {
     private static var channel: FlutterMethodChannel?
     
