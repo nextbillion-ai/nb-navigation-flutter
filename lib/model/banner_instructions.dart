@@ -56,7 +56,7 @@ class Primary {
       components: List<Component>.from(map['components']?.map((x) => Component.fromJson(x)) ?? []),
       degrees: map['degrees'],
       instruction: map['instruction'] ?? "",
-      modifier: map['modifier'] ?? "",
+      modifier: map['modifier'],
       text: map['text'] ?? "",
       type: map['type'] ?? "",
       drivingSide: map['driving_side'],
