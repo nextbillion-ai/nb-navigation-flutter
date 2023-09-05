@@ -1,3 +1,12 @@
+## v0.1.7, Sep 05, 2023
+* Update the android navigation native framework from 1.0.5 to 1.0.6
+* Update iOS navigation native framework from 1.2.1 to 1.2.3
+  * Fix voice spoken issue
+  * Fix lane voice instructions issue
+* Refactor the way to custom navigation style (iOS)
+* Fix sometimes destination icon missing issue (Android)
+
+
 ## v0.1.6, August 17, 2023
 * Update nb_maps_flutter dependency from 0.1.1 to 0.1.5
 * Update the android navigation native framework from 1.0.0 to 1.0.5
