@@ -177,7 +177,7 @@ Add Custom style named `CustomNavigationViewLight` in your android project style
 ```
 
 ### iOS
-Import nb_navigation_flutter in the AppDelegate of  your ios project, customize the navigation view appearance using `customDayStyle` and `customNightStyle`
+Import nb_navigation_flutter in the AppDelegate of  your ios project, customize the Navigation View Style by extending `DayStyle` and `NightStyle`
 ```
 import nb_navigation_flutter
 
@@ -192,13 +192,36 @@ import nb_navigation_flutter
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
-    func customStyle() {
-        customDayStyle.arrivalTimeLabelFont = UIFont.systemFont(ofSize: 28, weight: .medium).adjustedFont
-        customDayStyle.trafficUnknownColor = UIColor.red
-        
-        customNightStyle.trafficUnknownColor = UIColor.green
-        …
-        // customize your navigation style
+     func customStyle() {
+        NavStyleManager.customDayStyle = CustomDayStyle()
+        NavStyleManager.customNightStyle = CustomNightStyle()
+    }
+}
+```
+```
+import NbmapNavigation
+
+class CustomDayStyle: DayStyle {
+    required init() {
+        super.init()
+    }
+    
+    override func apply() {
+        super.apply()
+        ArrivalTimeLabel.appearance().font = UIFont.systemFont(ofSize: 18, weight: .medium).adjustedFont
+        ArrivalTimeLabel.appearance().normalTextColor = #color
+        BottomBannerContentView.appearance().backgroundColor = #color
+    }
+}
+
+class CustomNightStyle: NightStyle {
+    required init() {
+        super.init()
+    }
+    
+    override func apply() {
+        super.apply()
+        NavigationMapView.appearance().trafficUnknownColor = UIColor.green
     }
 }
 ```
