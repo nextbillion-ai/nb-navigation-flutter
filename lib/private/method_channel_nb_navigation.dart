@@ -7,7 +7,7 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
   Future<void> fetchRoute(RouteRequestParams routeRequestParams, OnGetRouteResultCallBack routeResultCallBack) async {
     onGetRouteResultCallBack = routeResultCallBack;
     try {
-      Map<dynamic, dynamic> result = await _channel.invokeMethod(NBRouteMethodID.nbFetchRouteMethod, routeRequestParams.toJson());
+      Map<dynamic, dynamic> result = await _channel.invokeMethod(NBRouteMethodID.nbFetchRouteMethod, jsonEncode(routeRequestParams));
       _handleRouteResult(result);
     } on PlatformException catch (e) {
       print(e.toString());
@@ -45,7 +45,7 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
     try {
       Map<String, dynamic> arguments = {};
       if (Platform.isIOS) {
-        arguments["routeOptions"] = launcherConfig.route.routeOptions?.toJson();
+        arguments["routeOptions"] = jsonEncode(launcherConfig.route.routeOptions);
       }
       arguments["launcherConfig"] = launcherConfig.toJson();
       await _channel.invokeMethod(NBNavigationLauncherMethodID.nbNavigationLauncherMethod, arguments);

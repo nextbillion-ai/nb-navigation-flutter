@@ -25,7 +25,7 @@ class RouteFetcherHandler: MethodChannelHandler {
         
         switch call.method {
         case MethodID.NAVIGATION_FETCH_ROUTE:
-            guard let args = call.arguments as? [String : Any] else {
+            guard let args = call.arguments as? String else {
                 return
             }
             if let routeOptions = Convert.convertRouteRequestParams(arguments: args) {

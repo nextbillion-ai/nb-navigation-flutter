@@ -76,7 +76,7 @@ class RouteFetcherHandler : MethodChannelHandler() {
     }
 
     private fun fetchRoute(call: MethodCall, result: MethodChannel.Result) {
-        val data = call.arguments as? Map<*, *>
+        val data = call.arguments as? String
         if (data == null || data.isEmpty()) {
             return
         }
