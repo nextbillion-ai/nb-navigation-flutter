@@ -30,7 +30,8 @@ class Convert {
     ]
     
     class func convertRouteRequestParams(arguments: Any?) -> NBNavRouteOptions? {
-        guard let options = arguments as? [String: Any] else { return nil }
+        guard let arguments = arguments as? String else { return nil }
+        let options = jsonStringToDictionary(arguments)
         var routeOptions: NBNavRouteOptions?
         let mode = options["mode"] as? String
         
@@ -154,7 +155,7 @@ class Convert {
     }
     
     class func convertNavigationOptions(arguments: [String: Any]) -> [Route] {
-        if let options = arguments["routeOptions"] as? [String: Any], let launcherConfig = arguments["launcherConfig"] as? [String: Any] {
+        if let options = arguments["routeOptions"] as? String, let launcherConfig = arguments["launcherConfig"] as? [String: Any] {
             let routeOptions = convertRouteRequestParams(arguments: options)
             guard let routeOptions = routeOptions else {
                 return []
