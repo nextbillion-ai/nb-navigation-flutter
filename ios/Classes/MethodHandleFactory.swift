@@ -21,7 +21,7 @@ class MethodHandleFactory: NSObject {
         var methodChannelHandler: MethodChannelHandler?
         
         switch call.method {
-        case MethodID.NAVIGATION_FETCH_ROUTE, MethodID.NAVIGATION_FIND_SELECTED_ROUTE:
+        case MethodID.NAVIGATION_FETCH_ROUTE, MethodID.NAVIGATION_FIND_SELECTED_ROUTE, MethodID.NAVIGATION__GET_FORMATTED_ROUTE_DURATION:
             methodChannelHandler = routeFetchHandler
             
         case MethodID.NAVIGATION_LAUNCH_NAVIGATION:

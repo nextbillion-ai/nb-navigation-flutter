@@ -7,7 +7,8 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
   Future<void> fetchRoute(RouteRequestParams routeRequestParams, OnGetRouteResultCallBack routeResultCallBack) async {
     onGetRouteResultCallBack = routeResultCallBack;
     try {
-      Map<dynamic, dynamic> result = await _channel.invokeMethod(NBRouteMethodID.nbFetchRouteMethod, jsonEncode(routeRequestParams));
+      Map<dynamic, dynamic> result =
+          await _channel.invokeMethod(NBRouteMethodID.nbFetchRouteMethod, jsonEncode(routeRequestParams));
       _handleRouteResult(result);
     } on PlatformException catch (e) {
       print(e.toString());
@@ -77,5 +78,15 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
     } on PlatformException catch (e) {
       print(e.toString());
     }
+  }
+
+  @override
+  Future<String> getFormattedDuration(num durationSeconds) async {
+    try {
+      return await _channel.invokeMethod(NBRouteMethodID.routeFormattedDuration, {"duration": durationSeconds.toDouble()});
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+    return "";
   }
 }

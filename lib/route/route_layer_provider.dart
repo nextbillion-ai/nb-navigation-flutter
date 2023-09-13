@@ -64,12 +64,9 @@ class MapRouteLayerProvider {
   }
 
   SymbolLayerProperties initializeWayPointLayer(String originMarkerName, String destinationMarkerName) {
-    return SymbolLayerProperties(iconImage: [
-      Expressions.match,
-      [Expressions.get, WAYPOINT_PROPERTY_KEY],
-      WAYPOINT_ORIGIN_VALUE,
-      originMarkerName,
-      destinationMarkerName
+    return const SymbolLayerProperties(iconImage: [
+      Expressions.get,
+      WAYPOINT_PROPERTY_KEY
     ], iconSize: [
       Expressions.interpolate,
       ['exponential', 1.5],
@@ -84,7 +81,6 @@ class MapRouteLayerProvider {
       2.8,
     ], iconPitchAlignment: 'map', iconAllowOverlap: true, iconIgnorePlacement: true);
   }
-
 
   SymbolLayerProperties initializeDurationSymbolLayer() {
     return const SymbolLayerProperties(
@@ -106,12 +102,13 @@ class MapRouteLayerProvider {
         symbolPlacement: 'point',
         iconRotationAlignment: 'viewport',
         iconTranslateAnchor: 'viewport',
-        iconAnchor: [ Expressions.match,
+        iconAnchor: [
+          Expressions.match,
           [Expressions.get, PRIMARY_ROUTE_PROPERTY_KEY],
           "true",
           'top-left',
-          'top-right']
-    );
+          'top-right'
+        ]);
   }
 
   List<Object> list(double base, double routeScale, double alternativeRouteScale) {

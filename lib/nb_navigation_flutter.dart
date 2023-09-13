@@ -10,6 +10,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/rendering.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
+import 'package:nb_navigation_flutter/route/waypoint_number_view.dart';
 
 part 'model/banner_instructions.dart';
 part 'model/directions_route.dart';

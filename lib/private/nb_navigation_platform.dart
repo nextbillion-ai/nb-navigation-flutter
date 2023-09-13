@@ -17,4 +17,7 @@ abstract class NBNavigationPlatform {
   Future<void> setRoutingBaseUri(String baseUri);
 
   Future<int> findSelectedRouteIndex(LatLng clickPoint, List<List<LatLng>> coordinates);
+
+  Future<String> getFormattedDuration(num durationSeconds);
+
 }

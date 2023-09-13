@@ -9,6 +9,8 @@ class NBRouteMethodID {
 
   static const nbRouteResultMethod = "route/routeResult";
   static const nbRouteSelectedIndexMethod = "route/findSelectedRouteIndex";
+
+  static const routeFormattedDuration = "format/routeDuration";
 }
 
 class NBNavigationLauncherMethodID {

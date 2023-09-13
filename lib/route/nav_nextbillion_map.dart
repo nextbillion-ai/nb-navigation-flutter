@@ -104,22 +104,39 @@ class NavNextBillionMap {
 
   Future<void> _drawWayPoints(DirectionsRoute route) async {
     List<Map<String, dynamic>> wayPoints = [];
-    for (int i = 0; i < route.legs.length; i++) {
-      Leg leg = route.legs[i];
-      Coordinate? origin = leg.steps?.first.maneuver?.coordinate;
-      Coordinate? destination = leg.steps?.last.maneuver?.coordinate;
-      if (origin != null && destination != null) {
-        SymbolOptions originSymbol = SymbolOptions(geometry: LatLng(origin.latitude, origin.longitude));
-        SymbolOptions desSymbol = SymbolOptions(geometry: LatLng(destination.latitude, destination.longitude));
-        Map<String, dynamic> originGeo = originSymbol.toGeoJson();
-        originGeo['properties'][WAYPOINT_PROPERTY_KEY] = WAYPOINT_ORIGIN_VALUE;
-        Map<String, dynamic> desGeo = desSymbol.toGeoJson();
-        desGeo['properties'][WAYPOINT_PROPERTY_KEY] = WAYPOINT_DESTINATION_VALUE;
-        wayPoints.add(originGeo);
-        wayPoints.add(desGeo);
+    Coordinate origin = route.legs.first.steps!.first.maneuver!.coordinate!;
+    Coordinate destination =  route.legs.last.steps!.last.maneuver!.coordinate!;
+    var originGeo = _generateWaypointSymbolGeo(origin, ORIGIN_MARKER_NAME);
+    wayPoints.add(originGeo);
+    if (route.legs.length > 1) {
+      for (int i = 0; i < route.legs.length - 1; i++) {
+        Leg leg = route.legs[i];
+        Coordinate? destination = leg.steps?.last.maneuver?.coordinate;
+        if (destination != null) {
+          String waypointName = "$DESTINATION_MARKER_NAME${i+1}";
+          var wayPointGeo = _generateWaypointSymbolGeo(destination, waypointName);
+          wayPoints.add(wayPointGeo);
+          _buildWaypointNumberView(waypointName, i+1);
+        }
       }
     }
+    var desGeo = _generateWaypointSymbolGeo(destination, DESTINATION_MARKER_NAME);
+    wayPoints.add(desGeo);
+
     await controller.setGeoJsonSource(WAYPOINT_SOURCE_ID, buildFeatureCollection(wayPoints));
+  }
+
+  Map<String, dynamic> _generateWaypointSymbolGeo(Coordinate coordinate, String propertiesValue) {
+    SymbolOptions coordinateSymbol = SymbolOptions(geometry: LatLng(coordinate.latitude, coordinate.longitude));
+    Map<String, dynamic> coordinateGeo = coordinateSymbol.toGeoJson();
+    coordinateGeo['properties'][WAYPOINT_PROPERTY_KEY] = propertiesValue;
+    return coordinateGeo;
+  }
+
+  _buildWaypointNumberView(String waypointName, int index) async {
+    Widget numberView = WaypointNumberView(index);
+    var image = await CaptureImageUtil.createImageFromWidget(numberView, imageSize: const Size(14, 14));
+    await controller.addImage(waypointName, image!);
   }
 
   Future<void> _drawRouteDurationSymbol(List<DirectionsRoute> routes) async {
@@ -141,9 +158,9 @@ class NavNextBillionMap {
   }
 
   Future<void> _setRouteDurationSymbol(String durationSymbolKey, int index, DirectionsRoute route) async {
-    String duration = TimeFormatter.formatSeconds(route.duration!.toInt());
+    String duration = await NBNavigation.getFormattedDuration(route.duration!.toDouble());
     Widget widgetToImageConverter = DurationSymbol(
-      text: duration,
+      text: duration.toString().trimRight(),
       isPrimary: index == 0,
       primaryBackgroundColor: routeLineProperties.durationSymbolPrimaryBackgroundColor,
       primaryTextStyle: routeLineProperties.durationSymbolPrimaryTextStyle,

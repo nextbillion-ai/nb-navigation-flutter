@@ -7,6 +7,7 @@ import ai.nextbillion.kits.turf.TurfConstants
 import ai.nextbillion.kits.turf.TurfMeasurement
 import ai.nextbillion.kits.turf.TurfMisc
 import ai.nextbillion.navigation.core.routefetcher.RouteFetcher
+import ai.nextbillion.navigation.core.utils.time.TimeFormatter
 import android.app.Activity
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -38,7 +39,15 @@ class RouteFetcherHandler : MethodChannelHandler() {
             MethodID.NAVIGATION_FIND_SELECTED_ROUTE -> {
                 findSelectedRouteIndex(call, result)
             }
-
+            MethodID.NAVIGATION__GET_FORMATTED_ROUTE_DURATION -> {
+                val arguments = call.arguments as? Map<*, *>
+                val duration = arguments?.get("duration") as? Double
+                var formatDuration = ""
+                if (duration != null) {
+                    formatDuration = TimeFormatter.formatTimeRemaining(activity, duration).toString()
+                }
+                result.success(formatDuration)
+            }
         }
     }
 

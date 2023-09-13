@@ -11,9 +11,14 @@ import NbmapDirections
 import Turf
 
 class RouteFetcherHandler: MethodChannelHandler {
+    let dateComponentsFormatter = DateComponentsFormatter()
+
     override init() {
         super.init()
         methodChannel = MethodChannelManager.shared.navigationChannel
+        
+        dateComponentsFormatter.allowedUnits = [.day, .hour, .minute]
+        dateComponentsFormatter.unitsStyle = .brief
     }
     
     override func handleMethodCallResult(call: FlutterMethodCall?, result: @escaping FlutterResult) {
@@ -66,7 +71,22 @@ class RouteFetcherHandler: MethodChannelHandler {
             if !candidates.isEmpty, let routeIndex = lines.firstIndex(of: candidates.first!) {
                 result(routeIndex)
             }
-            
+        case MethodID.NAVIGATION__GET_FORMATTED_ROUTE_DURATION:
+            guard let arguments = call.arguments as? [String: Any] else {
+                result("")
+                return
+            }
+            if let timeDuration = arguments["duration"] as? Double {
+                var durationText = ""
+                if let hardcodedTime = self.dateComponentsFormatter.string(from: 61), timeDuration < 60 {
+                    durationText = String.localizedStringWithFormat(NSLocalizedString("LESS_THAN", bundle: .main, value: "<%@", comment: "Format string for a short distance or time less than a minimum threshold; 1 = duration remaining"), hardcodedTime)
+                } else {
+                    durationText = (self.dateComponentsFormatter.string(from: TimeInterval(timeDuration)))!
+                }
+                result(durationText)
+            }
+            break
+
         default:
             break
         }
