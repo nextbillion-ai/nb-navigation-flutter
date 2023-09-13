@@ -30,4 +30,8 @@ class NBNavigation {
   static Future<int> findSelectedRouteIndex(LatLng clickPoint, List<List<LatLng>> coordinates) async {
     return await _nbNavigationPlatform.findSelectedRouteIndex(clickPoint, coordinates);
   }
+
+  static Future<String> getFormattedDuration(num durationSeconds) async {
+    return await _nbNavigationPlatform.getFormattedDuration(durationSeconds);
+  }
 }
