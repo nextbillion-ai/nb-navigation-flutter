@@ -1,3 +1,8 @@
+## v0.1.8, Sept 15, 2023
+* Update nb_maps_flutter dependency from 0.1.5 to 0.1.6
+* Update the route wayPoint label style
+
+
 ## v0.1.7, Sep 05, 2023
 * Update the android navigation native framework from 1.0.5 to 1.0.6
 * Update iOS navigation native framework from 1.2.1 to 1.2.3
