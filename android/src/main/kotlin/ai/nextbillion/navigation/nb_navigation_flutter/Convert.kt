@@ -51,7 +51,7 @@ object Convert {
 
             val dissolvedRouteLineStyle = arguments["enableDissolvedRouteLine"] as? Boolean
             if (dissolvedRouteLineStyle != null) {
-                configBuilder.dissolvedRouteLineStyle(if (dissolvedRouteLineStyle) 0 else 1)
+                configBuilder.dissolvedRouteEnabled(dissolvedRouteLineStyle)
             }
 
 //            val maxNavCameraTilt = arguments["maxNavCameraTilt"] as? Float

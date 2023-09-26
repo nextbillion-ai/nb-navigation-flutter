@@ -76,7 +76,6 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
       // truckWeight: 100,
       unit: SupportedUnits.imperial,
       mode: ValidModes.car,
-      geometryType: SupportedGeometry.polyline,
     );
 
     await NBNavigation.fetchRoute(requestParams, (routes, error) async {
@@ -95,7 +94,6 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
     if (routes.isEmpty) return;
     NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
-    config.enableDissolvedRouteLine = false;
     config.shouldSimulateRoute = true;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = true;

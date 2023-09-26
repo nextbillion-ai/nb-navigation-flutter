@@ -85,7 +85,7 @@ RouteRequestParams requestParams = RouteRequestParams(
       // option: SupportedOption.flexible,
       // unit: SupportedUnits.imperial,
       // mode: ValidModes.car,
-      // geometryType: SupportedGeometry.polyline,
+      // geometry: SupportedGeometry.polyline,
     );
 ```
 #### Fetch routes

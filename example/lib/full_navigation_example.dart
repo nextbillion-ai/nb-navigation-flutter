@@ -163,7 +163,6 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
       // unit: SupportedUnits.imperial,
       alternatives: true,
       mode: ValidModes.car,
-      geometryType: SupportedGeometry.polyline,
     );
 
     if (waypoints.length > 1) {
@@ -177,6 +176,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
           this.routes = routes;
         });
         await drawRoutes(routes);
+        fitCameraToBounds(routes);
         addImageFromAsset(destination);
       } else if (error != null) {
         print("====error====${error}");
@@ -187,6 +187,22 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
     // navNextBillionMap.toggleDurationSymbolVisibilityWith(false);
     await navNextBillionMap.drawRoute(routes);
+  }
+
+  void fitCameraToBounds(List<DirectionsRoute> routes) {
+    List<LatLng> multiPoints = [];
+    for (var route in routes) {
+       var routePoints = decode(route.geometry ?? '', _getDecodePrecision(route.routeOptions));
+       multiPoints.addAll(routePoints);
+    }
+    if (multiPoints.isNotEmpty) {
+      var latLngBounds = LatLngBounds.fromMultiLatLng(multiPoints);
+      controller?.animateCamera(CameraUpdate.newLatLngBounds(latLngBounds, top: 50, left: 50, right: 50, bottom: 50));
+    }
+  }
+
+  int _getDecodePrecision(RouteRequestParams? routeOptions) {
+    return routeOptions?.geometry == SupportedGeometry.polyline ? PRECISION : PRECISION_6;
   }
 
   void clearRouteResult() {
@@ -201,7 +217,6 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
     if (routes.isEmpty) return;
     NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
-    config.enableDissolvedRouteLine = false;
     config.shouldSimulateRoute = false;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = false;

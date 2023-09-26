@@ -96,7 +96,6 @@ class DrawRouteLineState extends State<DrawRouteLine> {
       // unit: SupportedUnits.imperial,
       alternatives: true,
       mode: ValidModes.car,
-      geometryType: SupportedGeometry.polyline,
     );
 
     await NBNavigation.fetchRoute(requestParams, (routes, error) async {
@@ -115,7 +114,6 @@ class DrawRouteLineState extends State<DrawRouteLine> {
     if (routes.isEmpty) return;
     NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
-    config.enableDissolvedRouteLine = false;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = false;
     NBNavigation.startNavigation(config);
