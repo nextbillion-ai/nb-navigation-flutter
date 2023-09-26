@@ -64,6 +64,37 @@ Add the following to the Runner/Info.plist to explain why you need access to the
     <string>[Your explanation here]</string>
 ```
 
+### Observe and Tracking User Location
+* add the callback onUserLocationUpdated(UserLocation location)
+* animate camera to user location within `onStyleLoadedCallback`
+```
+void _onMapCreated(NextbillionMapController controller) {
+    this.controller = controller;
+  }
+
+_onUserLocationUpdate(UserLocation location) {
+    currentLocation = location;
+  }
+
+_onStyleLoadedCallback() {
+    if (currentLocation != null) {
+      controller?.animateCamera(CameraUpdate.newLatLngZoom(currentLocation!.position, 14), duration: Duration(milliseconds: 400));
+    }
+  }
+
+NBMap(
+     onMapCreated: _onMapCreated,
+     onStyleLoadedCallback: _onStyleLoadedCallback,
+     initialCameraPosition: const CameraPosition(
+            target: LatLng(0, 0),
+            zoom: 14.0,
+          ),
+     trackCameraPosition: true,
+     myLocationEnabled: true,
+     myLocationTrackingMode: MyLocationTrackingMode.Tracking,
+     onUserLocationUpdated: _onUserLocationUpdate,
+)
+```
 
 ## Usage
 ### NB Maps
@@ -114,6 +145,25 @@ void _onStyleLoaded() {
 #### Draw routes
 ```
 await navNextBillionMap.drawRoute(routes);
+```
+
+#### Fit Map camera to route points
+```
+void fitCameraToBounds(List<DirectionsRoute> routes) {
+    List<LatLng> multiPoints = [];
+    for (var route in routes) {
+       var routePoints = decode(route.geometry ?? '', _getDecodePrecision(route.routeOptions));
+       multiPoints.addAll(routePoints);
+    }
+    if (multiPoints.isNotEmpty) {
+      var latLngBounds = LatLngBounds.fromMultiLatLng(multiPoints);
+      controller?.animateCamera(CameraUpdate.newLatLngBounds(latLngBounds, top: 50, left: 50, right: 50, bottom: 50));
+    }
+  }
+
+  int _getDecodePrecision(RouteRequestParams? routeOptions) {
+    return routeOptions?.geometry == SupportedGeometry.polyline ? PRECISION : PRECISION_6;
+  }
 ```
 
 Clear routes
