@@ -1,3 +1,14 @@
+## v0.2.0, Sept 26, 2023
+* Update the android navigation native framework to 1.0.7
+* Update iOS navigation native framework from 1.2.6
+* Update nb_maps_flutter dependency to 0.2.0
+* Change the route request params geometryType to geometry
+  * routeRequestParams.geometry = SupportedGeometry.polyline6
+* Support animate map camera into bounds with route points
+  *  var latLngBounds = LatLngBounds.fromMultiLatLng(multiPoints);
+     controller?.animateCamera(CameraUpdate.newLatLngBounds(latLngBounds, top: 50, left: 50, right: 50, bottom: 50));
+
+
 ## v0.1.8, Sept 15, 2023
 * Update nb_maps_flutter dependency from 0.1.5 to 0.1.6
 * Update the route wayPoint label style
