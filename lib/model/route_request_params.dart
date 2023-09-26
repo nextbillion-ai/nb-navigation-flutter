@@ -75,8 +75,7 @@ class RouteRequestParams {
   /// The format of the returned geometry. Allowed values are:
   /// [SupportedGeometry.polyline], [SupportedGeometry.polyline6]
   /// The default is [SupportedGeometry.polyline6].
-  SupportedGeometry? geometryType;
-  String? geometry;
+  SupportedGeometry? geometry;
 
   RouteRequestParams({
     required this.origin,
@@ -96,7 +95,6 @@ class RouteRequestParams {
     this.unit,
     this.waypoints,
     this.option,
-    this.geometryType,
     this.geometry,
   });
 
@@ -121,8 +119,7 @@ class RouteRequestParams {
       truckSize: (map['truckSize'] as List<dynamic>?)?.map((item) => int.parse(item)).toList(),
       unit: enumValue(map['unit']) as SupportedUnits?,
       option: enumValue(map['option']) as SupportedOption?,
-      geometryType: enumValue(map["geometryType"]) as SupportedGeometry?,
-      geometry: map["geometry"],
+      geometry: enumValue(map["geometry"]) as SupportedGeometry?,
       waypoints: List<LatLng>.from(map['waypoints']?.map((point) => LatLng(point[1], point[0])) ?? []),
     );
   }
@@ -145,8 +142,7 @@ class RouteRequestParams {
       'truckSize': truckSize,
       'unit': unit?.description,
       'option': option?.description,
-      'geometry': geometry,
-      'geometryType': geometryType?.description,
+      'geometry': geometry?.description,
       'waypoints': waypoints?.map((e) => e.toGeoJsonCoordinates()).toList(),
     };
   }

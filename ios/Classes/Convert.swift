@@ -86,7 +86,7 @@ class Convert {
             routeOptions.roadClassesToAvoid = avoidClasses
         }
         
-        if let shapeFormat = options["geometryType"] as? String {
+        if let shapeFormat = options["geometry"] as? String {
             routeOptions.shapeFormat = RouteShapeFormat(description: shapeFormat)!
         }
         
@@ -145,7 +145,7 @@ class Convert {
         options["departureTime"] = routeOptions.departureTime
         options["overview"] = routeOptions.routeShapeResolution.description
         options["avoid"] = routeOptions.roadClassesToAvoid.description.components(separatedBy: "|")
-        options["geometryType"] = routeOptions.shapeFormat.description
+        options["geometry"] = routeOptions.shapeFormat.description
 
         return options
     }

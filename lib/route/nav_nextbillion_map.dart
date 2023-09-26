@@ -99,7 +99,7 @@ class NavNextBillionMap {
   }
 
   int _getDecodePrecision(RouteRequestParams? routeOptions) {
-    return routeOptions?.geometryType == SupportedGeometry.polyline ? PRECISION : PRECISION_6;
+    return routeOptions?.geometry == SupportedGeometry.polyline ? PRECISION : PRECISION_6;
   }
 
   Future<void> _drawWayPoints(DirectionsRoute route) async {
