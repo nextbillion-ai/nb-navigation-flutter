@@ -3,6 +3,26 @@ part of nb_navigation_flutter;
 class MethodChannelNBNavigation extends NBNavigationPlatform {
   final MethodChannel _channel = NBNavigationChannelFactory.nbNavigationChannel;
 
+  MethodChannelNBNavigation() {
+    _channel.setMethodCallHandler(_handleMethodCall);
+  }
+
+  Future<dynamic> _handleMethodCall(MethodCall call) async {
+    switch (call.method) {
+      case NBNavigationLauncherMethodID.nbOnNavigationExit:
+        var arguments = call.arguments;
+        bool? shouldRefreshRoute = arguments["shouldRefreshRoute"];
+        int? remainingWaypoints = arguments["remainingWaypoints"];
+        if (shouldRefreshRoute != null && remainingWaypoints != null) {
+          navigationExitCallback?.call(arguments["shouldRefreshRoute"], arguments["remainingWaypoints"]);
+        }
+        break;
+
+      default:
+        throw MissingPluginException();
+    }
+  }
+
   @override
   Future<void> fetchRoute(RouteRequestParams routeRequestParams, OnGetRouteResultCallBack routeResultCallBack) async {
     onGetRouteResultCallBack = routeResultCallBack;
@@ -88,5 +108,14 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
       print(e.toString());
     }
     return "";
+  }
+
+  @override
+  Future<void> setOnNavigationExitCallback(OnNavigationExitCallback navigationExitCallback) async {
+    try {
+      this.navigationExitCallback = navigationExitCallback;
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
   }
 }

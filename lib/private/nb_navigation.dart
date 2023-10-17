@@ -34,4 +34,8 @@ class NBNavigation {
   static Future<String> getFormattedDuration(num durationSeconds) async {
     return await _nbNavigationPlatform.getFormattedDuration(durationSeconds);
   }
+
+  static Future<void> setOnNavigationExitCallback(OnNavigationExitCallback navigationExitCallback) async {
+    return await _nbNavigationPlatform.setOnNavigationExitCallback(navigationExitCallback);
+  }
 }
