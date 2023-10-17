@@ -1,5 +1,8 @@
 package ai.nextbillion.navigation.nb_navigation_flutter
 
+import ai.nextbillion.navigation.core.navigation.NavigationResultEventDispatcher
+import ai.nextbillion.navigation.core.navigation.NavigationResultListener
+import ai.nextbillion.navigation.nb_navigation_flutter.MethodID.NAVIGATION_ON_NAVIGATION_EXIT
 import ai.nextbillion.navigation.ui.NavigationLauncher
 import android.app.Activity
 import io.flutter.plugin.common.MethodCall
@@ -44,7 +47,14 @@ class NavigationLauncherHandler : MethodChannelHandler() {
                 NavigationLauncher.startNavigation(activity, navLauncherConfig)
             }
         }
+        NavigationResultEventDispatcher.getInstance().setNavigationResultListeners(mResultListener)
     }
 
-
+    private var mResultListener =
+        NavigationResultListener { shouldRefreshRoute, restWayPointsCount ->
+            val arguments: MutableMap<String, Any> = HashMap(2)
+            arguments["shouldRefreshRoute"] = shouldRefreshRoute
+            arguments["remainingWaypoints"] = restWayPointsCount
+            methodChannel?.invokeMethod(NAVIGATION_ON_NAVIGATION_EXIT, arguments)
+        }
 }

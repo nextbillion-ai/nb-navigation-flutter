@@ -64,6 +64,7 @@ class NavigationLauncherHandler: MethodChannelHandler {
             let navigationOptions = NavigationOptions(styles: navigationModeStyle, navigationService: navigationService)
             
             let navigationViewController = NavigationViewController(for: routes, navigationOptions: navigationOptions)
+            navigationViewController.delegate = self
             navigationViewController.modalPresentationStyle = .fullScreen
             navigationViewController.routeLineTracksTraversal = enableDissolvedRoute
             viewController?.present(navigationViewController, animated: true)
@@ -80,4 +81,28 @@ class NavigationLauncherHandler: MethodChannelHandler {
         return useCustomNavigationStyle ? NavStyleManager.customNightStyle : NightStyle()
     }
     
+}
+
+extension NavigationLauncherHandler : NavigationViewControllerDelegate {
+    public func navigationViewControllerDidDismiss(_ navigationViewController: NavigationViewController, byCanceling canceled: Bool) {
+        let routeProgress = navigationViewController.navigationService.routeProgress
+        let shouldRefetchRoute = shouldReFetchRoute(routeProgress)
+        let remainingWaypoints = routeProgress.remainingWaypoints.count
+        methodChannel?.invokeMethod(MethodID.NAVIGATION_ON_NAVIGATION_EXIT, arguments: [
+            "shouldRefreshRoute": shouldRefetchRoute,
+            "remainingWaypoints": remainingWaypoints
+        ] as [String : Any])
+        
+        navigationViewController.dismiss(animated: true, completion: nil)
+    }
+    
+    func shouldReFetchRoute(_ routeProgress: RouteProgress) -> Bool {
+        let distanceRemaining = routeProgress.distanceRemaining
+        let stepRemaining = routeProgress.currentLegProgress.remainingSteps.count
+        if distanceRemaining > 250 {
+            return true
+        } else {
+            return distanceRemaining > 50 && stepRemaining >= 2
+        }
+    }
 }
