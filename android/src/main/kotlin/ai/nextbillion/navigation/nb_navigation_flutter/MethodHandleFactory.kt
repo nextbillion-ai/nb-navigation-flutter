@@ -4,40 +4,26 @@ import android.app.Activity
 import android.text.TextUtils
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 
 /**
  * @author qiuyu
  * @Date 2023/3/7
  **/
-class MethodHandleFactory {
+class MethodHandleFactory(methodChannel: MethodChannel) {
+    private var routeFetchHandler: RouteFetcherHandler
+    private var navigationLauncherHandler: NavigationLauncherHandler
+    private var nbNavigationHandler: NBNavigationHandler
 
-
-    private var routeFetchHandler: RouteFetcherHandler = RouteFetcherHandler()
-    private var navigationLauncherHandler: NavigationLauncherHandler = NavigationLauncherHandler()
-    private var nbNavigationHandler: NBNavigationHandler = NBNavigationHandler()
-
-    companion object {
-        @Volatile
-        private var sInstance: MethodHandleFactory? = null
-
-        fun getInstance(): MethodHandleFactory? {
-            if (null == sInstance) {
-                synchronized(MethodHandleFactory::class.java) {
-                    if (null == sInstance) {
-                        sInstance = MethodHandleFactory()
-                    }
-                }
-            }
-            return sInstance
-        }
+    init {
+        routeFetchHandler  = RouteFetcherHandler(methodChannel)
+        navigationLauncherHandler  = NavigationLauncherHandler(methodChannel)
+        nbNavigationHandler = NBNavigationHandler(methodChannel)
     }
-
 
     fun dispatchMethodHandler(
         activity: Activity?,
         call: MethodCall?,
-        result: MethodChannel.Result?
+        result: MethodChannel.Result?,
     ) {
         if (null == call || null == result) {
             return
@@ -60,6 +46,12 @@ class MethodHandleFactory {
             else -> {}
         }
         methodChannelHandler?.handleMethodCallResult(activity, call, result)
+    }
+
+    fun deInit() {
+        routeFetchHandler.deInit()
+        navigationLauncherHandler.deInit()
+        nbNavigationHandler.deInit()
     }
 
 }
