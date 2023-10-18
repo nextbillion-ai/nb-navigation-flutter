@@ -8,6 +8,7 @@ import ai.nextbillion.kits.turf.TurfMeasurement
 import ai.nextbillion.kits.turf.TurfMisc
 import ai.nextbillion.navigation.core.routefetcher.RouteFetcher
 import ai.nextbillion.navigation.core.utils.time.TimeFormatter
+import ai.nextbillion.navigation.ui.NBNavigation.fetchRoute
 import android.app.Activity
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -19,16 +20,17 @@ import retrofit2.Response
  * @author qiuyu
  * @Date 2023/3/7
  **/
-class RouteFetcherHandler : MethodChannelHandler() {
-
+class RouteFetcherHandler(methodChannel: MethodChannel?) : MethodChannelHandler() {
     init {
-        methodChannel = MethodChannelManager.getInstance().navigationChannel
+        this.methodChannel = methodChannel
     }
-
-
-    override fun handleMethodCallResult(activity: Activity?, call: MethodCall?, result: MethodChannel.Result?) {
+    override fun handleMethodCallResult(
+        activity: Activity?,
+        call: MethodCall?,
+        result: MethodChannel.Result?,
+    ) {
         super.handleMethodCallResult(activity, call, result)
-        if (methodChannel == null || call == null || result == null) {
+        if (activity == null || call == null || result == null) {
             return
         }
 

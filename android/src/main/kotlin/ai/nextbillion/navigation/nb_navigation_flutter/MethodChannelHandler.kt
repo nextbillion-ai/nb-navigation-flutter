@@ -13,7 +13,13 @@ abstract class MethodChannelHandler {
     var activity: Activity? = null
     var methodChannel: MethodChannel? =null
 
-    open fun handleMethodCallResult(activity: Activity?, call: MethodCall?, result: MethodChannel.Result?) {
+    open fun handleMethodCallResult(
+        activity: Activity?,
+        call: MethodCall?,
+        result: MethodChannel.Result?,
+    ) {
         this.activity = activity
     }
+
+    open fun deInit() {}
 }
