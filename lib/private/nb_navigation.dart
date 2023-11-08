@@ -38,4 +38,9 @@ class NBNavigation {
   static Future<void> setOnNavigationExitCallback(OnNavigationExitCallback navigationExitCallback) async {
     return await _nbNavigationPlatform.setOnNavigationExitCallback(navigationExitCallback);
   }
+
+  /// Start preview navigation screen with given route
+  static Future<void> startPreviewNavigation(DirectionsRoute route) async {
+    return await _nbNavigationPlatform.startPreviewNavigation(route);
+  }
 }

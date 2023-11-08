@@ -1,10 +1,13 @@
 package ai.nextbillion.navigation.nb_navigation_flutter
 
+import ai.nextbillion.kits.directions.models.DirectionsRoute
 import ai.nextbillion.navigation.core.navigation.NavigationResultEventDispatcher
 import ai.nextbillion.navigation.core.navigation.NavigationResultListener
 import ai.nextbillion.navigation.nb_navigation_flutter.MethodID.NAVIGATION_ON_NAVIGATION_EXIT
 import ai.nextbillion.navigation.ui.NavigationLauncher
+import ai.nextbillion.navigation.ui.NextBillionPreviewActivity
 import android.app.Activity
+import android.content.Intent
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
@@ -31,7 +34,20 @@ class NavigationLauncherHandler(methodChannel: MethodChannel?) : MethodChannelHa
                 startNavigation(call)
                 result.success(true)
             }
-
+            MethodID.NAVIGATION_PREVIEW_NAVIGATION -> {
+                val arguments = call.arguments as? Map<*, *>
+                val routeJson = arguments?.get("route") as? String
+                routeJson?.let {
+                    val directionsRoute = DirectionsRoute.fromJson(routeJson)
+                    val intent = Intent(activity, NextBillionPreviewActivity::class.java)
+                    intent.putExtra(
+                        "directions_route_key",
+                        directionsRoute
+                    )
+                    activity.startActivity(intent)
+                }
+                result.success(true)
+            }
         }
     }
 

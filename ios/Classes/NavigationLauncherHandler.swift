@@ -68,6 +68,22 @@ class NavigationLauncherHandler: MethodChannelHandler {
             navigationViewController.modalPresentationStyle = .fullScreen
             navigationViewController.routeLineTracksTraversal = enableDissolvedRoute
             viewController?.present(navigationViewController, animated: true)
+            break
+            
+        case MethodID.NAVIGATION_PREVIEW_NAVIGATION:
+            let viewController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController
+            guard let args = call.arguments as? [String : Any] else {
+                return
+            }
+
+            guard let route = Convert.convertDirectionsRoute(arguments: args) else {
+                return
+            }
+
+            let previewController = NavigationPreviewController(route: route)
+            viewController?.pushViewController(previewController, animated: true)
+            break
+            
         default:
             break
         }

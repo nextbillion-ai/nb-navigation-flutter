@@ -178,6 +178,25 @@ class Convert {
         
     }
     
+    class func convertDirectionsRoute(arguments: [String: Any]) -> Route? {
+        if let options = arguments["routeOptions"] as? String, let routeJson = arguments["route"] as? String {
+            let routeOptions = convertRouteRequestParams(arguments: options)
+            guard let routeOptions = routeOptions else {
+                return nil
+            }
+
+            let json = jsonStringToDictionary(routeJson)
+            let countryCode = json["countryCode"] as? String ?? ""
+            let route = Route.init(json: json, waypoints: routeOptions.waypoints, options: routeOptions, countryCode: countryCode)
+            route.speechLocale = routeOptions.locale
+            route.modifyRoute()
+
+            return route
+        }
+        return nil
+        
+    }
+    
     class func jsonStringToDictionary(_ jsonString: String) -> [String: Any] {
         guard let jsonData = jsonString.data(using: .utf8) else {
             return [:]

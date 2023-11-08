@@ -16,6 +16,7 @@ struct MethodID {
     static let NAVIGATION_SET_BASE_URL = "navigation/setBaseUri"
     static let NAVIGATION_LAUNCH_NAVIGATION = "navigation/startNavigation"
     static let NAVIGATION_ON_NAVIGATION_EXIT = "navigation/onNavigationExit"
+    static let NAVIGATION_PREVIEW_NAVIGATION = "navigation/previewNavigation";
 
     static let NAVIGATION_INIT_NAVIGATION = "config/initNBNavigation"
     static let NAVIGATION_GET_ACCESS_KEY = "config/getAccessKey"
