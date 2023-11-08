@@ -76,6 +76,20 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
   }
 
   @override
+  Future<void> startPreviewNavigation(DirectionsRoute route) async {
+    try {
+      Map<String, dynamic> arguments = {};
+      if (Platform.isIOS) {
+        arguments["routeOptions"] = jsonEncode(route.routeOptions);
+      }
+      arguments["route"] = jsonEncode(route);
+      await _channel.invokeMethod(NBNavigationLauncherMethodID.nbPreviewNavigationMethod, arguments);
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
   Future<int> findSelectedRouteIndex(LatLng clickPoint, List<List<LatLng>> coordinates) async {
     Map<String, dynamic> arguments = {};
     arguments["clickPoint"] = clickPoint.toJson();

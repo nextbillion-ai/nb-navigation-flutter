@@ -20,6 +20,7 @@ object MethodID {
     const val NAVIGATION_SET_BASE_URL = "navigation/setBaseUri"
     const val NAVIGATION_LAUNCH_NAVIGATION = "navigation/startNavigation"
     const val NAVIGATION_ON_NAVIGATION_EXIT = "navigation/onNavigationExit"
+    const val NAVIGATION_PREVIEW_NAVIGATION = "navigation/previewNavigation";
 
     const val NAVIGATION_INIT_NAVIGATION = "config/initNBNavigation"
     const val NAVIGATION_GET_ACCESS_KEY = "config/getAccessKey"

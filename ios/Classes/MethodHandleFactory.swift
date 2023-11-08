@@ -24,7 +24,7 @@ class MethodHandleFactory: NSObject {
         case MethodID.NAVIGATION_FETCH_ROUTE, MethodID.NAVIGATION_FIND_SELECTED_ROUTE, MethodID.NAVIGATION__GET_FORMATTED_ROUTE_DURATION:
             methodChannelHandler = routeFetchHandler
             
-        case MethodID.NAVIGATION_LAUNCH_NAVIGATION:
+        case MethodID.NAVIGATION_LAUNCH_NAVIGATION, MethodID.NAVIGATION_PREVIEW_NAVIGATION:
             methodChannelHandler = navigationLauncherHandler
             
         case MethodID.NAVIGATION_INIT_NAVIGATION, MethodID.NAVIGATION_GET_ACCESS_KEY, MethodID.NAVIGATION_GET_BASE_URL, MethodID.NAVIGATION_SET_BASE_URL:

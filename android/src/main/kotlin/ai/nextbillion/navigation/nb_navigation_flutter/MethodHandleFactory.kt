@@ -37,7 +37,7 @@ class MethodHandleFactory(methodChannel: MethodChannel) {
             MethodID.NAVIGATION_FETCH_ROUTE, MethodID.NAVIGATION_FIND_SELECTED_ROUTE, MethodID.NAVIGATION__GET_FORMATTED_ROUTE_DURATION -> methodChannelHandler =
                 routeFetchHandler
 
-            MethodID.NAVIGATION_LAUNCH_NAVIGATION -> methodChannelHandler =
+            MethodID.NAVIGATION_LAUNCH_NAVIGATION, MethodID.NAVIGATION_PREVIEW_NAVIGATION -> methodChannelHandler =
                 navigationLauncherHandler
 
             MethodID.NAVIGATION_INIT_NAVIGATION, MethodID.NAVIGATION_GET_ACCESS_KEY, MethodID.NAVIGATION_GET_BASE_URL, MethodID.NAVIGATION_SET_BASE_URL -> methodChannelHandler =

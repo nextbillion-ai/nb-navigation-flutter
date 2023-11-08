@@ -18,6 +18,7 @@ class NBNavigationLauncherMethodID {
   static const nbGetNavigationUriMethod = "navigation/getBaseUri";
   static const nbSetNavigationUriMethod = "navigation/setBaseUri";
   static const nbOnNavigationExit = "navigation/onNavigationExit";
+  static const nbPreviewNavigationMethod = "navigation/previewNavigation";
 }
 
 class NBNavigationConfigMethodID {
