@@ -1,3 +1,12 @@
+## v0.2.1, Nov 8, 2023
+* Update the android navigation native framework to 1.1.5
+* Update iOS navigation native framework from 1.2.11
+* Support previewing navigation processes based on a given route
+  * NBNavigation.startPreviewNavigation(route)
+* Support to specify the callback that will be executed when user exit navigation
+  * NBNavigation.setOnNavigationExitCallback(callback)
+
+
 ## v0.2.0, Sept 26, 2023
 * Update the android navigation native framework to 1.0.7
 * Update iOS navigation native framework from 1.2.6
