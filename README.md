@@ -1,7 +1,7 @@
 # Nextbillion Navigation Flutter
 
 ## Instroduction
-![IMG_0378](https://github.com/nextbillion-ai/nb-navigation-flutter/assets/100656364/b5713d37-4668-4b36-89af-906915aa8388)
+![IMG_0378](https://github.com/nextbillion-ai/nb-navigation-flutter/assets/100656364/870d9039-cea0-453e-a06c-adaada65cc8e)
 
 
 
