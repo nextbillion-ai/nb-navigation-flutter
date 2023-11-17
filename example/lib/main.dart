@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 import 'package:nb_navigation_flutter_example/custom_navigation_style.dart';
 import 'package:nb_navigation_flutter_example/draw_route_line.dart';
@@ -9,6 +8,7 @@ import 'package:nb_navigation_flutter_example/navigation_theme_mode.dart';
 import 'package:nb_navigation_flutter_example/route_line_style.dart';
 import 'package:nb_navigation_flutter_example/track_current_location.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'full_navigation_example.dart';
 
@@ -38,10 +38,9 @@ class _NavigationDemoState extends State<NavigationDemo> {
   }
 
   void _pushPage(BuildContext context, Widget page) async {
-    final location = Location();
-    final hasPermissions = await location.hasPermission();
-    if (hasPermissions != PermissionStatus.granted) {
-      await location.requestPermission();
+    var status = await Permission.location.status;
+    if(status.isDenied) {
+      await [Permission.location].request();
     }
     Navigator.push(context, MaterialPageRoute(builder: (_) => page));
   }
