@@ -1,3 +1,8 @@
+## v0.3.0, Nov 28, 2023
+* Update the android navigation native framework to 1.1.8
+* Update nb_maps_flutter Plugin to 0.3.0
+
+
 ## v0.2.1, Nov 8, 2023
 * Update the android navigation native framework to 1.1.5
 * Update iOS navigation native framework from 1.2.11
