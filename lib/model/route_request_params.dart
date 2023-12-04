@@ -23,6 +23,9 @@ class RouteRequestParams {
   /// [SupportedAvoid.toll]
   /// [SupportedAvoid.ferry]
   /// [SupportedAvoid.highway]
+  /// [SupportedAvoid.none]
+  /// Please note that when this parameter is not provided in the input, [SupportedAvoid.ferry] are set to be avoided by default.
+  /// When this parameter is provided, only the mentioned objects are avoided.
   List<SupportedAvoid>? avoid;
 
   ///The same base URL which was used during the request that resulted in this root directions
@@ -118,7 +121,7 @@ class RouteRequestParams {
       truckWeight: map['truckWeight'],
       truckSize: (map['truckSize'] as List<dynamic>?)?.map((item) => int.parse(item)).toList(),
       unit: enumValue(map['unit']) as SupportedUnits?,
-      option: enumValue(map['option']) as SupportedOption?,
+      option: supportedOptionValue(map['option']),
       geometry: enumValue(map["geometry"]) as SupportedGeometry?,
       waypoints: List<LatLng>.from(map['waypoints']?.map((point) => LatLng(point[1], point[0])) ?? []),
     );

@@ -117,7 +117,7 @@ class Convert {
         let longitude = point[0]
         
         let pointLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let wayPoint = Waypoint(coordinate: pointLocation)
+        let wayPoint = Waypoint(coordinate: pointLocation, name: "\(latitude),\(longitude)")
         return wayPoint
     }
     

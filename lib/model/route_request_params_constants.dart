@@ -33,7 +33,10 @@ enum SupportedAvoid {
   ferry,
 
   /// Avoid highways during the route.
-  highway
+  highway,
+
+  /// Avoid noting during the route.
+  none
 }
 
 enum ValidOverview {
@@ -88,6 +91,8 @@ Enum? enumValue(String? value) {
       return SupportedAvoid.ferry;
     case "highway":
       return SupportedAvoid.highway;
+    case "none":
+      return SupportedAvoid.none;
     case "full":
       return ValidOverview.full;
     case "simplified":
@@ -98,8 +103,13 @@ Enum? enumValue(String? value) {
       return SupportedGeometry.polyline;
     case "polyline6":
       return SupportedGeometry.polyline6;
-    case "flexible":
-      return SupportedOption.flexible;
+  }
+  return null;
+}
+
+SupportedOption? supportedOptionValue(String? value) {
+  if (value == "flexible") {
+    return SupportedOption.flexible;
   }
   return null;
 }
