@@ -2,8 +2,6 @@
 package ai.nextbillion.navigation.nb_navigation_flutter
 
 import ai.nextbillion.kits.directions.models.DirectionsRoute
-import ai.nextbillion.kits.directions.models.RouteRequestParams
-import ai.nextbillion.kits.geojson.Point
 import ai.nextbillion.maps.location.modes.RenderMode
 import ai.nextbillion.navigation.ui.NavLauncherConfig
 import android.text.TextUtils
