@@ -1,3 +1,10 @@
+## v0.3.1, Dec 11, 2023
+* Update the android navigation native framework to 1.2.0
+* Update iOS navigation native framework from 1.2.12
+* Add avoid none option in route request params
+  * SupportedAvoid.none to avoid noting during the route.
+
+
 ## v0.3.0, Nov 28, 2023
 * Update the android navigation native framework to 1.1.8
 * Update nb_maps_flutter Plugin to 0.3.0

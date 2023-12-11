@@ -1,5 +1,5 @@
 group 'ai.nextbillion.navigation.nb_navigation_flutter'
-version '0.3.0'
+version '0.3.1'
 
 buildscript {
     repositories {
