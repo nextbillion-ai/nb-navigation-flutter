@@ -40,13 +40,13 @@ class RouteRequestParams {
 
   /// A string specifying the primary mode of transportation for the routes.
   /// This parameter, if set, should be set to
-  /// [ValidModes.foot], [ValidModes.bike], [ValidModes.motorcycle], [ValidModes.car], [ValidModes.truck]
+  /// [ValidModes.car], [ValidModes.truck]
   /// [ValidModes.car] is used by default.
   ValidModes? mode;
 
   /// Displays the requested type of overview geometry. Can be
   /// [ValidOverview.full], [ValidOverview.simplified], [ValidOverview.none].
-  /// The default is [ValidOverview.simplified].
+  /// The default is [ValidOverview.full].
   ValidOverview? overview;
 
   bool? simulation;
@@ -108,21 +108,21 @@ class RouteRequestParams {
     return RouteRequestParams(
       altCount: map['altCount'],
       alternatives: map['alternatives'],
-      // avoid: List<SupportedAvoid>.from((map['avoid'] as List<dynamic>?)?.map((x) => enumValue(x)) ?? []),
+      avoid: List<SupportedAvoid>.from((map['avoid'] as List<dynamic>?)?.map((x) => SupportedAvoid.fromValue(x)) ?? []),
       baseUrl: map['baseUrl'],
       departureTime: map['departureTime'],
       destination: LatLng(map['destination'][1], map['destination'][0]),
       key: map['key'],
       language: map['language'],
-      mode: enumValue(map['mode']) as ValidModes?,
+      mode: ValidModes.fromValue(map['mode']),
       origin: LatLng(map['origin'][1], map['origin'][0]),
-      overview: enumValue(map['overview']) as ValidOverview?,
+      overview: ValidOverview.fromValue(map['overview']),
       simulation: map['simulation'],
       truckWeight: map['truckWeight'],
-      truckSize: (map['truckSize'] as List<dynamic>?)?.map((item) => int.parse(item)).toList(),
-      unit: enumValue(map['unit']) as SupportedUnits?,
-      option: supportedOptionValue(map['option']),
-      geometry: enumValue(map["geometry"]) as SupportedGeometry?,
+      truckSize: (map['truckSize'] as List<dynamic>?)?.map((item) => (item is String) ? int.parse(item) : (item as int)).toList(),
+      unit: SupportedUnits.fromValue(map['unit']),
+      option: SupportedOption.fromValue(map['option']),
+      geometry: SupportedGeometry.fromValue(map["geometry"]),
       waypoints: List<LatLng>.from(map['waypoints']?.map((point) => LatLng(point[1], point[0])) ?? []),
     );
   }
