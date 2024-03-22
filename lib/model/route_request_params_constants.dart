@@ -5,24 +5,27 @@ enum SupportedUnits {
   imperial,
 
   /// Metric units (e.g., kilometers, meters).
-  metric
+  metric;
+
+  static SupportedUnits fromValue(String? s) => switch (s) {
+    "imperial" => imperial,
+    "metric" => metric,
+    _ => metric
+  };
 }
 
 enum ValidModes {
-  /// Travel mode: walking.
-  foot,
-
-  /// Travel mode: cycling/biking.
-  bike,
-
-  /// Travel mode: motorcycle.
-  motorcycle,
-
   /// Travel mode: car.
   car,
 
   /// Travel mode: truck.
-  truck
+  truck;
+
+  static ValidModes fromValue(String? s) => switch (s) {
+    "car" => car,
+    "truck" => truck,
+    _ => car
+  };
 }
 
 enum SupportedAvoid {
@@ -36,7 +39,15 @@ enum SupportedAvoid {
   highway,
 
   /// Avoid noting during the route.
-  none
+  none;
+
+  static SupportedAvoid fromValue(String? s) => switch (s) {
+    "toll" => toll,
+    "ferry" => ferry,
+    "highway" => highway,
+    "none" => none,
+    _ => ferry
+  };
 }
 
 enum ValidOverview {
@@ -47,7 +58,14 @@ enum ValidOverview {
   simplified,
 
   /// Show no overview (only the route's geometry).
-  none
+  none;
+
+  static ValidOverview fromValue(String? s) => switch (s) {
+    "full" => full,
+    "simplified" => simplified,
+    "false" => none,
+    _ => full
+  };
 }
 
 enum SupportedGeometry {
@@ -55,10 +73,23 @@ enum SupportedGeometry {
   polyline,
 
   /// Use polyline6 format for route geometry.
-  polyline6
+  polyline6;
+
+  static SupportedGeometry fromValue(String? s) => switch (s) {
+    "polyline" => polyline,
+    "polyline6" => polyline6,
+    _ => polyline6
+  };
 }
 
-enum SupportedOption { flexible }
+enum SupportedOption {
+  flexible;
+
+  static SupportedOption? fromValue(String? s) => switch (s) {
+    "flexible" => flexible,
+    _ => null,
+  };
+}
 
 extension EnumExtension on Enum {
   String get description {
@@ -67,49 +98,4 @@ extension EnumExtension on Enum {
     }
     return toString().split('.').last;
   }
-}
-
-Enum? enumValue(String? value) {
-  switch (value) {
-    case "imperial":
-      return SupportedUnits.imperial;
-    case "metric":
-      return SupportedUnits.metric;
-    case "foot":
-      return ValidModes.foot;
-    case "bike":
-      return ValidModes.bike;
-    case "motorcycle":
-      return ValidModes.motorcycle;
-    case "car":
-      return ValidModes.car;
-    case "truck":
-      return ValidModes.truck;
-    case "toll":
-      return SupportedAvoid.toll;
-    case "ferry":
-      return SupportedAvoid.ferry;
-    case "highway":
-      return SupportedAvoid.highway;
-    case "none":
-      return SupportedAvoid.none;
-    case "full":
-      return ValidOverview.full;
-    case "simplified":
-      return ValidOverview.simplified;
-    case "false":
-      return ValidOverview.none;
-    case "polyline":
-      return SupportedGeometry.polyline;
-    case "polyline6":
-      return SupportedGeometry.polyline6;
-  }
-  return null;
-}
-
-SupportedOption? supportedOptionValue(String? value) {
-  if (value == "flexible") {
-    return SupportedOption.flexible;
-  }
-  return null;
 }

@@ -146,6 +146,9 @@ class Convert {
         options["overview"] = routeOptions.routeShapeResolution.description
         options["avoid"] = routeOptions.roadClassesToAvoid.description.components(separatedBy: "|")
         options["geometry"] = routeOptions.shapeFormat.description
+        options["truckSize"] = routeOptions.truckSize
+        options["truckWeight"] = routeOptions.truckWeight
+
 
         return options
     }
