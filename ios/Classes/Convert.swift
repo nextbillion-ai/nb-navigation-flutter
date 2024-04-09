@@ -10,13 +10,8 @@ import NbmapDirections
 
 class Convert {
     static let navigationMode = [
-        "4w": NBNavigationMode.mode4W,
-        "6w": NBNavigationMode.mode6W,
-        "2w": NBNavigationMode.mode2W,
         "car": NBNavigationMode.car,
-        "auto": NBNavigationMode.auto,
-        "bike": NBNavigationMode.bike,
-        "truck": NBNavigationMode.mode6W
+        "truck": NBNavigationMode.truck
     ]
     
     static let mapOptions = [
@@ -52,7 +47,7 @@ class Convert {
         }
         
         if !allWayPoints.isEmpty {
-            routeOptions = NBNavRouteOptions(waypoints: allWayPoints, profile: convertMode(mode: mode) ?? .mode4W)
+            routeOptions = NBNavRouteOptions(waypoints: allWayPoints, profile: convertMode(mode: mode) ?? .car)
         }
         
         guard let routeOptions = routeOptions else {

@@ -1,3 +1,8 @@
+## v0.3.2, Apr 9, 2024
+* Update the android navigation native framework to 1.2.5
+* Update iOS navigation native framework from 1.3.3
+
+
 ## v0.3.1, Dec 11, 2023
 * Update the android navigation native framework to 1.2.0
 * Update iOS navigation native framework from 1.2.12
