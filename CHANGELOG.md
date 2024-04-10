@@ -1,3 +1,7 @@
+## v0.3.3, Apr 10, 2024
+* Remove the restriction on the initialization timing of the NavNextBillionMap object
+
+
 ## v0.3.2, Apr 9, 2024
 * Update the android navigation native framework to 1.2.5
 * Update iOS navigation native framework from 1.3.3
