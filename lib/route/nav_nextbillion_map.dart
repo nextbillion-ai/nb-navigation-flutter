@@ -12,17 +12,14 @@ class NavNextBillionMap {
 
   NavNextBillionMap(this.controller, {this.routeLineProperties = const RouteLineProperties()}) {
     initGeoJsonSource();
-    initRouteLayers();
-    _addListeners();
   }
 
   void initGeoJsonSource() async {
-    _removePreviousSource();
-    controller.addGeoJsonSource(ROUTE_SHIELD_SOURCE_ID, buildFeatureCollection([]));
-    controller.addGeoJsonSource(ROUTE_SOURCE_ID, buildFeatureCollection([]));
-    controller.addGeoJsonSource(WAYPOINT_SOURCE_ID, buildFeatureCollection([]));
-    controller.addGeoJsonSource(ROUTE_DURATION_SOURCE_ID, buildFeatureCollection([]));
+    await _removePreviousSource();
+    await _addSource();
     await _loadAssetImage();
+    initRouteLayers();
+    _addListeners();
   }
 
   Future<void> initRouteLayers() async {
@@ -199,11 +196,24 @@ class NavNextBillionMap {
     controller.addImage(DESTINATION_MARKER_NAME, destination);
   }
 
-  void _removePreviousSource() {
-    controller.removeSource(ROUTE_SHIELD_SOURCE_ID);
-    controller.removeSource(ROUTE_SOURCE_ID);
-    controller.removeSource(WAYPOINT_SOURCE_ID);
-    controller.removeSource(ROUTE_DURATION_SOURCE_ID);
+  Future<void> _addSource() async {
+    await controller.addGeoJsonSource(ROUTE_SHIELD_SOURCE_ID, buildFeatureCollection([]));
+    await controller.addGeoJsonSource(ROUTE_SOURCE_ID, buildFeatureCollection([]));
+    await controller.addGeoJsonSource(WAYPOINT_SOURCE_ID, buildFeatureCollection([]));
+    await controller.addGeoJsonSource(ROUTE_DURATION_SOURCE_ID, buildFeatureCollection([]));
+  }
+
+  Future<void> _removePreviousSource() async {
+    await controller.removeLayer(ROUTE_SHIELD_LAYER_ID);
+    await controller.removeLayer(ROUTE_LAYER_ID);
+    await controller.removeLayer(WAYPOINT_LAYER_ID);
+    await controller.removeLayer(ROUTE_DURATION_LAYER_ID);
+
+
+    await controller.removeSource(ROUTE_SHIELD_SOURCE_ID);
+    await controller.removeSource(ROUTE_SOURCE_ID);
+    await controller.removeSource(WAYPOINT_SOURCE_ID);
+    await controller.removeSource(ROUTE_DURATION_SOURCE_ID);
   }
 
   /// Clears the currently displayed route from the map.
