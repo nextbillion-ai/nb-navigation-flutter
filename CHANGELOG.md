@@ -1,3 +1,6 @@
+## v0.3.4, Apr 24, 2024
+* Update nb_maps_flutter dependency to 0.3.1
+
 ## v0.3.3, Apr 10, 2024
 * Remove the restriction on the initialization timing of the NavNextBillionMap object
 
