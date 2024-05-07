@@ -24,7 +24,7 @@ class RouteLineStyleState extends State<RouteLineStyle> {
     this.controller = controller;
   }
 
-  void _onStyleLoaded() {
+  void _onStyleLoaded() async {
     if (controller != null) {
       var routeLineStyle = const RouteLineProperties(
         routeDefaultColor: Color(0xFFE97F2F),
@@ -33,7 +33,7 @@ class RouteLineStyleState extends State<RouteLineStyle> {
         routeShieldColor: Color(0xFF54E910),
         durationSymbolPrimaryBackgroundColor: Color(0xFFE97F2F)
       );
-      navNextBillionMap = NavNextBillionMap(controller!, routeLineProperties: routeLineStyle);
+      navNextBillionMap = await NavNextBillionMap.init(controller!, routeLineProperties: routeLineStyle);
     }
   }
 
