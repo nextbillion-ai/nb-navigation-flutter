@@ -22,9 +22,9 @@ class NavigationThemeState extends State<NavigationTheme> {
     this.controller = controller;
   }
 
-  void _onStyleLoaded() {
+  void _onStyleLoaded() async {
     if (controller != null) {
-      navNextBillionMap = NavNextBillionMap(controller!);
+      navNextBillionMap = await NavNextBillionMap.init(controller!);
     }
   }
 
@@ -99,7 +99,7 @@ class NavigationThemeState extends State<NavigationTheme> {
   }
 
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
-    navNextBillionMap.clearRoute();
+    await navNextBillionMap.clearRoute();
     await navNextBillionMap.drawRoute(routes);
   }
 

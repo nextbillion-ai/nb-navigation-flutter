@@ -1,3 +1,8 @@
+## v0.3.5, May 7, 2024
+* Update nb_maps_flutter dependency to 0.3.4
+* Refactor the way to init the NavNextBillionMap object
+  * await NavNextBillionMap.init(controller)
+
 ## v0.3.4, Apr 24, 2024
 * Update nb_maps_flutter dependency to 0.3.1
 

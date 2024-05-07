@@ -30,7 +30,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
 
   _onStyleLoadedCallback() async {
     if (controller != null) {
-      navNextBillionMap = NavNextBillionMap(controller!);
+      navNextBillionMap = await NavNextBillionMap.init(controller!);
       await loadAssetImage();
     }
     Fluttertoast.showToast(msg: "Long click to select destination and fetch a route");
@@ -205,8 +205,8 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
     return routeOptions?.geometry == SupportedGeometry.polyline ? PRECISION : PRECISION_6;
   }
 
-  void clearRouteResult() {
-    navNextBillionMap.clearRoute();
+  void clearRouteResult() async {
+    await navNextBillionMap.clearRoute();
     controller?.clearSymbols();
     setState(() {
       routes.clear();

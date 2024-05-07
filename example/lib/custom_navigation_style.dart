@@ -24,7 +24,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
     this.controller = controller;
   }
 
-  void _onStyleLoaded() {
+  Future<void> _onStyleLoaded() async {
     if (controller != null) {
       var routeLineStyle = const RouteLineProperties(
           routeDefaultColor: Color(0xFFE97F2F),
@@ -33,7 +33,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
           routeShieldColor: Color(0xFF54E910),
           durationSymbolPrimaryBackgroundColor: Color(0xFFE97F2F)
       );
-      navNextBillionMap = NavNextBillionMap(controller!, routeLineProperties: routeLineStyle);
+      navNextBillionMap = await NavNextBillionMap.init(controller!, routeLineProperties: routeLineStyle);
     }
   }
 
@@ -101,7 +101,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
   }
 
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
-    navNextBillionMap.clearRoute();
+    await navNextBillionMap.clearRoute();
     await navNextBillionMap.drawRoute(routes);
   }
 

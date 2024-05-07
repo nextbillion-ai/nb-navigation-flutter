@@ -21,4 +21,8 @@ class NBNavRouteOptions: NavigationRouteOptions {
         return URL(string: RoutingApiUtils.shared().baseUri)!
     }
     
+    override var apiKeyHeaderName: String? {
+        return NGLAccountManager.apiKeyHeaderName ?? nil
+    }
+    
 }

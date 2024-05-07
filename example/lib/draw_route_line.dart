@@ -27,9 +27,9 @@ class DrawRouteLineState extends State<DrawRouteLine> {
     this.controller = controller;
   }
 
-  void _onStyleLoaded() {
+  void _onStyleLoaded() async {
     if (controller != null) {
-      navNextBillionMap = NavNextBillionMap(controller!);
+      navNextBillionMap = await NavNextBillionMap.init(controller!);
     }
   }
 
@@ -120,7 +120,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
   }
 
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
-    navNextBillionMap.clearRoute();
+    await navNextBillionMap.clearRoute();
     await navNextBillionMap.drawRoute(routes);
   }
 
@@ -183,11 +183,11 @@ class DrawRouteLineState extends State<DrawRouteLine> {
               Text("Display Route Duration Symbol"),
               Switch(
                   value: enableRouteDurationSymbol,
-                  onChanged: (value) {
+                  onChanged: (value) async {
                     setState(() {
                       enableRouteDurationSymbol = value;
                     });
-                    navNextBillionMap.toggleDurationSymbolVisibilityWith(value);
+                    await navNextBillionMap.toggleDurationSymbolVisibilityWith(value);
                   })
             ],
           )
