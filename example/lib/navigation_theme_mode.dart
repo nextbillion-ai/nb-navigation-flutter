@@ -24,7 +24,7 @@ class NavigationThemeState extends State<NavigationTheme> {
 
   void _onStyleLoaded() async {
     if (controller != null) {
-      navNextBillionMap = await NavNextBillionMap.init(controller!);
+      navNextBillionMap = NavNextBillionMap(controller!);
     }
   }
 
@@ -99,7 +99,7 @@ class NavigationThemeState extends State<NavigationTheme> {
   }
 
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
-    await navNextBillionMap.clearRoute();
+    navNextBillionMap.clearRoute();
     await navNextBillionMap.drawRoute(routes);
   }
 

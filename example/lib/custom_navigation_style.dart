@@ -33,7 +33,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
           routeShieldColor: Color(0xFF54E910),
           durationSymbolPrimaryBackgroundColor: Color(0xFFE97F2F)
       );
-      navNextBillionMap = await NavNextBillionMap.init(controller!, routeLineProperties: routeLineStyle);
+      navNextBillionMap = NavNextBillionMap(controller!, routeLineProperties: routeLineStyle);
     }
   }
 
@@ -101,7 +101,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
   }
 
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
-    await navNextBillionMap.clearRoute();
+    navNextBillionMap.clearRoute();
     await navNextBillionMap.drawRoute(routes);
   }
 

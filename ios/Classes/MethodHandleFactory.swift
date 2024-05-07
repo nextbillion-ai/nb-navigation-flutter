@@ -31,6 +31,7 @@ class MethodHandleFactory: NSObject {
             methodChannelHandler = nbNavigationHandler
             
         default:
+            result(FlutterMethodNotImplemented)
             break
         }
         methodChannelHandler?.handleMethodCallResult(call: call, result: result)
