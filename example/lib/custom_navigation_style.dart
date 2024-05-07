@@ -101,7 +101,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
   }
 
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
-    await navNextBillionMap.clearRoute();
+    navNextBillionMap.clearRoute();
     await navNextBillionMap.drawRoute(routes);
   }
 

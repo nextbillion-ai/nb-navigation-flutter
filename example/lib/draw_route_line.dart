@@ -120,7 +120,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
   }
 
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
-    await navNextBillionMap.clearRoute();
+    navNextBillionMap.clearRoute();
     await navNextBillionMap.drawRoute(routes);
   }
 
@@ -187,7 +187,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
                     setState(() {
                       enableRouteDurationSymbol = value;
                     });
-                    await navNextBillionMap.toggleDurationSymbolVisibilityWith(value);
+                    navNextBillionMap.toggleDurationSymbolVisibilityWith(value);
                   })
             ],
           )
