@@ -175,7 +175,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
         setState(() {
           this.routes = routes;
         });
-        await drawRoutes(routes);
+        drawRoutes(routes);
         fitCameraToBounds(routes);
         addImageFromAsset(destination);
       } else if (error != null) {
@@ -186,7 +186,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
 
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
     // navNextBillionMap.toggleDurationSymbolVisibilityWith(false);
-    await navNextBillionMap.drawRoute(routes);
+    navNextBillionMap.drawRoute(routes);
   }
 
   void fitCameraToBounds(List<DirectionsRoute> routes) {
@@ -206,7 +206,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
   }
 
   void clearRouteResult() async {
-    await navNextBillionMap.clearRoute();
+    navNextBillionMap.clearRoute();
     controller?.clearSymbols();
     setState(() {
       routes.clear();

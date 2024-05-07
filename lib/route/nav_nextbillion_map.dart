@@ -22,9 +22,9 @@ class NavNextBillionMap {
     if (controller.disposed) {
       return;
     }
-    await _removePreviousSource();
-    await _addSource();
-    await _loadAssetImage();
+    _removePreviousSource();
+    _addSource();
+    _loadAssetImage();
     await initRouteLayers();
     _addListeners();
   }
@@ -53,7 +53,7 @@ class NavNextBillionMap {
     routeLayers[ROUTE_LAYER_ID] = routeLayer;
 
     SymbolLayerProperties wayPointLayer =
-        routeLayerProvider.initializeWayPointLayer(ORIGIN_MARKER_NAME, DESTINATION_MARKER_NAME);
+    routeLayerProvider.initializeWayPointLayer(ORIGIN_MARKER_NAME, DESTINATION_MARKER_NAME);
     await controller.addSymbolLayer(WAYPOINT_SOURCE_ID, WAYPOINT_LAYER_ID, wayPointLayer);
 
     SymbolLayerProperties durationSymbolLayer = routeLayerProvider.initializeDurationSymbolLayer();
@@ -70,10 +70,10 @@ class NavNextBillionMap {
     if (routes.isEmpty) {
       return;
     }
-    await clearRoute();
-    await _drawRoutesFeatureCollections(routes);
-    await _drawWayPoints(routes.first);
-    await _drawRouteDurationSymbol(routes);
+    clearRoute();
+    _drawRoutesFeatureCollections(routes);
+    _drawWayPoints(routes.first);
+    _drawRouteDurationSymbol(routes);
   }
 
   /// Adds a listener for route selection.
@@ -87,7 +87,7 @@ class NavNextBillionMap {
     _findRouteSelectedIndex(clickedPoint);
   }
 
-  Future<void> _drawRoutesFeatureCollections(List<DirectionsRoute> routes) async {
+  void _drawRoutesFeatureCollections(List<DirectionsRoute> routes) {
     List<Map<String, dynamic>> routeLineFeatures = [];
 
     for (int i = 0; i < routes.length; i++) {
@@ -105,8 +105,8 @@ class NavNextBillionMap {
       return;
     }
     List<Map<String, dynamic>> reversed = routeLineFeatures.reversed.toList();
-    await controller.setGeoJsonSource(ROUTE_SHIELD_SOURCE_ID, buildFeatureCollection(reversed));
-    await controller.setGeoJsonSource(ROUTE_SOURCE_ID, buildFeatureCollection(reversed));
+    controller.setGeoJsonSource(ROUTE_SHIELD_SOURCE_ID, buildFeatureCollection(reversed));
+    controller.setGeoJsonSource(ROUTE_SOURCE_ID, buildFeatureCollection(reversed));
   }
 
   int _getDecodePrecision(RouteRequestParams? routeOptions) {
@@ -147,7 +147,7 @@ class NavNextBillionMap {
   _buildWaypointNumberView(String waypointName, int index) async {
     Widget numberView = WaypointNumberView(index);
     var image = await CaptureImageUtil.createImageFromWidget(numberView, imageSize: const Size(14, 14));
-    await controller.addImage(waypointName, image!);
+    controller.addImage(waypointName, image!);
   }
 
   Future<void> _drawRouteDurationSymbol(List<DirectionsRoute> routes) async {
@@ -202,11 +202,11 @@ class NavNextBillionMap {
 
   /// Toggles the visibility of the duration symbol on the map.
   /// The [durationSymbolVisible] parameter determines whether the duration symbol should be visible or not.
-  Future<void> toggleDurationSymbolVisibilityWith(bool durationSymbolVisible) async {
+  void toggleDurationSymbolVisibilityWith(bool durationSymbolVisible) {
     if (controller.disposed) {
       return;
     }
-    await controller.setVisibility(ROUTE_DURATION_LAYER_ID, durationSymbolVisible);
+    controller.setVisibility(ROUTE_DURATION_LAYER_ID, durationSymbolVisible);
   }
 
   Future<void> _loadAssetImage() async {
@@ -224,38 +224,38 @@ class NavNextBillionMap {
       return;
     }
 
-    await controller.addGeoJsonSource(ROUTE_SHIELD_SOURCE_ID, buildFeatureCollection([]));
-    await controller.addGeoJsonSource(ROUTE_SOURCE_ID, buildFeatureCollection([]));
-    await controller.addGeoJsonSource(WAYPOINT_SOURCE_ID, buildFeatureCollection([]));
-    await controller.addGeoJsonSource(ROUTE_DURATION_SOURCE_ID, buildFeatureCollection([]));
+    controller.addGeoJsonSource(ROUTE_SHIELD_SOURCE_ID, buildFeatureCollection([]));
+    controller.addGeoJsonSource(ROUTE_SOURCE_ID, buildFeatureCollection([]));
+    controller.addGeoJsonSource(WAYPOINT_SOURCE_ID, buildFeatureCollection([]));
+    controller.addGeoJsonSource(ROUTE_DURATION_SOURCE_ID, buildFeatureCollection([]));
   }
 
-  Future<void> _removePreviousSource() async {
+  void _removePreviousSource() {
     if (controller.disposed) {
       return;
     }
 
-    await controller.removeLayer(ROUTE_SHIELD_LAYER_ID);
-    await controller.removeLayer(ROUTE_LAYER_ID);
-    await controller.removeLayer(WAYPOINT_LAYER_ID);
-    await controller.removeLayer(ROUTE_DURATION_LAYER_ID);
+    controller.removeLayer(ROUTE_SHIELD_LAYER_ID);
+    controller.removeLayer(ROUTE_LAYER_ID);
+    controller.removeLayer(WAYPOINT_LAYER_ID);
+    controller.removeLayer(ROUTE_DURATION_LAYER_ID);
 
 
-    await controller.removeSource(ROUTE_SHIELD_SOURCE_ID);
-    await controller.removeSource(ROUTE_SOURCE_ID);
-    await controller.removeSource(WAYPOINT_SOURCE_ID);
-    await controller.removeSource(ROUTE_DURATION_SOURCE_ID);
+    controller.removeSource(ROUTE_SHIELD_SOURCE_ID);
+    controller.removeSource(ROUTE_SOURCE_ID);
+    controller.removeSource(WAYPOINT_SOURCE_ID);
+    controller.removeSource(ROUTE_DURATION_SOURCE_ID);
   }
 
   /// Clears the currently displayed route from the map.
-  Future<void> clearRoute() async {
+  void clearRoute() {
     if (controller.disposed) {
       return;
     }
-    await controller.setGeoJsonSource(ROUTE_SHIELD_SOURCE_ID, buildFeatureCollection([]));
-    await controller.setGeoJsonSource(ROUTE_SOURCE_ID, buildFeatureCollection([]));
-    await controller.setGeoJsonSource(WAYPOINT_SOURCE_ID, buildFeatureCollection([]));
-    await controller.setGeoJsonSource(ROUTE_DURATION_SOURCE_ID, buildFeatureCollection([]));
+    controller.setGeoJsonSource(ROUTE_SHIELD_SOURCE_ID, buildFeatureCollection([]));
+    controller.setGeoJsonSource(ROUTE_SOURCE_ID, buildFeatureCollection([]));
+    controller.setGeoJsonSource(WAYPOINT_SOURCE_ID, buildFeatureCollection([]));
+    controller.setGeoJsonSource(ROUTE_DURATION_SOURCE_ID, buildFeatureCollection([]));
     routeLines.clear();
   }
 

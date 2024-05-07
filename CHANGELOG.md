@@ -1,3 +1,6 @@
+## v0.3.6, May 8, 2024
+* Remove unnecessary await in the NavNextbillionMap
+
 ## v0.3.5, May 7, 2024
 * Update nb_maps_flutter dependency to 0.3.4
 * Refactor the way to init the NavNextBillionMap object
