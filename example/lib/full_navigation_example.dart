@@ -28,10 +28,10 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
     this.controller = controller;
   }
 
-  _onStyleLoadedCallback() async {
+  _onStyleLoadedCallback() {
     if (controller != null) {
-      navNextBillionMap = await NavNextBillionMap.init(controller!);
-      await loadAssetImage();
+      navNextBillionMap = NavNextBillionMap(controller!);
+      loadAssetImage();
     }
     Fluttertoast.showToast(msg: "Long click to select destination and fetch a route");
     if (currentLocation != null) {
@@ -169,7 +169,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
       requestParams.waypoints = waypoints.sublist(0, waypoints.length - 1);
     }
 
-    await NBNavigation.fetchRoute(requestParams, (routes, error) async {
+    NBNavigation.fetchRoute(requestParams, (routes, error) {
       if (routes.isNotEmpty) {
         clearRouteResult();
         setState(() {

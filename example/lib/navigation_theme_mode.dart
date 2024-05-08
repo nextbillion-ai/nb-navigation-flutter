@@ -24,7 +24,7 @@ class NavigationThemeState extends State<NavigationTheme> {
 
   void _onStyleLoaded() async {
     if (controller != null) {
-      navNextBillionMap = await NavNextBillionMap.init(controller!);
+      navNextBillionMap = NavNextBillionMap(controller!);
     }
   }
 

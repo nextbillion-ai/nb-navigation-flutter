@@ -10,22 +10,18 @@ class NavNextBillionMap {
   List<List<LatLng>> routeLines = [];
   OnRouteSelectedCallback? onRouteSelectedCallback;
 
-  NavNextBillionMap._init(this.controller, {this.routeLineProperties = const RouteLineProperties()});
-
-  static Future<NavNextBillionMap> init(NextbillionMapController controller, {RouteLineProperties routeLineProperties = const RouteLineProperties()}) async {
-    var navMap = NavNextBillionMap._init(controller, routeLineProperties: routeLineProperties);
-    await navMap.initGeoJsonSource();
-    return navMap;
+  NavNextBillionMap(this.controller, {this.routeLineProperties = const RouteLineProperties()}) {
+    initGeoJsonSource();
   }
 
-  Future<void> initGeoJsonSource() async {
+  void initGeoJsonSource() {
     if (controller.disposed) {
       return;
     }
     _removePreviousSource();
     _addSource();
     _loadAssetImage();
-    await initRouteLayers();
+    initRouteLayers();
     _addListeners();
   }
 
@@ -40,7 +36,7 @@ class NavNextBillionMap {
       routeLineProperties.routeShieldColor,
       routeLineProperties.alternativeRouteShieldColor,
     );
-    await controller.addLineLayer(ROUTE_SHIELD_SOURCE_ID, ROUTE_SHIELD_LAYER_ID, routeShieldLayer, belowLayerId: belowLayer);
+    controller.addLineLayer(ROUTE_SHIELD_SOURCE_ID, ROUTE_SHIELD_LAYER_ID, routeShieldLayer, belowLayerId: belowLayer);
     routeLayers[ROUTE_SHIELD_LAYER_ID] = routeShieldLayer;
 
     LineLayerProperties routeLayer = routeLayerProvider.initializeRouteLayer(
@@ -49,15 +45,15 @@ class NavNextBillionMap {
       routeLineProperties.routeDefaultColor,
       routeLineProperties.alternativeRouteDefaultColor,
     );
-    await controller.addLineLayer(ROUTE_SOURCE_ID, ROUTE_LAYER_ID, routeLayer, belowLayerId: belowLayer);
+    controller.addLineLayer(ROUTE_SOURCE_ID, ROUTE_LAYER_ID, routeLayer, belowLayerId: belowLayer);
     routeLayers[ROUTE_LAYER_ID] = routeLayer;
 
     SymbolLayerProperties wayPointLayer =
     routeLayerProvider.initializeWayPointLayer(ORIGIN_MARKER_NAME, DESTINATION_MARKER_NAME);
-    await controller.addSymbolLayer(WAYPOINT_SOURCE_ID, WAYPOINT_LAYER_ID, wayPointLayer);
+    controller.addSymbolLayer(WAYPOINT_SOURCE_ID, WAYPOINT_LAYER_ID, wayPointLayer);
 
     SymbolLayerProperties durationSymbolLayer = routeLayerProvider.initializeDurationSymbolLayer();
-    await controller.addSymbolLayer(ROUTE_DURATION_SOURCE_ID, ROUTE_DURATION_LAYER_ID, durationSymbolLayer, belowLayerId: NBMAP_WAYNAME_LAYER);
+    controller.addSymbolLayer(ROUTE_DURATION_SOURCE_ID, ROUTE_DURATION_LAYER_ID, durationSymbolLayer, belowLayerId: NBMAP_WAYNAME_LAYER);
     routeLayers[ROUTE_DURATION_LAYER_ID] = durationSymbolLayer;
   }
 
@@ -127,14 +123,14 @@ class NavNextBillionMap {
           String waypointName = "$DESTINATION_MARKER_NAME${i+1}";
           var wayPointGeo = _generateWaypointSymbolGeo(destination, waypointName);
           wayPoints.add(wayPointGeo);
-          await _buildWaypointNumberView(waypointName, i+1);
+          _buildWaypointNumberView(waypointName, i+1);
         }
       }
     }
     var desGeo = _generateWaypointSymbolGeo(destination, DESTINATION_MARKER_NAME);
     wayPoints.add(desGeo);
 
-    await controller.setGeoJsonSource(WAYPOINT_SOURCE_ID, buildFeatureCollection(wayPoints));
+    controller.setGeoJsonSource(WAYPOINT_SOURCE_ID, buildFeatureCollection(wayPoints));
   }
 
   Map<String, dynamic> _generateWaypointSymbolGeo(Coordinate coordinate, String propertiesValue) {
@@ -165,7 +161,7 @@ class NavNextBillionMap {
       durationSymbols.add(geoJson);
       await _setRouteDurationSymbol(durationSymbolKey, i, route);
     }
-    await controller.setGeoJsonSource(ROUTE_DURATION_SOURCE_ID, buildFeatureCollection(durationSymbols));
+    controller.setGeoJsonSource(ROUTE_DURATION_SOURCE_ID, buildFeatureCollection(durationSymbols));
   }
 
   Future<void> _setRouteDurationSymbol(String durationSymbolKey, int index, DirectionsRoute route) async {
@@ -179,7 +175,7 @@ class NavNextBillionMap {
       alternativeTextStyle: routeLineProperties.durationSymbolAlternativeTextStyle,
     );
     var image = await CaptureImageUtil.createImageFromWidget(widgetToImageConverter, imageSize: const Size(100, 60));
-    await controller.addImage(durationSymbolKey, image!);
+    controller.addImage(durationSymbolKey, image!);
   }
 
   /// Toggles the visibility of alternative routes on the map.
@@ -215,8 +211,8 @@ class NavNextBillionMap {
     }
     var origin = await transferAssetImage(routeLineProperties.originMarkerName);
     var destination = await transferAssetImage(routeLineProperties.destinationMarkerName);
-    await controller.addImage(ORIGIN_MARKER_NAME, origin);
-    await controller.addImage(DESTINATION_MARKER_NAME, destination);
+    controller.addImage(ORIGIN_MARKER_NAME, origin);
+    controller.addImage(DESTINATION_MARKER_NAME, destination);
   }
 
   Future<void> _addSource() async {
