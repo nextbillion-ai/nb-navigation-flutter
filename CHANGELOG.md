@@ -1,3 +1,7 @@
+## v0.4.0, May 10, 2024
+* Update the android navigation native framework to 1.3.0
+* Update nb_maps_flutter dependency to 0.3.5
+
 ## v0.3.6, May 8, 2024
 * Update nb_maps_flutter dependency to 0.3.4
 * Remove unnecessary await in the NavNextbillionMap
