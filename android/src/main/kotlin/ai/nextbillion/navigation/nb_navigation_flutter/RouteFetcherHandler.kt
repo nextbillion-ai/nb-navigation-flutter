@@ -8,10 +8,11 @@ import ai.nextbillion.kits.turf.TurfMeasurement
 import ai.nextbillion.kits.turf.TurfMisc
 import ai.nextbillion.navigation.core.routefetcher.RouteFetcher
 import ai.nextbillion.navigation.core.utils.time.TimeFormatter
-import ai.nextbillion.navigation.ui.NBNavigation.fetchRoute
 import android.app.Activity
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -105,15 +106,26 @@ class RouteFetcherHandler(methodChannel: MethodChannel?) : MethodChannelHandler(
                         args["routeResult"] = routeArray
                     }
                 } else {
-                    args["error"] = response.code().toString()
+                    var jsonObj: JSONObject? = null
+                     try {
+                        jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                        val errorMsg = jsonObj.getString("msg")
+                        val errorCode = jsonObj.getInt("status")
+                         args["message"] = errorMsg
+                         args["errorCode"] = errorCode
+                    } catch (e: JSONException) {
+                         args["message"] = "Request failed"
+                         args["errorCode"] = -1
+                     }
                 }
                 result.success(args)
 
             }
 
             override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
-                val args = mutableMapOf<String,String>()
-                args["error"] = t?.message ?: "Request failed"
+                val args = mutableMapOf<String,Any>()
+                args["message"] = t?.message ?: "Request failed"
+                args["errorCode"] = -1
                 result.success(args)
             }
 

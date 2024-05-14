@@ -8,7 +8,7 @@
 import Foundation
 extension NSError {
     func toastError() -> String {
-        var errorStr = "errorcode: \(self.code)\n"
+        var errorStr = ""
         if let failedReason = self.userInfo[NSLocalizedFailureReasonErrorKey] {
             errorStr += "\(failedReason) \n"
         } else {

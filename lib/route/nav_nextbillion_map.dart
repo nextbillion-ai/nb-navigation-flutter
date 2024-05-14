@@ -10,8 +10,12 @@ class NavNextBillionMap {
   List<List<LatLng>> routeLines = [];
   OnRouteSelectedCallback? onRouteSelectedCallback;
 
-  NavNextBillionMap(this.controller, {this.routeLineProperties = const RouteLineProperties()}) {
-    initGeoJsonSource();
+  NavNextBillionMap._create(this.controller, {this.routeLineProperties = const RouteLineProperties()});
+
+  static NavNextBillionMap create(NextbillionMapController controller, {RouteLineProperties routeLineProperties = const RouteLineProperties()}) {
+    var navMap = NavNextBillionMap._create(controller, routeLineProperties: routeLineProperties);
+    navMap.initGeoJsonSource();
+    return navMap;
   }
 
   void initGeoJsonSource() {
@@ -58,7 +62,7 @@ class NavNextBillionMap {
   }
 
   /// Draws the route on the map based on the provided [routes].
-  Future<void> drawRoute(List<DirectionsRoute> routes) async {
+  void drawRoute(List<DirectionsRoute> routes) {
     if (controller.disposed) {
       return;
     }
@@ -84,6 +88,9 @@ class NavNextBillionMap {
   }
 
   void _drawRoutesFeatureCollections(List<DirectionsRoute> routes) {
+    if (controller.disposed) {
+      return;
+    }
     List<Map<String, dynamic>> routeLineFeatures = [];
 
     for (int i = 0; i < routes.length; i++) {
@@ -109,7 +116,10 @@ class NavNextBillionMap {
     return routeOptions?.geometry == SupportedGeometry.polyline ? PRECISION : PRECISION_6;
   }
 
-  Future<void> _drawWayPoints(DirectionsRoute route) async {
+  void _drawWayPoints(DirectionsRoute route) {
+    if (controller.disposed) {
+      return;
+    }
     List<Map<String, dynamic>> wayPoints = [];
     Coordinate origin = route.legs.first.steps!.first.maneuver!.coordinate!;
     Coordinate destination =  route.legs.last.steps!.last.maneuver!.coordinate!;
@@ -141,6 +151,9 @@ class NavNextBillionMap {
   }
 
   _buildWaypointNumberView(String waypointName, int index) async {
+    if (controller.disposed) {
+      return;
+    }
     Widget numberView = WaypointNumberView(index);
     var image = await CaptureImageUtil.createImageFromWidget(numberView, imageSize: const Size(14, 14));
     controller.addImage(waypointName, image!);
@@ -161,6 +174,9 @@ class NavNextBillionMap {
       durationSymbols.add(geoJson);
       await _setRouteDurationSymbol(durationSymbolKey, i, route);
     }
+    if (controller.disposed) {
+      return;
+    }
     controller.setGeoJsonSource(ROUTE_DURATION_SOURCE_ID, buildFeatureCollection(durationSymbols));
   }
 
@@ -175,6 +191,9 @@ class NavNextBillionMap {
       alternativeTextStyle: routeLineProperties.durationSymbolAlternativeTextStyle,
     );
     var image = await CaptureImageUtil.createImageFromWidget(widgetToImageConverter, imageSize: const Size(100, 60));
+    if (controller.disposed) {
+      return;
+    }
     controller.addImage(durationSymbolKey, image!);
   }
 
@@ -215,7 +234,7 @@ class NavNextBillionMap {
     controller.addImage(DESTINATION_MARKER_NAME, destination);
   }
 
-  Future<void> _addSource() async {
+  void _addSource() {
     if (controller.disposed) {
       return;
     }
