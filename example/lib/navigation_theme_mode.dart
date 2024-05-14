@@ -24,7 +24,7 @@ class NavigationThemeState extends State<NavigationTheme> {
 
   void _onStyleLoaded() async {
     if (controller != null) {
-      navNextBillionMap = NavNextBillionMap(controller!);
+      navNextBillionMap = NavNextBillionMap.create(controller!);
     }
   }
 
@@ -76,16 +76,15 @@ class NavigationThemeState extends State<NavigationTheme> {
       mode: ValidModes.car,
     );
 
-    await NBNavigation.fetchRoute(requestParams, (routes, error) async {
-      if (routes.isNotEmpty) {
+    DirectionsRouteResponse routeResponse = await NBNavigation.fetchRoute(requestParams);
+    if (routeResponse.directionsRoutes.isNotEmpty) {
         setState(() {
-          this.routes = routes;
+          routes = routeResponse.directionsRoutes;
         });
         drawRoutes(routes);
-      } else if (error != null) {
-        print("====error====${error}");
-      }
-    });
+    } else if (routeResponse.message != null) {
+      print("====error====${routeResponse.message}===${routeResponse.errorCode}");
+    }
   }
 
   void _startNavigation() {
@@ -100,7 +99,7 @@ class NavigationThemeState extends State<NavigationTheme> {
 
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
     navNextBillionMap.clearRoute();
-    await navNextBillionMap.drawRoute(routes);
+    navNextBillionMap.drawRoute(routes);
   }
 
   @override
