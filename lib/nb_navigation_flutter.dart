@@ -20,6 +20,7 @@ part 'model/navigation_launcher_config.dart';
 part 'model/route_request_params.dart';
 part 'model/route_request_params_constants.dart';
 part 'model/route_step.dart';
+part 'model/route_response.dart';
 
 part 'private/nb_navigation.dart';
 part 'private/method_channel_nb_navigation.dart';

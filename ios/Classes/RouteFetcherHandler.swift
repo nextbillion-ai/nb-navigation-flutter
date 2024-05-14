@@ -96,7 +96,7 @@ class RouteFetcherHandler: MethodChannelHandler {
         
         Directions.shared.calculate(options, completionHandler: {(potentialRoutes, potentialError) in
             if let error = potentialError {
-                result(["error": error.toastError()])
+                result(["message": error.toastError(), "errorCode": error.code])
             }
             
             guard let routes = potentialRoutes else { return }

@@ -33,7 +33,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
           routeShieldColor: Color(0xFF54E910),
           durationSymbolPrimaryBackgroundColor: Color(0xFFE97F2F)
       );
-      navNextBillionMap = NavNextBillionMap(controller!, routeLineProperties: routeLineStyle);
+      navNextBillionMap = NavNextBillionMap.create(controller!, routeLineProperties: routeLineStyle);
     }
   }
 
@@ -78,16 +78,15 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
       mode: ValidModes.car,
     );
 
-    await NBNavigation.fetchRoute(requestParams, (routes, error) async {
-      if (routes.isNotEmpty) {
-        setState(() {
-          this.routes = routes;
-        });
-        drawRoutes(routes);
-      } else if (error != null) {
-        print("====error====${error}");
-      }
-    });
+    DirectionsRouteResponse routeResponse = await NBNavigation.fetchRoute(requestParams);
+    if (routeResponse.directionsRoutes.isNotEmpty) {
+      setState(() {
+        routes = routeResponse.directionsRoutes;
+      });
+      drawRoutes(routes);
+    } else if (routeResponse.message != null) {
+      print("====error====${routeResponse.message}===${routeResponse.errorCode}");
+    }
   }
 
   void _startNavigation() {
@@ -102,7 +101,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
 
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
     navNextBillionMap.clearRoute();
-    await navNextBillionMap.drawRoute(routes);
+    navNextBillionMap.drawRoute(routes);
   }
 
   @override

@@ -5,9 +5,9 @@ class NBNavigation {
 
   /// Fetches a route based on the provided [routeRequestParams].
   /// The [routeResultCallBack] will be invoked with the result.
-  static Future<void> fetchRoute(
-      RouteRequestParams routeRequestParams, OnGetRouteResultCallBack routeResultCallBack) async {
-    await _nbNavigationPlatform.fetchRoute(routeRequestParams, routeResultCallBack);
+  static Future<DirectionsRouteResponse> fetchRoute(
+      RouteRequestParams routeRequestParams) async {
+    return await _nbNavigationPlatform.fetchRoute(routeRequestParams);
   }
 
   /// Starts the navigation using the provided [launcherConfig].

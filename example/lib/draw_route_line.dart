@@ -29,7 +29,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
 
   void _onStyleLoaded() async {
     if (controller != null) {
-      navNextBillionMap = NavNextBillionMap(controller!);
+      navNextBillionMap = NavNextBillionMap.create(controller!);
     }
   }
 
@@ -98,16 +98,15 @@ class DrawRouteLineState extends State<DrawRouteLine> {
       mode: ValidModes.car,
     );
 
-    NBNavigation.fetchRoute(requestParams, (routes, error) {
-      if (routes.isNotEmpty) {
-        setState(() {
-          this.routes = routes;
-        });
-        drawRoutes(routes);
-      } else if (error != null) {
-        print("====error====${error}");
-      }
-    });
+    DirectionsRouteResponse routeResponse = await NBNavigation.fetchRoute(requestParams);
+    if (routeResponse.directionsRoutes.isNotEmpty) {
+      setState(() {
+        routes = routeResponse.directionsRoutes;
+      });
+      drawRoutes(routes);
+    } else if (routeResponse.message != null) {
+      print("====error====${routeResponse.message}===${routeResponse.errorCode}");
+    }
   }
 
   void _startNavigation() {
