@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
+
 class LaunchNavigation extends StatefulWidget {
   static const String title = "Route Request and Launch Navigation";
 
@@ -32,7 +33,8 @@ class LaunchNavigationState extends State<LaunchNavigation> {
                 const Padding(padding: EdgeInsets.only(left: 8)),
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.blueAccent),
                   ),
                   onPressed: () {
                     _fetchRoute();
@@ -42,7 +44,8 @@ class LaunchNavigationState extends State<LaunchNavigation> {
                 const Padding(padding: EdgeInsets.only(left: 8)),
                 ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                      backgroundColor: MaterialStateProperty.all(
+                          routes.isEmpty ? Colors.grey : Colors.blueAccent),
                       enableFeedback: routes.isNotEmpty),
                   onPressed: () {
                     _startNavigation();
@@ -53,7 +56,8 @@ class LaunchNavigationState extends State<LaunchNavigation> {
             ),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: Text("route info: ${routes.isEmpty ? "" : routes.first.geometry ?? ""}"),
+              child: Text(
+                  "route info: ${routes.isEmpty ? "" : routes.first.geometry ?? ""}"),
             )
           ],
         ),
@@ -63,7 +67,7 @@ class LaunchNavigationState extends State<LaunchNavigation> {
 
   void _fetchRoute() async {
     LatLng origin = LatLng(1.312533169133601, 103.75986708439264);
-    LatLng dest = LatLng( 1.310473772283314, 103.77982271935586);
+    LatLng dest = LatLng(1.310473772283314, 103.77982271935586);
 
     RouteRequestParams requestParams = RouteRequestParams(
       origin: origin,
@@ -78,20 +82,22 @@ class LaunchNavigationState extends State<LaunchNavigation> {
       mode: ValidModes.car,
     );
 
-    await NBNavigation.fetchRoute(requestParams, (routes, error) async {
+    try {
+      var routes = await NBNavigation.fetchRoute(requestParams);
       if (routes.isNotEmpty) {
         setState(() {
           this.routes = routes;
         });
-      } else if (error != null) {
-        print("====error====${error}");
       }
-    });
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _startNavigation() {
     if (routes.isEmpty) return;
-    NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
+    NavigationLauncherConfig config =
+        NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
     config.shouldSimulateRoute = true;
     config.themeMode = NavigationThemeMode.system;

@@ -76,16 +76,18 @@ class NavigationThemeState extends State<NavigationTheme> {
       mode: ValidModes.car,
     );
 
-    await NBNavigation.fetchRoute(requestParams, (routes, error) async {
+
+    try {
+      var routes = await NBNavigation.fetchRoute(requestParams);
       if (routes.isNotEmpty) {
         setState(() {
           this.routes = routes;
         });
         drawRoutes(routes);
-      } else if (error != null) {
-        print("====error====${error}");
       }
-    });
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _startNavigation() {
@@ -98,9 +100,9 @@ class NavigationThemeState extends State<NavigationTheme> {
     NBNavigation.startNavigation(config);
   }
 
-  Future<void> drawRoutes(List<DirectionsRoute> routes) async {
+  void drawRoutes(List<DirectionsRoute> routes) {
     navNextBillionMap.clearRoute();
-    await navNextBillionMap.drawRoute(routes);
+    navNextBillionMap.drawRoute(routes);
   }
 
   @override

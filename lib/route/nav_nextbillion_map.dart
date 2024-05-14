@@ -58,7 +58,7 @@ class NavNextBillionMap {
   }
 
   /// Draws the route on the map based on the provided [routes].
-  Future<void> drawRoute(List<DirectionsRoute> routes) async {
+  void drawRoute(List<DirectionsRoute> routes)  {
     if (controller.disposed) {
       return;
     }

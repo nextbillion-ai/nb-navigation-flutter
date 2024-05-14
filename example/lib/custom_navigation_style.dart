@@ -78,16 +78,12 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
       mode: ValidModes.car,
     );
 
-    await NBNavigation.fetchRoute(requestParams, (routes, error) async {
-      if (routes.isNotEmpty) {
-        setState(() {
-          this.routes = routes;
-        });
-        drawRoutes(routes);
-      } else if (error != null) {
-        print("====error====${error}");
-      }
-    });
+    try {
+      routes = await NBNavigation.fetchRoute(requestParams);
+      drawRoutes(routes);
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _startNavigation() {
@@ -100,9 +96,9 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
     NBNavigation.startNavigation(config);
   }
 
-  Future<void> drawRoutes(List<DirectionsRoute> routes) async {
+  void drawRoutes(List<DirectionsRoute> routes)  {
     navNextBillionMap.clearRoute();
-    await navNextBillionMap.drawRoute(routes);
+    navNextBillionMap.drawRoute(routes);
   }
 
   @override

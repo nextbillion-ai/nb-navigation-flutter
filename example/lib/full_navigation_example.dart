@@ -169,22 +169,22 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
       requestParams.waypoints = waypoints.sublist(0, waypoints.length - 1);
     }
 
-    NBNavigation.fetchRoute(requestParams, (routes, error) {
-      if (routes.isNotEmpty) {
+
+    try {
+      var newRoutes = await NBNavigation.fetchRoute(requestParams);
+      if (newRoutes.isNotEmpty) {
         clearRouteResult();
-        setState(() {
-          this.routes = routes;
-        });
+        routes = newRoutes;
         drawRoutes(routes);
         fitCameraToBounds(routes);
         addImageFromAsset(destination);
-      } else if (error != null) {
-        print("====error====${error}");
       }
-    });
+    } catch (e) {
+      print(e);
+    }
   }
 
-  Future<void> drawRoutes(List<DirectionsRoute> routes) async {
+  void drawRoutes(List<DirectionsRoute> routes) {
     // navNextBillionMap.toggleDurationSymbolVisibilityWith(false);
     navNextBillionMap.drawRoute(routes);
   }

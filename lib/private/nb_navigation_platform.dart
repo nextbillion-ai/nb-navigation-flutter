@@ -12,7 +12,7 @@ abstract class NBNavigationPlatform {
 
   OnNavigationExitCallback? navigationExitCallback;
 
-  Future<void> fetchRoute(RouteRequestParams routeRequestParams, OnGetRouteResultCallBack routeResultCallBack);
+  Future<List<DirectionsRoute>> fetchRoute(RouteRequestParams routeRequestParams);
 
   Future<void> startNavigation(NavigationLauncherConfig launcherConfig);
 

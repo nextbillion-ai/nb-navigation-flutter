@@ -98,16 +98,19 @@ class DrawRouteLineState extends State<DrawRouteLine> {
       mode: ValidModes.car,
     );
 
-    NBNavigation.fetchRoute(requestParams, (routes, error) {
-      if (routes.isNotEmpty) {
-        setState(() {
-          this.routes = routes;
-        });
-        drawRoutes(routes);
-      } else if (error != null) {
-        print("====error====${error}");
-      }
-    });
+    try {
+      routes = await NBNavigation.fetchRoute(requestParams);
+      drawRoutes(routes);
+    } catch (e) {
+      print(e);
+    }
+
+    try {
+      routes = await NBNavigation.fetchRoute(requestParams);
+      await drawRoutes(routes);
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _startNavigation() {

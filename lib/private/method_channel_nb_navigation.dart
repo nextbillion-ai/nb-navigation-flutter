@@ -24,18 +24,16 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
   }
 
   @override
-  Future<void> fetchRoute(RouteRequestParams routeRequestParams, OnGetRouteResultCallBack routeResultCallBack) async {
-    onGetRouteResultCallBack = routeResultCallBack;
+  Future<List<DirectionsRoute>> fetchRoute(RouteRequestParams routeRequestParams) async {
     try {
-      Map<dynamic, dynamic> result =
-          await _channel.invokeMethod(NBRouteMethodID.nbFetchRouteMethod, jsonEncode(routeRequestParams));
-      _handleRouteResult(result);
-    } on PlatformException catch (e) {
-      print(e.toString());
+      Map<dynamic, dynamic> result = await _channel.invokeMethod(NBRouteMethodID.nbFetchRouteMethod, jsonEncode(routeRequestParams));
+      return _handleRouteResult(result);
+    } catch (e) {
+      rethrow;
     }
   }
 
-  void _handleRouteResult(Map<dynamic, dynamic> result) {
+  List<DirectionsRoute> _handleRouteResult(Map<dynamic, dynamic> result) {
     List<String> routeJson = List<String>.from(result["routeResult"] ?? []);
     String error = result["error"] ?? "";
     Map<dynamic, dynamic> routeRequest = result["routeOptions"] ?? {};
@@ -56,9 +54,11 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
       }
     }
 
-    if (onGetRouteResultCallBack != null) {
-      onGetRouteResultCallBack!(routes, error);
+    if (error.isNotEmpty) {
+      throw Exception(error);
     }
+
+    return routes;
   }
 
   @override
