@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class WaypointNumberView extends StatelessWidget {
-  int index;
-  WaypointNumberView(this.index, {super.key});
+  final int index;
+  const WaypointNumberView(this.index, {super.key});
 
   @override
   Widget build(BuildContext context) {
