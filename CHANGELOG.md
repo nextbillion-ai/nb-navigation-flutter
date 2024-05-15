@@ -1,3 +1,11 @@
+## v0.4.1, May 14, 2024
+* Refactor the way to return route results from NBNavigation.fetchRoute()
+  * Remove the route result callback from NBNavigation.fetchRoute()
+  * Return the route result with `Future<DirectionsRouteResponse>`
+* Refactor NavNextbillionMap constructor
+  * Remove the unnecessary await from constructor 
+  * Use factory to initialize NavNextbillionMap constructor
+
 ## v0.4.0, May 10, 2024
 * Update the android navigation native framework to 1.3.0
 * Update nb_maps_flutter dependency to 0.3.5

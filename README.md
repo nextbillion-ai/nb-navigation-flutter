@@ -120,9 +120,9 @@ RouteRequestParams requestParams = RouteRequestParams(
     );
 ```
 #### Fetch routes
-Fetch route with requestParams using NBNavigation.fetchRoute(), and get the routes in the route result callback `Callback(List<DirectionsRoute> routes, String error)`
+Fetch route with requestParams using NBNavigation.fetchRoute(), and obtain the route result from `Future<DirectionsRouteResponse>`.
 ```
-await NBNavigation.fetchRoute(requestParams, (routes, error) async { });
+DirectionsRouteResponse routeResponse = await NBNavigation.fetchRoute(requestParams);
 ```
 
 
@@ -137,14 +137,14 @@ void _onMapCreated(NextbillionMapController controller) {
 
 void _onStyleLoaded() {
     if (controller != null) {
-      navNextBillionMap = NavNextBillionMap(controller!);
+      navNextBillionMap = NavNextBillionMap.create(controller!);
     }
   }
 ```
 
 #### Draw routes
 ```
-await navNextBillionMap.drawRoute(routes);
+navNextBillionMap.drawRoute(routes);
 ```
 
 #### Fit Map camera to route points
