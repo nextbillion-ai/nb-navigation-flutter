@@ -4,20 +4,20 @@ class CaptureImageUtil {
   static Future<Uint8List?> createImageFromWidget(Widget widget, {Duration? wait, required Size imageSize}) async {
     var devicePixelRatio = ui.window.devicePixelRatio;
     final RenderRepaintBoundary repaintBoundary = RenderRepaintBoundary();
+    final lastView = ui.PlatformDispatcher.instance.views.single;
     final RenderView renderView = RenderView(
-      child: RenderPositionedBox(alignment: Alignment.center, child: repaintBoundary),
-      configuration: ViewConfiguration(
-        size: imageSize,
-        devicePixelRatio: devicePixelRatio,
-      ),
-      view: ui.PlatformDispatcher.instance.views.single
-    );
+        child: RenderPositionedBox(alignment: Alignment.center, child: repaintBoundary),
+        configuration: ViewConfiguration(
+          physicalConstraints: BoxConstraints.tight(imageSize) * lastView.devicePixelRatio,
+          logicalConstraints: BoxConstraints.tight(imageSize),
+          devicePixelRatio: lastView.devicePixelRatio,
+        ),
+        view: ui.PlatformDispatcher.instance.views.single);
     final PipelineOwner pipelineOwner = PipelineOwner();
     late BuildOwner buildOwner;
     try {
       buildOwner = BuildOwner(focusManager: FocusManager());
-    } catch (e) {
-    }
+    } catch (e) {}
 
     late RenderObjectToWidgetElement<RenderBox> rootElement;
     try {
@@ -29,8 +29,7 @@ class CaptureImageUtil {
             textDirection: TextDirection.ltr,
             child: widget,
           )).attachToRenderTree(buildOwner);
-    } catch (e) {
-    }
+    } catch (e) {}
 
     if (wait != null) {
       await Future.delayed(wait);
