@@ -1,5 +1,5 @@
 ## v0.4.3, May 15, 2024
-* Configure the maximum flutter version to 3.22.0 and fix the build error
+* Configure the minimum flutter version to 3.22.0 and fix the build error
   * Error: No named parameter with the name 'size'
 
 ## v0.4.1, May 14, 2024
