@@ -43,4 +43,13 @@ class NBNavigation {
   static Future<void> startPreviewNavigation(DirectionsRoute route) async {
     return await _nbNavigationPlatform.startPreviewNavigation(route);
   }
+
+  static Future<Uint8List?> captureRouteDurationSymbol(DirectionsRoute route, bool isPrimaryRoute) async {
+    return await _nbNavigationPlatform.captureRouteDurationSymbol(route, isPrimaryRoute);
+  }
+
+  static Future<Uint8List?> captureRouteWaypoints(int waypointIndex) async {
+    return await _nbNavigationPlatform.captureRouteWaypoints(waypointIndex);
+  }
+
 }

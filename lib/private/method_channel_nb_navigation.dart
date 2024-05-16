@@ -25,7 +25,8 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
 
   @override
   Future<DirectionsRouteResponse> fetchRoute(RouteRequestParams routeRequestParams) async {
-    Map<dynamic, dynamic> result = await _channel.invokeMethod(NBRouteMethodID.nbFetchRouteMethod, jsonEncode(routeRequestParams));
+    Map<dynamic, dynamic> result =
+        await _channel.invokeMethod(NBRouteMethodID.nbFetchRouteMethod, jsonEncode(routeRequestParams));
     return _handleRouteResult(result);
   }
 
@@ -51,7 +52,6 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
       }
     }
     return DirectionsRouteResponse(directionsRoutes: routes, message: message, errorCode: errorCode);
-
   }
 
   @override
@@ -110,7 +110,8 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
   @override
   Future<String> getFormattedDuration(num durationSeconds) async {
     try {
-      return await _channel.invokeMethod(NBRouteMethodID.routeFormattedDuration, {"duration": durationSeconds.toDouble()});
+      return await _channel
+          .invokeMethod(NBRouteMethodID.routeFormattedDuration, {"duration": durationSeconds.toDouble()});
     } on PlatformException catch (e) {
       print(e.toString());
     }
@@ -124,5 +125,27 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
     } on PlatformException catch (e) {
       print(e.toString());
     }
+  }
+
+  @override
+  Future<Uint8List?> captureRouteDurationSymbol(DirectionsRoute route, bool isPrimaryRoute) async {
+    try {
+      return await _channel.invokeMethod(NBRouteMethodID.navigationCaptureRouteDurationSymbol,
+          {"duration": route.duration?.toDouble() ?? 0, "isPrimaryRoute": isPrimaryRoute});
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+    return null;
+  }
+
+  @override
+  Future<Uint8List?> captureRouteWaypoints(int waypointIndex) async {
+    try {
+      return await _channel
+          .invokeMethod(NBRouteMethodID.navigationCaptureRouteWaypoints, {"waypointIndex": waypointIndex});
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+    return null;
   }
 }
