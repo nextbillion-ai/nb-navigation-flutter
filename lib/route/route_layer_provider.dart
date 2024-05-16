@@ -86,7 +86,7 @@ class MapRouteLayerProvider {
   }
 
   SymbolLayerProperties initializeDurationSymbolLayer() {
-    var size = [0.5, 0.7, 0.9, 1.1];
+    var size = [0.8, 0.9, 0.9, 1.1];
     return SymbolLayerProperties(
         iconImage: [Expressions.get, ROUTE_DURATION_SYMBOL_ICON_KEY],
         iconSize: [
