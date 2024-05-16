@@ -102,6 +102,7 @@ class RouteFetcherHandler: MethodChannelHandler {
                 if let symbolImage = durationSymbol.screenshotImage() {
                     result(symbolImage.pngData())
                 }
+                result(nil)
             } else {
                 result(nil)
             }
@@ -119,6 +120,7 @@ class RouteFetcherHandler: MethodChannelHandler {
                 if let circularImage = circularView.captureScreenshot() {
                     result(circularImage.pngData())
                 }
+                result(nil)
             } else {
                 result(nil)
             }
