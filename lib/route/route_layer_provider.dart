@@ -64,7 +64,10 @@ class MapRouteLayerProvider {
   }
 
   SymbolLayerProperties initializeWayPointLayer(String originMarkerName, String destinationMarkerName) {
-    return const SymbolLayerProperties(iconImage: [
+    var sizeAndroid = [0.8, 1.2, 1.6, 2.8];
+    var sizeIos = [0.6, 0.8, 1.0, 2.2];
+    var size = Platform.isAndroid ? sizeAndroid : sizeIos;
+    return SymbolLayerProperties(iconImage: [
       Expressions.get,
       WAYPOINT_PROPERTY_KEY
     ], iconSize: [
@@ -72,31 +75,32 @@ class MapRouteLayerProvider {
       ['exponential', 1.5],
       [Expressions.zoom],
       0,
-      0.6,
+      size[0],
       10,
-      0.8,
+      size[1],
       12,
-      1.3,
+      size[2],
       22,
-      2.8,
+      size[3],
     ], iconPitchAlignment: 'map', iconAllowOverlap: true, iconIgnorePlacement: true);
   }
 
   SymbolLayerProperties initializeDurationSymbolLayer() {
-    return const SymbolLayerProperties(
+    var size = [0.5, 0.7, 0.9, 1.1];
+    return SymbolLayerProperties(
         iconImage: [Expressions.get, ROUTE_DURATION_SYMBOL_ICON_KEY],
         iconSize: [
           Expressions.interpolate,
           ['exponential', 1.5],
           [Expressions.zoom],
           0,
-          0.8,
+          size[0],
           10,
-          1.0,
+          size[1],
           12,
-          1.2,
+          size[2],
           22,
-          1.3,
+          size[3],
         ],
         iconAllowOverlap: true,
         symbolPlacement: 'point',

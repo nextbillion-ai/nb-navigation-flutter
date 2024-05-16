@@ -8,7 +8,11 @@ import ai.nextbillion.kits.turf.TurfMeasurement
 import ai.nextbillion.kits.turf.TurfMisc
 import ai.nextbillion.navigation.core.routefetcher.RouteFetcher
 import ai.nextbillion.navigation.core.utils.time.TimeFormatter
+import ai.nextbillion.navigation.ui.event.NextBillionNavigation
+import ai.nextbillion.navigation.ui.route.DefaultWayPointStyle
+import ai.nextbillion.navigation.ui.view.DurationSymbol
 import android.app.Activity
+import android.graphics.Bitmap
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import org.json.JSONException
@@ -16,6 +20,8 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
+
 
 /**
  * @author qiuyu
@@ -42,7 +48,7 @@ class RouteFetcherHandler(methodChannel: MethodChannel?) : MethodChannelHandler(
             MethodID.NAVIGATION_FIND_SELECTED_ROUTE -> {
                 findSelectedRouteIndex(call, result)
             }
-            MethodID.NAVIGATION__GET_FORMATTED_ROUTE_DURATION -> {
+            MethodID.NAVIGATION_GET_FORMATTED_ROUTE_DURATION -> {
                 val arguments = call.arguments as? Map<*, *>
                 val duration = arguments?.get("duration") as? Double
                 var formatDuration = ""
@@ -50,6 +56,33 @@ class RouteFetcherHandler(methodChannel: MethodChannel?) : MethodChannelHandler(
                     formatDuration = TimeFormatter.formatTimeRemaining(activity, duration).toString()
                 }
                 result.success(formatDuration)
+            }
+            MethodID.NAVIGATION_CAPTURE_ROUTE_DURATION_SYMBOL -> {
+                val arguments = call.arguments as? Map<*, *>
+                val duration = arguments?.get("duration") as? Double
+                val isPrimaryRoute = arguments?.get("isPrimaryRoute") as Boolean
+                val durationSymbol = DurationSymbol(activity)
+                durationSymbol.setDurationText(duration, false)
+                durationSymbol.setPrimaryStatus(isPrimaryRoute)
+                val bitmapSymbol = durationSymbol.shareContentShootByViewCache
+                val stream = ByteArrayOutputStream()
+                bitmapSymbol.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                val imageBytes = stream.toByteArray()
+                result.success(imageBytes)
+            }
+            MethodID.NAVIGATION_CAPTURE_ROUTE_WAY_POINTS -> {
+                val arguments = call.arguments as? Map<*, *>
+                val waypointIndex = arguments?.get("waypointIndex") as Int
+                var wayPointStyle = NextBillionNavigation.getInstance().wayPointStyle
+                if (wayPointStyle == null) {
+                    wayPointStyle = DefaultWayPointStyle()
+                }
+                val waypointBitmap = wayPointStyle.createWayPointBitmap(waypointIndex)
+
+                val stream = ByteArrayOutputStream()
+                waypointBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                val imageBytes = stream.toByteArray()
+                result.success(imageBytes)
             }
         }
     }

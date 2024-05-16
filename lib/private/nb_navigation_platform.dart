@@ -25,4 +25,8 @@ abstract class NBNavigationPlatform {
 
   Future<void> setOnNavigationExitCallback(OnNavigationExitCallback navigationExitCallback);
 
+  Future<Uint8List?> captureRouteDurationSymbol(DirectionsRoute route, bool isPrimaryRoute);
+
+  Future<Uint8List?> captureRouteWaypoints(int waypointIndex);
+
 }

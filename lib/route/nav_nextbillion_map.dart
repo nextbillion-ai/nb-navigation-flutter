@@ -154,9 +154,10 @@ class NavNextBillionMap {
     if (controller.disposed) {
       return;
     }
-    Widget numberView = WaypointNumberView(index);
-    var image = await CaptureImageUtil.createImageFromWidget(numberView, imageSize: const Size(14, 14));
-    controller.addImage(waypointName, image!);
+    var image = await NBNavigation.captureRouteWaypoints(index);
+    if (image != null) {
+      controller.addImage(waypointName, image);
+    }
   }
 
   Future<void> _drawRouteDurationSymbol(List<DirectionsRoute> routes) async {
@@ -181,20 +182,13 @@ class NavNextBillionMap {
   }
 
   Future<void> _setRouteDurationSymbol(String durationSymbolKey, int index, DirectionsRoute route) async {
-    String duration = await NBNavigation.getFormattedDuration(route.duration!.toDouble());
-    Widget widgetToImageConverter = DurationSymbol(
-      text: duration.toString().trimRight(),
-      isPrimary: index == 0,
-      primaryBackgroundColor: routeLineProperties.durationSymbolPrimaryBackgroundColor,
-      primaryTextStyle: routeLineProperties.durationSymbolPrimaryTextStyle,
-      alternativeBackgroundColor: routeLineProperties.durationSymbolAlternativeBackgroundColor,
-      alternativeTextStyle: routeLineProperties.durationSymbolAlternativeTextStyle,
-    );
-    var image = await CaptureImageUtil.createImageFromWidget(widgetToImageConverter, imageSize: const Size(100, 60));
+    var image = await NBNavigation.captureRouteDurationSymbol(route, index == 0);
     if (controller.disposed) {
       return;
     }
-    controller.addImage(durationSymbolKey, image!);
+    if (image != null) {
+      controller.addImage(durationSymbolKey, image);
+    }
   }
 
   /// Toggles the visibility of alternative routes on the map.

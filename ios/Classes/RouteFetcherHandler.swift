@@ -8,6 +8,7 @@
 import Foundation
 import Flutter
 import NbmapDirections
+import NbmapNavigation
 import Turf
 
 class RouteFetcherHandler: MethodChannelHandler {
@@ -71,7 +72,7 @@ class RouteFetcherHandler: MethodChannelHandler {
             if !candidates.isEmpty, let routeIndex = lines.firstIndex(of: candidates.first!) {
                 result(routeIndex)
             }
-        case MethodID.NAVIGATION__GET_FORMATTED_ROUTE_DURATION:
+        case MethodID.NAVIGATION_GET_FORMATTED_ROUTE_DURATION:
             guard let arguments = call.arguments as? [String: Any] else {
                 result("")
                 return
@@ -84,6 +85,38 @@ class RouteFetcherHandler: MethodChannelHandler {
                     durationText = (self.dateComponentsFormatter.string(from: TimeInterval(timeDuration)))!
                 }
                 result(durationText)
+            }
+            break
+            
+        case MethodID.NAVIGATION_CAPTURE_ROUTE_DURATION_SYMBOL:
+            guard let arguments = call.arguments as? [String: Any] else {
+                result(nil)
+                return
+            }
+            if let timeDuration = arguments["duration"] as? Double, let isPrimaryRoute = arguments["isPrimaryRoute"] as? Bool {
+                
+                let durationSymbol = RouteDurationSymbol.init(duration: timeDuration, isPrimary: isPrimaryRoute, durationSymbolType: NavigationMapView.DurationSymbolType.ROUTE_DURATION)
+                
+                if let symbolImage = durationSymbol.screenshotImage() {
+                    result(symbolImage.pngData())
+                }
+                result(nil)
+            }
+            break
+            
+        case MethodID.NAVIGATION_CAPTURE_ROUTE_WAY_POINTS:
+            guard let arguments = call.arguments as? [String: Any] else {
+                result(nil)
+                return
+            }
+            if let waypointIndex = arguments["waypointIndex"] as? Int {
+                
+                let indexString = String(waypointIndex)
+                let circularView = WayPointSymbol(frame: CGRect(x: 0, y: 0, width: 28, height: 28), labelText: indexString)
+                if let circularImage = circularView.captureScreenshot() {
+                    result(circularImage.pngData())
+                }
+                result(nil)
             }
             break
 

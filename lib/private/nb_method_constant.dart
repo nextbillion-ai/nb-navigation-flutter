@@ -11,6 +11,8 @@ class NBRouteMethodID {
   static const nbRouteSelectedIndexMethod = "route/findSelectedRouteIndex";
 
   static const routeFormattedDuration = "format/routeDuration";
+  static const navigationCaptureRouteDurationSymbol = "capture/routeDurationSymbol";
+  static const navigationCaptureRouteWaypoints = "capture/routeWayPoints";
 }
 
 class NBNavigationLauncherMethodID {

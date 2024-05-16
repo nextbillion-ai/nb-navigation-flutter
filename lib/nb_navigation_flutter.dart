@@ -34,6 +34,5 @@ part 'route/nav_nextbillion_map.dart';
 part 'route/route_layer_provider.dart';
 part 'route/route_line_properties.dart';
 
-part 'util/capture_image.dart';
 part 'util/line_utils.dart';
 part 'util/time_format.dart';
