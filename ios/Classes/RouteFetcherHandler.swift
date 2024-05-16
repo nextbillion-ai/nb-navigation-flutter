@@ -45,7 +45,7 @@ class RouteFetcherHandler: MethodChannelHandler {
                   let coordinates = args["coordinates"] as? [[[Double]]] else {
                 return
             }
-
+            
             let tapCoordinate = CLLocationCoordinate2D(latitude: clicked[0], longitude: clicked[1])
             var lines: [[CLLocationCoordinate2D]] = []
             for line in coordinates {
@@ -85,6 +85,8 @@ class RouteFetcherHandler: MethodChannelHandler {
                     durationText = (self.dateComponentsFormatter.string(from: TimeInterval(timeDuration)))!
                 }
                 result(durationText)
+            } else {
+                result("")
             }
             break
             
@@ -100,6 +102,7 @@ class RouteFetcherHandler: MethodChannelHandler {
                 if let symbolImage = durationSymbol.screenshotImage() {
                     result(symbolImage.pngData())
                 }
+            } else {
                 result(nil)
             }
             break
@@ -116,6 +119,7 @@ class RouteFetcherHandler: MethodChannelHandler {
                 if let circularImage = circularView.captureScreenshot() {
                     result(circularImage.pngData())
                 }
+            } else {
                 result(nil)
             }
             break

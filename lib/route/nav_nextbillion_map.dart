@@ -108,6 +108,9 @@ class NavNextBillionMap {
       return;
     }
     List<Map<String, dynamic>> reversed = routeLineFeatures.reversed.toList();
+    if (controller.disposed) {
+      return;
+    }
     controller.setGeoJsonSource(ROUTE_SHIELD_SOURCE_ID, buildFeatureCollection(reversed));
     controller.setGeoJsonSource(ROUTE_SOURCE_ID, buildFeatureCollection(reversed));
   }
@@ -139,7 +142,9 @@ class NavNextBillionMap {
     }
     var desGeo = _generateWaypointSymbolGeo(destination, DESTINATION_MARKER_NAME);
     wayPoints.add(desGeo);
-
+    if (controller.disposed) {
+      return;
+    }
     controller.setGeoJsonSource(WAYPOINT_SOURCE_ID, buildFeatureCollection(wayPoints));
   }
 
@@ -155,6 +160,9 @@ class NavNextBillionMap {
       return;
     }
     var image = await NBNavigation.captureRouteWaypoints(index);
+    if (controller.disposed) {
+      return;
+    }
     if (image != null) {
       controller.addImage(waypointName, image);
     }
@@ -224,6 +232,9 @@ class NavNextBillionMap {
     }
     var origin = await transferAssetImage(routeLineProperties.originMarkerName);
     var destination = await transferAssetImage(routeLineProperties.destinationMarkerName);
+    if (controller.disposed) {
+      return;
+    }
     controller.addImage(ORIGIN_MARKER_NAME, origin);
     controller.addImage(DESTINATION_MARKER_NAME, destination);
   }
