@@ -27,7 +27,6 @@ part 'private/nb_navigation_channel_factory.dart';
 part 'private/nb_navigation_platform.dart';
 
 part 'route/constants.dart';
-part 'route/duration_symbol.dart';
 part 'route/nav_nextbillion_map.dart';
 part 'route/route_layer_provider.dart';
 part 'route/route_line_properties.dart';
