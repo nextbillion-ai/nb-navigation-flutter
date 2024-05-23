@@ -30,12 +30,17 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
 
   _onStyleLoadedCallback() {
     if (controller != null) {
-      navNextBillionMap = NavNextBillionMap.create(controller!);
-      loadAssetImage();
-    }
-    Fluttertoast.showToast(msg: "Long click to select destination and fetch a route");
-    if (currentLocation != null) {
-      controller?.animateCamera(CameraUpdate.newLatLngZoom(currentLocation!.position, 14), duration: Duration(milliseconds: 400));
+      NavNextBillionMap.create(controller!).then((value) {
+        navNextBillionMap = value;
+        loadAssetImage();
+        Fluttertoast.showToast(
+            msg: "Long press to select a destination to fetch a route");
+        if (currentLocation != null) {
+          controller?.animateCamera(
+              CameraUpdate.newLatLngZoom(currentLocation!.position, 14),
+              duration: const Duration(milliseconds: 400));
+        }
+      });
     }
   }
 
@@ -43,9 +48,9 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
     _fetchRoute(coordinates);
   }
 
-
   _onMapClick(Point<double> point, LatLng coordinates) {
-    navNextBillionMap.addRouteSelectedListener(coordinates, (selectedRouteIndex) {
+    navNextBillionMap.addRouteSelectedListener(coordinates,
+        (selectedRouteIndex) {
       if (routes.isNotEmpty && selectedRouteIndex != 0) {
         var selectedRoute = routes[selectedRouteIndex];
         routes.removeAt(selectedRouteIndex);
@@ -103,7 +108,8 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
                       height: 28,
                     ),
                     onTap: () {
-                      controller?.updateMyLocationTrackingMode(MyLocationTrackingMode.Tracking);
+                      controller?.updateMyLocationTrackingMode(
+                          MyLocationTrackingMode.Tracking);
                       setState(() {
                         locationTrackImage = 'assets/location_on.png';
                       });
@@ -115,7 +121,8 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
                 children: [
                   ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                          backgroundColor: MaterialStateProperty.all(
+                              routes.isEmpty ? Colors.grey : Colors.blueAccent),
                           enableFeedback: routes.isNotEmpty),
                       onPressed: () {
                         clearRouteResult();
@@ -125,7 +132,8 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
                   const Padding(padding: EdgeInsets.only(left: 8)),
                   ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                          backgroundColor: MaterialStateProperty.all(
+                              routes.isEmpty ? Colors.grey : Colors.blueAccent),
                           enableFeedback: routes.isNotEmpty),
                       onPressed: () {
                         _startNavigation();
@@ -144,7 +152,6 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
       ],
     );
   }
-
 
   void _fetchRoute(LatLng destination) async {
     if (currentLocation == null) {
@@ -169,8 +176,8 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
       requestParams.waypoints = waypoints.sublist(0, waypoints.length - 1);
     }
 
-
-    DirectionsRouteResponse routeResponse = await NBNavigation.fetchRoute(requestParams);
+    DirectionsRouteResponse routeResponse =
+        await NBNavigation.fetchRoute(requestParams);
     if (routeResponse.directionsRoutes.isNotEmpty) {
       clearRouteResult();
       setState(() {
@@ -180,7 +187,8 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
       fitCameraToBounds(routes);
       addImageFromAsset(destination);
     } else if (routeResponse.message != null) {
-      print("====error====${routeResponse.message}===${routeResponse.errorCode}");
+      print(
+          "====error====${routeResponse.message}===${routeResponse.errorCode}");
     }
   }
 
@@ -192,17 +200,21 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
   void fitCameraToBounds(List<DirectionsRoute> routes) {
     List<LatLng> multiPoints = [];
     for (var route in routes) {
-       var routePoints = decode(route.geometry ?? '', _getDecodePrecision(route.routeOptions));
-       multiPoints.addAll(routePoints);
+      var routePoints =
+          decode(route.geometry ?? '', _getDecodePrecision(route.routeOptions));
+      multiPoints.addAll(routePoints);
     }
     if (multiPoints.isNotEmpty) {
       var latLngBounds = LatLngBounds.fromMultiLatLng(multiPoints);
-      controller?.animateCamera(CameraUpdate.newLatLngBounds(latLngBounds, top: 50, left: 50, right: 50, bottom: 50));
+      controller?.animateCamera(CameraUpdate.newLatLngBounds(latLngBounds,
+          top: 50, left: 50, right: 50, bottom: 50));
     }
   }
 
   int _getDecodePrecision(RouteRequestParams? routeOptions) {
-    return routeOptions?.geometry == SupportedGeometry.polyline ? PRECISION : PRECISION_6;
+    return routeOptions?.geometry == SupportedGeometry.polyline
+        ? precision
+        : precision6;
   }
 
   void clearRouteResult() async {
@@ -215,7 +227,8 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
 
   void _startNavigation() {
     if (routes.isEmpty) return;
-    NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
+    NavigationLauncherConfig config =
+        NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
     config.shouldSimulateRoute = false;
     config.themeMode = NavigationThemeMode.system;

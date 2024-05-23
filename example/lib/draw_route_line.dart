@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -17,8 +16,14 @@ class DrawRouteLineState extends State<DrawRouteLine> {
   List<DirectionsRoute> routes = [];
   late NavNextBillionMap navNextBillionMap;
 
-  LatLng origin = LatLng( 17.457302037173775, 78.37463792413473, );
-  LatLng dest = LatLng(17.466320809357967, 78.3726774987914, );
+  LatLng origin = const LatLng(
+    17.457302037173775,
+    78.37463792413473,
+  );
+  LatLng dest = const LatLng(
+    17.466320809357967,
+    78.3726774987914,
+  );
 
   bool enableAlternativeRoutes = true;
   bool enableRouteDurationSymbol = true;
@@ -29,12 +34,13 @@ class DrawRouteLineState extends State<DrawRouteLine> {
 
   void _onStyleLoaded() async {
     if (controller != null) {
-      navNextBillionMap = NavNextBillionMap.create(controller!);
+      navNextBillionMap = await NavNextBillionMap.create(controller!);
     }
   }
 
   _onMapClick(Point<double> point, LatLng coordinates) {
-    navNextBillionMap.addRouteSelectedListener(coordinates, (selectedRouteIndex) {
+    navNextBillionMap.addRouteSelectedListener(coordinates,
+        (selectedRouteIndex) {
       if (routes.isNotEmpty && selectedRouteIndex != 0) {
         var selectedRoute = routes[selectedRouteIndex];
         routes.removeAt(selectedRouteIndex);
@@ -98,20 +104,23 @@ class DrawRouteLineState extends State<DrawRouteLine> {
       mode: ValidModes.car,
     );
 
-    DirectionsRouteResponse routeResponse = await NBNavigation.fetchRoute(requestParams);
+    DirectionsRouteResponse routeResponse =
+        await NBNavigation.fetchRoute(requestParams);
     if (routeResponse.directionsRoutes.isNotEmpty) {
       setState(() {
         routes = routeResponse.directionsRoutes;
       });
       drawRoutes(routes);
     } else if (routeResponse.message != null) {
-      print("====error====${routeResponse.message}===${routeResponse.errorCode}");
+      print(
+          "====error====${routeResponse.message}===${routeResponse.errorCode}");
     }
   }
 
   void _startNavigation() {
     if (routes.isEmpty) return;
-    NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
+    NavigationLauncherConfig config =
+        NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = false;
@@ -145,7 +154,8 @@ class DrawRouteLineState extends State<DrawRouteLine> {
           const Padding(padding: EdgeInsets.only(left: 8)),
           ElevatedButton(
             style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                backgroundColor: MaterialStateProperty.all(
+                    routes.isEmpty ? Colors.grey : Colors.blueAccent),
                 enableFeedback: routes.isNotEmpty),
             onPressed: () {
               _startNavigation();
