@@ -14,27 +14,22 @@ class NavNextBillionMap {
   NavNextBillionMap._create(this.controller,
       {this.routeLineProperties = const RouteLineProperties()});
 
-  static Future<NavNextBillionMap> create(
-      NextbillionMapController nbMapController,
-      {RouteLineProperties routeLineProperties =
-          const RouteLineProperties()}) async {
-    var controllerWrapper = MapControllerWrapper(nbMapController);
-    var navMap = NavNextBillionMap._create(controllerWrapper,
+  static Future<NavNextBillionMap> create(IMapController mapController,
+      {RouteLineProperties routeLineProperties = const RouteLineProperties()}) async {
+    IAssetManager assetManager = AssetManager();
+    return createWithAssetManager(mapController, assetManager,
         routeLineProperties: routeLineProperties);
-    await navMap.initGeoJsonSource();
-    return navMap;
   }
 
-  @visibleForTesting
-  static Future<NavNextBillionMap> createForTest(IMapController mapController,
-      {RouteLineProperties routeLineProperties = const RouteLineProperties(),
-      IAssetManager assetManager = const AssetManager()}) async {
+    static Future<NavNextBillionMap> createWithAssetManager(IMapController mapController, IAssetManager assetManager,
+      {RouteLineProperties routeLineProperties = const RouteLineProperties()}) async {
     var navMap = NavNextBillionMap._create(mapController,
         routeLineProperties: routeLineProperties);
     navMap.assetManager = assetManager;
     await navMap.initGeoJsonSource();
     return navMap;
   }
+  //
 
   Future<void> initGeoJsonSource() async {
     if (controller.disposed) {

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
+import 'package:nb_navigation_flutter/route/map_controller_wrapper.dart';
 
 class DrawRouteLine extends StatefulWidget {
   static const String title = "Draw Route Line";
@@ -34,7 +35,8 @@ class DrawRouteLineState extends State<DrawRouteLine> {
 
   void _onStyleLoaded() async {
     if (controller != null) {
-      navNextBillionMap = await NavNextBillionMap.create(controller!);
+      navNextBillionMap =
+          await NavNextBillionMap.create(MapControllerWrapper(controller!));
     }
   }
 

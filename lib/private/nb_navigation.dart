@@ -1,7 +1,13 @@
 part of nb_navigation_flutter;
 
 class NBNavigation {
-  static final NBNavigationPlatform _nbNavigationPlatform = NBNavigationPlatform.instance;
+  static NBNavigationPlatform _nbNavigationPlatform =
+      NBNavigationPlatform.instance;
+
+  @visibleForTesting
+  static setNBNavigationPlatform(NBNavigationPlatform nbNavigationPlatform) {
+    _nbNavigationPlatform = nbNavigationPlatform;
+  }
 
   /// Fetches a route based on the provided [routeRequestParams].
   /// The [routeResultCallBack] will be invoked with the result.
@@ -11,7 +17,8 @@ class NBNavigation {
   }
 
   /// Starts the navigation using the provided [launcherConfig].
-  static Future<void> startNavigation(NavigationLauncherConfig launcherConfig) async {
+  static Future<void> startNavigation(
+      NavigationLauncherConfig launcherConfig) async {
     await _nbNavigationPlatform.startNavigation(launcherConfig);
   }
 
@@ -27,16 +34,20 @@ class NBNavigation {
 
   /// Finds the index of the selected route based on the [clickPoint] and [coordinates] of route line.
   /// Returns the index of the selected route.
-  static Future<int> findSelectedRouteIndex(LatLng clickPoint, List<List<LatLng>> coordinates) async {
-    return await _nbNavigationPlatform.findSelectedRouteIndex(clickPoint, coordinates);
+  static Future<int> findSelectedRouteIndex(
+      LatLng clickPoint, List<List<LatLng>> coordinates) async {
+    return await _nbNavigationPlatform.findSelectedRouteIndex(
+        clickPoint, coordinates);
   }
 
   static Future<String> getFormattedDuration(num durationSeconds) async {
     return await _nbNavigationPlatform.getFormattedDuration(durationSeconds);
   }
 
-  static Future<void> setOnNavigationExitCallback(OnNavigationExitCallback navigationExitCallback) async {
-    return await _nbNavigationPlatform.setOnNavigationExitCallback(navigationExitCallback);
+  static Future<void> setOnNavigationExitCallback(
+      OnNavigationExitCallback navigationExitCallback) async {
+    return await _nbNavigationPlatform
+        .setOnNavigationExitCallback(navigationExitCallback);
   }
 
   /// Start preview navigation screen with given route
@@ -44,12 +55,13 @@ class NBNavigation {
     return await _nbNavigationPlatform.startPreviewNavigation(route);
   }
 
-  static Future<Uint8List?> captureRouteDurationSymbol(DirectionsRoute route, bool isPrimaryRoute) async {
-    return await _nbNavigationPlatform.captureRouteDurationSymbol(route, isPrimaryRoute);
+  static Future<Uint8List?> captureRouteDurationSymbol(
+      DirectionsRoute route, bool isPrimaryRoute) async {
+    return await _nbNavigationPlatform.captureRouteDurationSymbol(
+        route, isPrimaryRoute);
   }
 
   static Future<Uint8List?> captureRouteWaypoints(int waypointIndex) async {
     return await _nbNavigationPlatform.captureRouteWaypoints(waypointIndex);
   }
-
 }

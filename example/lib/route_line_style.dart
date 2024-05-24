@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
+import 'package:nb_navigation_flutter/route/map_controller_wrapper.dart';
 
 class RouteLineStyle extends StatefulWidget {
   static const String title = "Customize Route Line Style";
@@ -17,8 +18,8 @@ class RouteLineStyleState extends State<RouteLineStyle> {
   List<DirectionsRoute> routes = [];
   late NavNextBillionMap navNextBillionMap;
 
-  LatLng origin = LatLng(1.312533169133601, 103.75986708439264);
-  LatLng dest = LatLng(1.310473772283314, 103.77982271935586);
+  LatLng origin = const LatLng(1.312533169133601, 103.75986708439264);
+  LatLng dest = const LatLng(1.310473772283314, 103.77982271935586);
 
   void _onMapCreated(NextbillionMapController controller) {
     this.controller = controller;
@@ -32,7 +33,8 @@ class RouteLineStyleState extends State<RouteLineStyle> {
           alternativeRouteScale: 1.0,
           routeShieldColor: Color(0xFF54E910),
           durationSymbolPrimaryBackgroundColor: Color(0xFFE97F2F));
-      navNextBillionMap = await NavNextBillionMap.create(controller!,
+      navNextBillionMap = await NavNextBillionMap.create(
+          MapControllerWrapper(controller!),
           routeLineProperties: routeLineStyle);
     }
   }
