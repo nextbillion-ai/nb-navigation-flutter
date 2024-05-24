@@ -27,13 +27,13 @@ class RouteLineStyleState extends State<RouteLineStyle> {
   void _onStyleLoaded() async {
     if (controller != null) {
       var routeLineStyle = const RouteLineProperties(
-        routeDefaultColor: Color(0xFFE97F2F),
-        routeScale: 1.0,
-        alternativeRouteScale: 1.0,
-        routeShieldColor: Color(0xFF54E910),
-        durationSymbolPrimaryBackgroundColor: Color(0xFFE97F2F)
-      );
-      navNextBillionMap = NavNextBillionMap.create(controller!, routeLineProperties: routeLineStyle);
+          routeDefaultColor: Color(0xFFE97F2F),
+          routeScale: 1.0,
+          alternativeRouteScale: 1.0,
+          routeShieldColor: Color(0xFF54E910),
+          durationSymbolPrimaryBackgroundColor: Color(0xFFE97F2F));
+      navNextBillionMap = await NavNextBillionMap.create(controller!,
+          routeLineProperties: routeLineStyle);
     }
   }
 
@@ -78,7 +78,8 @@ class RouteLineStyleState extends State<RouteLineStyle> {
       mode: ValidModes.car,
     );
 
-    DirectionsRouteResponse response = await NBNavigation.fetchRoute(requestParams);
+    DirectionsRouteResponse response =
+        await NBNavigation.fetchRoute(requestParams);
     List<DirectionsRoute> routeData = response.directionsRoutes;
     if (routeData.isNotEmpty) {
       setState(() {
@@ -92,7 +93,8 @@ class RouteLineStyleState extends State<RouteLineStyle> {
 
   void _startNavigation() {
     if (routes.isEmpty) return;
-    NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
+    NavigationLauncherConfig config =
+        NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
     config.shouldSimulateRoute = true;
     config.themeMode = NavigationThemeMode.system;
@@ -129,7 +131,8 @@ class RouteLineStyleState extends State<RouteLineStyle> {
             const Padding(padding: EdgeInsets.only(left: 8)),
             ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                  backgroundColor: MaterialStateProperty.all(
+                      routes.isEmpty ? Colors.grey : Colors.blueAccent),
                   enableFeedback: routes.isNotEmpty),
               onPressed: () {
                 _startNavigation();
@@ -141,5 +144,4 @@ class RouteLineStyleState extends State<RouteLineStyle> {
       ),
     );
   }
-
 }

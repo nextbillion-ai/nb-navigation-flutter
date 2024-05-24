@@ -17,8 +17,8 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
   List<DirectionsRoute> routes = [];
   late NavNextBillionMap navNextBillionMap;
 
-  LatLng origin = LatLng(1.312533169133601, 103.75986708439264);
-  LatLng dest = LatLng(1.310473772283314, 103.77982271935586);
+  LatLng origin = const LatLng(1.312533169133601, 103.75986708439264);
+  LatLng dest = const LatLng(1.310473772283314, 103.77982271935586);
 
   void _onMapCreated(NextbillionMapController controller) {
     this.controller = controller;
@@ -31,9 +31,9 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
           routeScale: 1.0,
           alternativeRouteScale: 1.0,
           routeShieldColor: Color(0xFF54E910),
-          durationSymbolPrimaryBackgroundColor: Color(0xFFE97F2F)
-      );
-      navNextBillionMap = NavNextBillionMap.create(controller!, routeLineProperties: routeLineStyle);
+          durationSymbolPrimaryBackgroundColor: Color(0xFFE97F2F));
+      navNextBillionMap = await NavNextBillionMap.create(controller!,
+          routeLineProperties: routeLineStyle);
     }
   }
 
@@ -78,20 +78,23 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
       mode: ValidModes.car,
     );
 
-    DirectionsRouteResponse routeResponse = await NBNavigation.fetchRoute(requestParams);
+    DirectionsRouteResponse routeResponse =
+        await NBNavigation.fetchRoute(requestParams);
     if (routeResponse.directionsRoutes.isNotEmpty) {
       setState(() {
         routes = routeResponse.directionsRoutes;
       });
       drawRoutes(routes);
     } else if (routeResponse.message != null) {
-      print("====error====${routeResponse.message}===${routeResponse.errorCode}");
+      print(
+          "====error====${routeResponse.message}===${routeResponse.errorCode}");
     }
   }
 
   void _startNavigation() {
     if (routes.isEmpty) return;
-    NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
+    NavigationLauncherConfig config =
+        NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
     config.shouldSimulateRoute = true;
     config.themeMode = NavigationThemeMode.system;
@@ -128,7 +131,8 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
             const Padding(padding: EdgeInsets.only(left: 8)),
             ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                  backgroundColor: MaterialStateProperty.all(
+                      routes.isEmpty ? Colors.grey : Colors.blueAccent),
                   enableFeedback: routes.isNotEmpty),
               onPressed: () {
                 _startNavigation();
@@ -140,5 +144,4 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
       ),
     );
   }
-
 }

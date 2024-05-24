@@ -23,7 +23,7 @@ class MapRouteLayerProvider {
       ],
       lineColor: [
         Expressions.match,
-        [Expressions.get, PRIMARY_ROUTE_PROPERTY_KEY],
+        [Expressions.get, primaryRoutePropertyKey],
         "true",
         routeShieldColor.toHexStringRGB(),
         alternativeRouteShieldColor.toHexStringRGB(),
@@ -55,7 +55,7 @@ class MapRouteLayerProvider {
       ],
       lineColor: [
         Expressions.match,
-        [Expressions.get, PRIMARY_ROUTE_PROPERTY_KEY],
+        [Expressions.get, primaryRoutePropertyKey],
         "true",
         routeDefaultColor.toHexStringRGB(),
         alternativeRouteDefaultColor.toHexStringRGB(),
@@ -69,7 +69,7 @@ class MapRouteLayerProvider {
     var size = Platform.isAndroid ? sizeAndroid : sizeIos;
     return SymbolLayerProperties(iconImage: [
       Expressions.get,
-      WAYPOINT_PROPERTY_KEY
+      waypointPropertyKey
     ], iconSize: [
       Expressions.interpolate,
       ['exponential', 1.5],
@@ -88,7 +88,7 @@ class MapRouteLayerProvider {
   SymbolLayerProperties initializeDurationSymbolLayer() {
     var size = [0.8, 0.9, 0.9, 1.1];
     return SymbolLayerProperties(
-        iconImage: [Expressions.get, ROUTE_DURATION_SYMBOL_ICON_KEY],
+        iconImage: [Expressions.get, routeDurationSymbolIconKey],
         iconSize: [
           Expressions.interpolate,
           ['exponential', 1.5],
@@ -108,7 +108,7 @@ class MapRouteLayerProvider {
         iconTranslateAnchor: 'viewport',
         iconAnchor: [
           Expressions.match,
-          [Expressions.get, PRIMARY_ROUTE_PROPERTY_KEY],
+          [Expressions.get, primaryRoutePropertyKey],
           "true",
           'top-left',
           'top-right'
@@ -121,7 +121,7 @@ class MapRouteLayerProvider {
       base,
       [
         Expressions.match,
-        [Expressions.get, PRIMARY_ROUTE_PROPERTY_KEY],
+        [Expressions.get, primaryRoutePropertyKey],
         'true',
         routeScale,
         alternativeRouteScale
