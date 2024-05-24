@@ -123,7 +123,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
     if (routes.isEmpty) return;
     NavigationLauncherConfig config =
         NavigationLauncherConfig(route: routes.first, routes: routes);
-    config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
+    config.locationLayerRenderMode = LocationLayerRenderMode.gps;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = false;
     NBNavigation.startNavigation(config);

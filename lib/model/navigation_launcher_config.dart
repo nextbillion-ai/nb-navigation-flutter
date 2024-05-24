@@ -1,9 +1,9 @@
 part of nb_navigation_flutter;
 
 enum LocationLayerRenderMode {
-  NORMAL,
-  COMPASS,
-  GPS,
+  normal,
+  compass,
+  gps,
 }
 
 enum NavigationThemeMode {
@@ -25,7 +25,7 @@ class NavigationLauncherConfig {
   NavigationThemeMode? themeMode;
 
   /// The location layer render mode in the Navigation View. Can be
-  /// [LocationLayerRenderMode.NORMAL], [LocationLayerRenderMode.COMPASS], [LocationLayerRenderMode.GPS]
+  /// [LocationLayerRenderMode.normal], [LocationLayerRenderMode.compass], [LocationLayerRenderMode.gps]
   /// Default is LocationLayerRenderMode.GPS.
   LocationLayerRenderMode? locationLayerRenderMode;
 
@@ -57,7 +57,7 @@ class NavigationLauncherConfig {
     required this.route,
     required this.routes,
     this.themeMode = NavigationThemeMode.system,
-    this.locationLayerRenderMode = LocationLayerRenderMode.GPS,
+    this.locationLayerRenderMode = LocationLayerRenderMode.gps,
     this.shouldSimulateRoute,
     this.enableDissolvedRouteLine = true,
     this.useCustomNavigationStyle = true,

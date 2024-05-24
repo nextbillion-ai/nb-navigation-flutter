@@ -1,7 +1,5 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 import 'package:nb_navigation_flutter/route/map_controller_wrapper.dart';
@@ -97,7 +95,7 @@ class RouteLineStyleState extends State<RouteLineStyle> {
     if (routes.isEmpty) return;
     NavigationLauncherConfig config =
         NavigationLauncherConfig(route: routes.first, routes: routes);
-    config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
+    config.locationLayerRenderMode = LocationLayerRenderMode.gps;
     config.shouldSimulateRoute = true;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = false;

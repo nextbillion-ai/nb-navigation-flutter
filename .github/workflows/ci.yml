@@ -1,0 +1,41 @@
+name: Nextbillion Navigation Flutter CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.22.0"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run analyzer
+        run: flutter analyze lib
+
+      - name: Run tests with coverage
+        run: |
+          flutter test --coverage
+          dart run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=lib
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          files: coverage/lcov.info
+          flags: unittests
+          name: codecov-report
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
