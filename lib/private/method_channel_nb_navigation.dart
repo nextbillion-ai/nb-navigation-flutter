@@ -1,9 +1,14 @@
 part of nb_navigation_flutter;
 
 class MethodChannelNBNavigation extends NBNavigationPlatform {
-  final MethodChannel _channel = NBNavigationChannelFactory.nbNavigationChannel;
+  MethodChannel _channel = NBNavigationChannelFactory.nbNavigationChannel;
 
   MethodChannelNBNavigation() {
+    _channel.setMethodCallHandler(_handleMethodCall);
+  }
+
+  void setMethodChanenl(MethodChannel channel) {
+    _channel = channel;
     _channel.setMethodCallHandler(_handleMethodCall);
   }
 
@@ -14,7 +19,8 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
         bool? shouldRefreshRoute = arguments["shouldRefreshRoute"];
         int? remainingWaypoints = arguments["remainingWaypoints"];
         if (shouldRefreshRoute != null && remainingWaypoints != null) {
-          navigationExitCallback?.call(arguments["shouldRefreshRoute"], arguments["remainingWaypoints"]);
+          navigationExitCallback?.call(
+              arguments["shouldRefreshRoute"], arguments["remainingWaypoints"]);
         }
         break;
 
@@ -24,9 +30,10 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
   }
 
   @override
-  Future<DirectionsRouteResponse> fetchRoute(RouteRequestParams routeRequestParams) async {
-    Map<dynamic, dynamic> result =
-        await _channel.invokeMethod(NBRouteMethodID.nbFetchRouteMethod, jsonEncode(routeRequestParams));
+  Future<DirectionsRouteResponse> fetchRoute(
+      RouteRequestParams routeRequestParams) async {
+    Map<dynamic, dynamic> result = await _channel.invokeMethod(
+        NBRouteMethodID.nbFetchRouteMethod, jsonEncode(routeRequestParams));
     return _handleRouteResult(result);
   }
 
@@ -38,7 +45,8 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
     RouteRequestParams? requestParams;
 
     if (routeRequest.isNotEmpty) {
-      requestParams = RouteRequestParams.fromJson(json.decode(json.encode(routeRequest)));
+      requestParams =
+          RouteRequestParams.fromJson(json.decode(json.encode(routeRequest)));
     }
 
     List<DirectionsRoute> routes = [];
@@ -51,7 +59,8 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
         routes.add(route);
       }
     }
-    return DirectionsRouteResponse(directionsRoutes: routes, message: message, errorCode: errorCode);
+    return DirectionsRouteResponse(
+        directionsRoutes: routes, message: message, errorCode: errorCode);
   }
 
   @override
@@ -59,12 +68,16 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
     try {
       Map<String, dynamic> arguments = {};
       if (Platform.isIOS) {
-        arguments["routeOptions"] = jsonEncode(launcherConfig.route.routeOptions);
+        arguments["routeOptions"] =
+            jsonEncode(launcherConfig.route.routeOptions);
       }
       arguments["launcherConfig"] = launcherConfig.toJson();
-      await _channel.invokeMethod(NBNavigationLauncherMethodID.nbNavigationLauncherMethod, arguments);
+      await _channel.invokeMethod(
+          NBNavigationLauncherMethodID.nbNavigationLauncherMethod, arguments);
     } on PlatformException catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 
@@ -76,24 +89,32 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
         arguments["routeOptions"] = jsonEncode(route.routeOptions);
       }
       arguments["route"] = jsonEncode(route);
-      await _channel.invokeMethod(NBNavigationLauncherMethodID.nbPreviewNavigationMethod, arguments);
+
+      await _channel.invokeMethod(
+          NBNavigationLauncherMethodID.nbPreviewNavigationMethod, arguments);
     } on PlatformException catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 
   @override
-  Future<int> findSelectedRouteIndex(LatLng clickPoint, List<List<LatLng>> coordinates) async {
+  Future<int> findSelectedRouteIndex(
+      LatLng clickPoint, List<List<LatLng>> coordinates) async {
     Map<String, dynamic> arguments = {};
     arguments["clickPoint"] = clickPoint.toJson();
-    arguments["coordinates"] =
-        coordinates.map((coordinate) => coordinate.map((point) => point.toJson()).toList()).toList();
-    return await _channel.invokeMethod(NBRouteMethodID.nbRouteSelectedIndexMethod, arguments);
+    arguments["coordinates"] = coordinates
+        .map((coordinate) => coordinate.map((point) => point.toJson()).toList())
+        .toList();
+    return await _channel.invokeMethod(
+        NBRouteMethodID.nbRouteSelectedIndexMethod, arguments);
   }
 
   @override
   Future<String> getRoutingBaseUri() async {
-    return await _channel.invokeMethod(NBNavigationLauncherMethodID.nbGetNavigationUriMethod);
+    return await _channel
+        .invokeMethod(NBNavigationLauncherMethodID.nbGetNavigationUriMethod);
   }
 
   @override
@@ -101,39 +122,53 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
     Map<String, dynamic> arguments = {};
     arguments["navigationBaseUri"] = baseUri;
     try {
-      await _channel.invokeMethod(NBNavigationLauncherMethodID.nbSetNavigationUriMethod, arguments);
+      await _channel.invokeMethod(
+          NBNavigationLauncherMethodID.nbSetNavigationUriMethod, arguments);
     } on PlatformException catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 
   @override
   Future<String> getFormattedDuration(num durationSeconds) async {
     try {
-      return await _channel
-          .invokeMethod(NBRouteMethodID.routeFormattedDuration, {"duration": durationSeconds.toDouble()});
+      return await _channel.invokeMethod(NBRouteMethodID.routeFormattedDuration,
+          {"duration": durationSeconds.toDouble()});
     } on PlatformException catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
     return "";
   }
 
   @override
-  Future<void> setOnNavigationExitCallback(OnNavigationExitCallback navigationExitCallback) async {
+  Future<void> setOnNavigationExitCallback(
+      OnNavigationExitCallback navigationExitCallback) async {
     try {
       this.navigationExitCallback = navigationExitCallback;
     } on PlatformException catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 
   @override
-  Future<Uint8List?> captureRouteDurationSymbol(DirectionsRoute route, bool isPrimaryRoute) async {
+  Future<Uint8List?> captureRouteDurationSymbol(
+      DirectionsRoute route, bool isPrimaryRoute) async {
     try {
-      return await _channel.invokeMethod(NBRouteMethodID.navigationCaptureRouteDurationSymbol,
-          {"duration": route.duration?.toDouble() ?? 0, "isPrimaryRoute": isPrimaryRoute});
+      return await _channel.invokeMethod(
+          NBRouteMethodID.navigationCaptureRouteDurationSymbol, {
+        "duration": route.duration?.toDouble() ?? 0,
+        "isPrimaryRoute": isPrimaryRoute
+      });
     } on PlatformException catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
     return null;
   }
@@ -141,10 +176,13 @@ class MethodChannelNBNavigation extends NBNavigationPlatform {
   @override
   Future<Uint8List?> captureRouteWaypoints(int waypointIndex) async {
     try {
-      return await _channel
-          .invokeMethod(NBRouteMethodID.navigationCaptureRouteWaypoints, {"waypointIndex": waypointIndex});
+      return await _channel.invokeMethod(
+          NBRouteMethodID.navigationCaptureRouteWaypoints,
+          {"waypointIndex": waypointIndex});
     } on PlatformException catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
     return null;
   }

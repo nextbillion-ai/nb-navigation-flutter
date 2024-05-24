@@ -7,7 +7,12 @@ abstract class IAssetManager {
 }
 
 class AssetManager implements IAssetManager {
-  const AssetManager();
+  
+  AssetBundle localRootBundle = rootBundle;
+
+  setAssetBundle(AssetBundle assetBundle) {
+    localRootBundle = assetBundle;
+  }
 
   @override
   Future<Uint8List> load(String key) {
@@ -15,7 +20,7 @@ class AssetManager implements IAssetManager {
   }
 
   Future<Uint8List> transferAssetImage(String assetName) async {
-    final ByteData bytes = await rootBundle.load(assetName);
+    final ByteData bytes = await localRootBundle.load(assetName);
     final Uint8List list = bytes.buffer.asUint8List();
     return list;
   }

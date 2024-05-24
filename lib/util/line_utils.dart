@@ -39,9 +39,3 @@ List<LatLng> decode(String encodedPath, int precision) {
   return path;
 
 }
-
-Future<Uint8List> transferAssetImage(String assetName) async {
-  final ByteData bytes = await rootBundle.load(assetName);
-  final Uint8List list = bytes.buffer.asUint8List();
-  return list;
-}
