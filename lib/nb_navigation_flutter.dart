@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:flutter/rendering.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 import 'package:nb_navigation_flutter/route/map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter/util/asset_manager.dart';

@@ -91,7 +91,7 @@ class LaunchNavigationState extends State<LaunchNavigation> {
   void _startNavigation() {
     if (routes.isEmpty) return;
     NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
-    config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
+    config.locationLayerRenderMode = LocationLayerRenderMode.gps;
     config.shouldSimulateRoute = true;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = false;

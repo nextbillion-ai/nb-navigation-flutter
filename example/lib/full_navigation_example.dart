@@ -230,7 +230,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
     if (routes.isEmpty) return;
     NavigationLauncherConfig config =
         NavigationLauncherConfig(route: routes.first, routes: routes);
-    config.locationLayerRenderMode = LocationLayerRenderMode.GPS;
+    config.locationLayerRenderMode = LocationLayerRenderMode.gps;
     config.shouldSimulateRoute = false;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = false;
