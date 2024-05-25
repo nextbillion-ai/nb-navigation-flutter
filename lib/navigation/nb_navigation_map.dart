@@ -2,52 +2,109 @@ part of nb_navigation_flutter;
 
 typedef OnRouteSelectedCallback = void Function(int selectedRouteIndex);
 
-class NavNextBillionMap {
-  IMapController controller;
-  IAssetManager assetManager = AssetManager();
+class NavNextBillionMap implements NavigationMap {
+  late MapController controller;
+  late IAssetManager assetManager;
+
   MapRouteLayerProvider routeLayerProvider = MapRouteLayerProvider();
   Map<String, LayerProperties> routeLayers = {};
+
   RouteLineProperties routeLineProperties;
   List<List<LatLng>> routeLines = [];
+
   OnRouteSelectedCallback? onRouteSelectedCallback;
 
   NavNextBillionMap._create(this.controller,
       {this.routeLineProperties = const RouteLineProperties()});
 
-  static Future<NavNextBillionMap> create(IMapController mapController,
-      {RouteLineProperties routeLineProperties = const RouteLineProperties()}) async {
-    IAssetManager assetManager = AssetManager();
-    return createWithAssetManager(mapController, assetManager,
+  static Future<NavNextBillionMap> create(MapController mapController,
+      {RouteLineProperties routeLineProperties =
+          const RouteLineProperties()}) async {
+    var navMap = NavNextBillionMap._create(mapController,
         routeLineProperties: routeLineProperties);
+    navMap.assetManager = AssetManager();
+    await navMap.initGeoJsonSource();
+    return navMap;
   }
 
-    static Future<NavNextBillionMap> createWithAssetManager(IMapController mapController, IAssetManager assetManager,
-      {RouteLineProperties routeLineProperties = const RouteLineProperties()}) async {
+  @visibleForTesting
+  static Future<NavNextBillionMap> createWithAssetManager(
+      MapController mapController, IAssetManager assetManager,
+      {RouteLineProperties routeLineProperties =
+          const RouteLineProperties()}) async {
     var navMap = NavNextBillionMap._create(mapController,
         routeLineProperties: routeLineProperties);
     navMap.assetManager = assetManager;
     await navMap.initGeoJsonSource();
     return navMap;
   }
-  //
 
+  @override
   Future<void> initGeoJsonSource() async {
     if (controller.disposed) {
       return;
     }
     await _removePreviousSource();
-    await _addSource();
+    await _prepareSources();
     await _loadAssetImage();
     await initRouteLayers();
     _addListeners();
   }
 
+  Future<void> _removePreviousSource() async {
+    if (controller.disposed) {
+      return;
+    }
+
+    await controller.removeLayer(routeShieldLayerId);
+    await controller.removeLayer(routeLayerId);
+    await controller.removeLayer(waypointLayerId);
+    await controller.removeLayer(routeDurationLayerId);
+
+    await controller.removeSource(routeShieldSourceId);
+    await controller.removeSource(routeSourceId);
+    await controller.removeSource(waypointSourceId);
+    await controller.removeSource(routeDurationSourceId);
+  }
+
+  Future<void> _prepareSources() async {
+    if (controller.disposed) {
+      return;
+    }
+
+    await controller.addGeoJsonSource(
+        routeShieldSourceId, buildFeatureCollection([]));
+    await controller.addGeoJsonSource(
+        routeSourceId, buildFeatureCollection([]));
+    await controller.addGeoJsonSource(
+        waypointSourceId, buildFeatureCollection([]));
+    await controller.addGeoJsonSource(
+        routeDurationSourceId, buildFeatureCollection([]));
+  }
+
+  Future<void> _loadAssetImage() async {
+    if (controller.disposed) {
+      return;
+    }
+    var origin = await assetManager.load(routeLineProperties.originMarkerName);
+    var destination =
+        await assetManager.load(routeLineProperties.destinationMarkerName);
+    if (controller.disposed) {
+      return;
+    }
+    await controller.addImage(originMarkerName, origin);
+    await controller.addImage(destinationMarkerName, destination);
+  }
+
+  /// add route shield layer, route layer, waypoint layer and route duration layer
+  @override
   Future<void> initRouteLayers() async {
     if (controller.disposed) {
       return;
     }
     String belowLayer = await controller.findBelowLayerId(
         [nbmapLocationId, highwayShieldLayerId, nbmapAnnotationId]);
+
     LineLayerProperties routeShieldLayer =
         routeLayerProvider.initializeRouteShieldLayer(
       routeLineProperties.routeScale,
@@ -55,9 +112,11 @@ class NavNextBillionMap {
       routeLineProperties.routeShieldColor,
       routeLineProperties.alternativeRouteShieldColor,
     );
+
     await controller.addLineLayer(
         routeShieldSourceId, routeShieldLayerId, routeShieldLayer,
         belowLayerId: belowLayer);
+
     routeLayers[routeShieldLayerId] = routeShieldLayer;
 
     LineLayerProperties routeLayer = routeLayerProvider.initializeRouteLayer(
@@ -66,8 +125,10 @@ class NavNextBillionMap {
       routeLineProperties.routeDefaultColor,
       routeLineProperties.alternativeRouteDefaultColor,
     );
+
     await controller.addLineLayer(routeSourceId, routeLayerId, routeLayer,
         belowLayerId: belowLayer);
+
     routeLayers[routeLayerId] = routeLayer;
 
     SymbolLayerProperties wayPointLayer = routeLayerProvider
@@ -84,6 +145,9 @@ class NavNextBillionMap {
   }
 
   /// Draws the route on the map based on the provided [routes].
+  /// it clears the previous route before drawing the new one.
+  /// and then draws the route line, waypoints, and route duration symbol.
+  @override
   Future<void> drawRoute(List<DirectionsRoute> routes) async {
     if (controller.disposed) {
       return;
@@ -97,18 +161,6 @@ class NavNextBillionMap {
     await _drawRoutesFeatureCollections(routes);
     await _drawWayPoints(routes.first);
     await _drawRouteDurationSymbol(routes);
-  }
-
-  /// Adds a listener for route selection.
-  /// The [clickedPoint] represents the point clicked on the map.
-  /// The [onRouteSelectedCallback] will be invoked when a route is selected.
-  void addRouteSelectedListener(
-      LatLng clickedPoint, OnRouteSelectedCallback onRouteSelectedCallback) {
-    if (routeLines.length < 2) {
-      return;
-    }
-    this.onRouteSelectedCallback = onRouteSelectedCallback;
-    _findRouteSelectedIndex(clickedPoint);
   }
 
   Future<void> _drawRoutesFeatureCollections(
@@ -250,8 +302,22 @@ class NavNextBillionMap {
     }
   }
 
+  /// Adds a listener for route selection.
+  /// The [clickedPoint] represents the point clicked on the map.
+  /// The [onRouteSelectedCallback] will be invoked when a route is selected.
+  @override
+  void addRouteSelectedListener(
+      LatLng clickedPoint, OnRouteSelectedCallback onRouteSelectedCallback) {
+    if (routeLines.length < 2) {
+      return;
+    }
+    this.onRouteSelectedCallback = onRouteSelectedCallback;
+    _findRouteSelectedIndex(clickedPoint);
+  }
+
   /// Toggles the visibility of alternative routes on the map.
   /// The [alternativeVisible] parameter determines whether alternative routes should be visible or not.
+  @override
   Future<void> toggleAlternativeVisibilityWith(bool alternativeVisible) async {
     if (controller.disposed) {
       return;
@@ -276,6 +342,7 @@ class NavNextBillionMap {
 
   /// Toggles the visibility of the duration symbol on the map.
   /// The [durationSymbolVisible] parameter determines whether the duration symbol should be visible or not.
+  @override
   void toggleDurationSymbolVisibilityWith(bool durationSymbolVisible) {
     if (controller.disposed) {
       return;
@@ -283,52 +350,8 @@ class NavNextBillionMap {
     controller.setVisibility(routeDurationLayerId, durationSymbolVisible);
   }
 
-  Future<void> _loadAssetImage() async {
-    if (controller.disposed) {
-      return;
-    }
-    var origin = await assetManager.load(routeLineProperties.originMarkerName);
-    var destination =
-        await assetManager.load(routeLineProperties.destinationMarkerName);
-    if (controller.disposed) {
-      return;
-    }
-    await controller.addImage(originMarkerName, origin);
-    await controller.addImage(destinationMarkerName, destination);
-  }
-
-  Future<void> _addSource() async {
-    if (controller.disposed) {
-      return;
-    }
-
-    await controller.addGeoJsonSource(
-        routeShieldSourceId, buildFeatureCollection([]));
-    await controller.addGeoJsonSource(
-        routeSourceId, buildFeatureCollection([]));
-    await controller.addGeoJsonSource(
-        waypointSourceId, buildFeatureCollection([]));
-    await controller.addGeoJsonSource(
-        routeDurationSourceId, buildFeatureCollection([]));
-  }
-
-  Future<void> _removePreviousSource() async {
-    if (controller.disposed) {
-      return;
-    }
-
-    await controller.removeLayer(routeShieldLayerId);
-    await controller.removeLayer(routeLayerId);
-    await controller.removeLayer(waypointLayerId);
-    await controller.removeLayer(routeDurationLayerId);
-
-    await controller.removeSource(routeShieldSourceId);
-    await controller.removeSource(routeSourceId);
-    await controller.removeSource(waypointSourceId);
-    await controller.removeSource(routeDurationSourceId);
-  }
-
   /// Clears the currently displayed route from the map.
+  @override
   Future<void> clearRoute() async {
     if (controller.disposed) {
       return;

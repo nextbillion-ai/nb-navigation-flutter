@@ -3,7 +3,8 @@ part of nb_navigation_flutter;
 typedef OnNavigationExitCallback = void Function(bool shouldRefreshRoute, int remainingWaypoints);
 
 abstract class NBNavigationPlatform {
-  static final NBNavigationPlatform _instance = MethodChannelNBNavigation();
+
+  static final NBNavigationPlatform _instance = NBNavigationMethodChannel();
 
   static NBNavigationPlatform get instance => _instance;
 

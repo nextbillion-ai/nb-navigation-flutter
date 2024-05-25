@@ -6,22 +6,23 @@ import 'package:flutter/widgets.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
-import 'package:nb_navigation_flutter/route/map_controller_wrapper.dart';
+import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter/util/asset_manager.dart';
 import 'package:test/test.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
-import 'nav_nextbillion_map_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<IMapController>(), MockSpec<IAssetManager>()])
+import 'nb_navigation_map_test.mocks.dart';
+
+@GenerateNiceMocks([MockSpec<MapController>(), MockSpec<IAssetManager>()])
 @GenerateMocks([NBNavigationPlatform])
 void main() {
   group('NavNextBillionMap', () {
     late NavNextBillionMap navNextBillionMap;
-    late MockIMapController mockMapController;
+    late MockMapController mockMapController;
     late MockIAssetManager mockAssetManager;
 
     setUp(() async {
-      mockMapController = MockIMapController();
+      mockMapController = MockMapController();
       mockAssetManager = MockIAssetManager();
       navNextBillionMap = await NavNextBillionMap.createWithAssetManager(
           mockMapController, mockAssetManager);
@@ -130,7 +131,7 @@ void main() {
       NBNavigation.setNBNavigationPlatform(mockNBNavigationPlatform);
 
       WidgetsFlutterBinding.ensureInitialized();
-      final file = File('test/route/route.json');
+      final file = File('test/navigation/route.json');
       final jsonString = await file.readAsString();
       Map<String, dynamic> json = jsonDecode(jsonString);
       DirectionsRoute route = DirectionsRoute.fromJson(json);

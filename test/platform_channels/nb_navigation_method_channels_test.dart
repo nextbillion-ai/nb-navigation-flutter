@@ -8,21 +8,23 @@ import 'package:mockito/mockito.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 
-import 'method_channel_nb_navigation_test.mocks.dart';
+import 'nb_navigation_method_channels_test.mocks.dart';
+
+
 
 @GenerateMocks([MethodChannel])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late MethodChannel channel;
-  late MethodChannelNBNavigation methodChannelNBNavigation;
+  late NBNavigationMethodChannel methodChannelNBNavigation;
   late DirectionsRoute route;
 
   setUp(() async {
     channel = MockMethodChannel();
-    methodChannelNBNavigation = MethodChannelNBNavigation();
+    methodChannelNBNavigation = NBNavigationMethodChannel();
     methodChannelNBNavigation.setMethodChanenl(channel);
 
-    final file = File('test/route/route.json');
+    final file = File('test/navigation/route.json');
     final jsonString = await file.readAsString();
     Map<String, dynamic> json = jsonDecode(jsonString);
     route = DirectionsRoute.fromJson(json);

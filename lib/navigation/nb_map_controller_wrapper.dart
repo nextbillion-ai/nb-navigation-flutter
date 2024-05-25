@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/painting.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 
-abstract class IMapController {
+abstract class MapController {
   bool get disposed;
 
   List<OnFeatureInteractionCallback> get onFeatureTapped;
@@ -224,10 +224,10 @@ abstract class IMapController {
   void dispose();
 }
 
-class MapControllerWrapper extends IMapController {
+class NextbillionMapControllerWrapper extends MapController {
   final NextbillionMapController _controller;
 
-  MapControllerWrapper(this._controller);
+  NextbillionMapControllerWrapper(this._controller);
 
   @override
   bool get disposed => _controller.disposed;

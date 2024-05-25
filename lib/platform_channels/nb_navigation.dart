@@ -1,9 +1,11 @@
 part of nb_navigation_flutter;
 
+/// Stateless facade of the nextbillion navigation platform
 class NBNavigation {
   static NBNavigationPlatform _nbNavigationPlatform =
       NBNavigationPlatform.instance;
 
+  /// allow to set the [NBNavigationPlatform] for testing
   @visibleForTesting
   static setNBNavigationPlatform(NBNavigationPlatform nbNavigationPlatform) {
     _nbNavigationPlatform = nbNavigationPlatform;
@@ -40,6 +42,14 @@ class NBNavigation {
         clickPoint, coordinates);
   }
 
+  /// Returns a formatted string representing a duration.
+  ///
+  /// This function takes a duration in seconds and returns a human-readable string
+  /// that represents that duration. For example, if the duration is 65 seconds,
+  /// this function will return "1 min 5 sec".
+  ///
+  /// @param durationSeconds The duration in seconds to format.
+  /// @return A Future that completes with the formatted duration string.
   static Future<String> getFormattedDuration(num durationSeconds) async {
     return await _nbNavigationPlatform.getFormattedDuration(durationSeconds);
   }
@@ -55,12 +65,22 @@ class NBNavigation {
     return await _nbNavigationPlatform.startPreviewNavigation(route);
   }
 
+  /// Captures a symbol representing the duration of a route.
+  ///
+  /// This function takes a `DirectionsRoute` and a boolean indicating whether the route
+  /// is the primary route. It then calls the `_nbNavigationPlatform.captureRouteDurationSymbol`
+  /// method to capture a symbol representing the duration of the route.
+  ///
+  /// @param route The `DirectionsRoute` for which to capture a duration symbol.
+  /// @param isPrimaryRoute A boolean indicating whether the route is the primary route.
+  /// @return A Future that completes with the captured symbol as a `Uint8List`, or `null` if the capture failed.
   static Future<Uint8List?> captureRouteDurationSymbol(
       DirectionsRoute route, bool isPrimaryRoute) async {
     return await _nbNavigationPlatform.captureRouteDurationSymbol(
         route, isPrimaryRoute);
   }
 
+  /// Captures a symbol representing the waypoints of a route.
   static Future<Uint8List?> captureRouteWaypoints(int waypointIndex) async {
     return await _nbNavigationPlatform.captureRouteWaypoints(waypointIndex);
   }

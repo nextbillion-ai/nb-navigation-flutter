@@ -1,6 +1,6 @@
 part of nb_navigation_flutter;
 
-class NBNavigationChannelConstants {
+class NBNavMethodChannelsConstants {
   static const nbNavigationChannelName = "nb_navigation_flutter";
 }
 

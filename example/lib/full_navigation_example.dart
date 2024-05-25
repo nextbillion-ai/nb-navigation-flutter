@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
-import 'package:nb_navigation_flutter/route/map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter_example/constants.dart';
 
 class FullNavigationExample extends StatefulWidget {
@@ -31,7 +31,8 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
 
   _onStyleLoadedCallback() {
     if (controller != null) {
-      NavNextBillionMap.create(MapControllerWrapper(controller!)).then((value) {
+      NavNextBillionMap.create(NextbillionMapControllerWrapper(controller!))
+          .then((value) {
         navNextBillionMap = value;
         loadAssetImage();
         Fluttertoast.showToast(
