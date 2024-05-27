@@ -6,18 +6,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
-import 'package:nb_navigation_flutter/route/map_controller_wrapper.dart';
+import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
 
-import 'map_controller_wrapper_test.mocks.dart';
+import 'nb_map_controller_wrapper_test.mocks.dart';
+
 
 @GenerateMocks([NextbillionMapController])
 void main() {
-  late MapControllerWrapper mapControllerWrapper;
+  late NextbillionMapControllerWrapper mapControllerWrapper;
   late NextbillionMapController mockController;
 
   setUp(() {
     mockController = MockNextbillionMapController();
-    mapControllerWrapper = MapControllerWrapper(mockController);
+    mapControllerWrapper = NextbillionMapControllerWrapper(mockController);
   });
 
   test('dispose should call dispose on the controller', () {

@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
-import 'package:nb_navigation_flutter/route/map_controller_wrapper.dart';
+import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
+import 'package:nb_navigation_flutter/navigation/navigation_map.dart';
 import 'package:nb_navigation_flutter/util/asset_manager.dart';
 
 part 'model/banner_instructions.dart';
@@ -22,16 +23,16 @@ part 'model/route_request_params_constants.dart';
 part 'model/route_step.dart';
 part 'model/route_response.dart';
 
-part 'private/nb_navigation.dart';
-part 'private/method_channel_nb_navigation.dart';
-part 'private/nb_method_constant.dart';
-part 'private/nb_navigation_channel_factory.dart';
-part 'private/nb_navigation_platform.dart';
+part 'platform_channels/nb_navigation.dart';
+part 'platform_channels/nb_navigation_method_channels.dart';
+part 'platform_channels/nb_navigation_platform_constant.dart';
+part 'platform_channels/nb_navigation_method_channels_factory.dart';
+part 'platform_channels/nb_navigation_platform.dart';
 
-part 'route/constants.dart';
-part 'route/nav_nextbillion_map.dart';
-part 'route/route_layer_provider.dart';
-part 'route/route_line_properties.dart';
+part 'navigation/nb_navigation_constants.dart';
+part 'navigation/nb_navigation_map.dart';
+part 'navigation/route_layer_provider.dart';
+part 'navigation/route_line_properties.dart';
 
 part 'util/line_utils.dart';
 part 'util/time_format.dart';

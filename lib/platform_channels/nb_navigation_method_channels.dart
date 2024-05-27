@@ -1,9 +1,9 @@
 part of nb_navigation_flutter;
 
-class MethodChannelNBNavigation extends NBNavigationPlatform {
-  MethodChannel _channel = NBNavigationChannelFactory.nbNavigationChannel;
+class NBNavigationMethodChannel extends NBNavigationPlatform {
+  MethodChannel _channel = NBNavigationMethodChannelsFactory.nbNavigationChannel;
 
-  MethodChannelNBNavigation() {
+  NBNavigationMethodChannel() {
     _channel.setMethodCallHandler(_handleMethodCall);
   }
 

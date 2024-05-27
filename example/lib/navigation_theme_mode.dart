@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
+import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
-import 'package:nb_navigation_flutter/route/map_controller_wrapper.dart';
 
 class NavigationTheme extends StatefulWidget {
   static const String title = "Navigation Theme Mode";
@@ -25,8 +25,8 @@ class NavigationThemeState extends State<NavigationTheme> {
 
   void _onStyleLoaded() async {
     if (controller != null) {
-      navNextBillionMap =
-          await NavNextBillionMap.create(MapControllerWrapper(controller!));
+      navNextBillionMap = await NavNextBillionMap.create(
+          NextbillionMapControllerWrapper(controller!));
     }
   }
 

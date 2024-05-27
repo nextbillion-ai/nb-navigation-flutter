@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
-import 'package:nb_navigation_flutter/route/map_controller_wrapper.dart';
+
 
 class CustomNavigationStyle extends StatefulWidget {
   static const String title = "Customize Navigation Style";
@@ -32,7 +33,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
           routeShieldColor: Color(0xFF54E910),
           durationSymbolPrimaryBackgroundColor: Color(0xFFE97F2F));
       navNextBillionMap = await NavNextBillionMap.create(
-          MapControllerWrapper(controller!),
+          NextbillionMapControllerWrapper(controller!),
           routeLineProperties: routeLineStyle);
     }
   }
