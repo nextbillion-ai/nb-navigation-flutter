@@ -26,6 +26,10 @@ object MethodID {
 
     const val NAVIGATION_INIT_NAVIGATION = "config/initNBNavigation"
     const val NAVIGATION_GET_ACCESS_KEY = "config/getAccessKey"
+
+    const val NAVIGATION_SET_USER_ID = "config/setUserId" // Ensure this value is unique
+    const val NAVIGATION_GET_USER_ID = "config/getUserId"
+    const val NAVIGATION_GET_NB_ID = "config/getNBId"
 }
 
 object ResultID {

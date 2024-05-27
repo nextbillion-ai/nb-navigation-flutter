@@ -15,8 +15,8 @@ class MethodHandleFactory(methodChannel: MethodChannel) {
     private var nbNavigationHandler: NBNavigationHandler
 
     init {
-        routeFetchHandler  = RouteFetcherHandler(methodChannel)
-        navigationLauncherHandler  = NavigationLauncherHandler(methodChannel)
+        routeFetchHandler = RouteFetcherHandler(methodChannel)
+        navigationLauncherHandler = NavigationLauncherHandler(methodChannel)
         nbNavigationHandler = NBNavigationHandler(methodChannel)
     }
 
@@ -36,13 +36,19 @@ class MethodHandleFactory(methodChannel: MethodChannel) {
         when (method) {
             MethodID.NAVIGATION_FETCH_ROUTE, MethodID.NAVIGATION_FIND_SELECTED_ROUTE,
             MethodID.NAVIGATION_GET_FORMATTED_ROUTE_DURATION, MethodID.NAVIGATION_CAPTURE_ROUTE_DURATION_SYMBOL,
-            MethodID. NAVIGATION_CAPTURE_ROUTE_WAY_POINTS -> methodChannelHandler =
+            MethodID.NAVIGATION_CAPTURE_ROUTE_WAY_POINTS -> methodChannelHandler =
                 routeFetchHandler
 
             MethodID.NAVIGATION_LAUNCH_NAVIGATION, MethodID.NAVIGATION_PREVIEW_NAVIGATION -> methodChannelHandler =
                 navigationLauncherHandler
 
-            MethodID.NAVIGATION_INIT_NAVIGATION, MethodID.NAVIGATION_GET_ACCESS_KEY, MethodID.NAVIGATION_GET_BASE_URL, MethodID.NAVIGATION_SET_BASE_URL -> methodChannelHandler =
+            MethodID.NAVIGATION_INIT_NAVIGATION,
+            MethodID.NAVIGATION_GET_ACCESS_KEY,
+            MethodID.NAVIGATION_GET_BASE_URL,
+            MethodID.NAVIGATION_SET_BASE_URL,
+            MethodID.NAVIGATION_GET_NB_ID,
+            MethodID.NAVIGATION_GET_USER_ID,
+            MethodID.NAVIGATION_SET_USER_ID -> methodChannelHandler =
                 nbNavigationHandler
 
             else -> {}

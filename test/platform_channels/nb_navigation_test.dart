@@ -161,5 +161,37 @@ void main() {
 
     expect(response, equals(expectedResponse));
   });
+  
+  test('setUserId calls the correct method on the NBNavigationPlatform', () async {
+      const userId = 'test_user_id';
 
+      when(mockNBNavigationPlatform.setUserId(userId)).thenAnswer((_) async => true);
+
+      final result = await NBNavigation.setUserId(userId);
+
+      verify(mockNBNavigationPlatform.setUserId(userId)).called(1);
+      expect(result, true);
+    });
+
+    test('getUserId calls the correct method on the NBNavigationPlatform', () async {
+      const userId = 'test_user_id';
+
+      when(mockNBNavigationPlatform.getUserId()).thenAnswer((_) async => userId);
+
+      final result = await NBNavigation.getUserId();
+
+      verify(mockNBNavigationPlatform.getUserId()).called(1);
+      expect(result, userId);
+    });
+
+    test('getNBId calls the correct method on the NBNavigationPlatform', () async {
+      const nbId = 'test_nb_id';
+
+      when(mockNBNavigationPlatform.getNBId()).thenAnswer((_) async => nbId);
+
+      final result = await NBNavigation.getNBId();
+
+      verify(mockNBNavigationPlatform.getNBId()).called(1);
+      expect(result, nbId);
+    });
 }
