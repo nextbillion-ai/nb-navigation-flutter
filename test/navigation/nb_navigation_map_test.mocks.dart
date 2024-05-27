@@ -1655,4 +1655,31 @@ class MockNBNavigationPlatform extends _i1.Mock
         ),
         returnValue: _i6.Future<_i9.Uint8List?>.value(),
       ) as _i6.Future<_i9.Uint8List?>);
+
+  @override
+  _i6.Future<bool> setUserId(String? userId) => (super.noSuchMethod(
+        Invocation.method(
+          #setUserId,
+          [userId],
+        ),
+        returnValue: _i6.Future<bool>.value(false),
+      ) as _i6.Future<bool>);
+
+  @override
+  _i6.Future<String?> getUserId() => (super.noSuchMethod(
+        Invocation.method(
+          #getUserId,
+          [],
+        ),
+        returnValue: _i6.Future<String?>.value(),
+      ) as _i6.Future<String?>);
+
+  @override
+  _i6.Future<String?> getNBId() => (super.noSuchMethod(
+        Invocation.method(
+          #getNBId,
+          [],
+        ),
+        returnValue: _i6.Future<String?>.value(),
+      ) as _i6.Future<String?>);
 }

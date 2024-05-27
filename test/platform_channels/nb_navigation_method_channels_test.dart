@@ -10,19 +10,17 @@ import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 
 import 'nb_navigation_method_channels_test.mocks.dart';
 
-
-
 @GenerateMocks([MethodChannel])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late MethodChannel channel;
-  late NBNavigationMethodChannel methodChannelNBNavigation;
+  late NBNavigationMethodChannel nbNavMethodChannel;
   late DirectionsRoute route;
 
   setUp(() async {
     channel = MockMethodChannel();
-    methodChannelNBNavigation = NBNavigationMethodChannel();
-    methodChannelNBNavigation.setMethodChanenl(channel);
+    nbNavMethodChannel = NBNavigationMethodChannel();
+    nbNavMethodChannel.setMethodChanenl(channel);
 
     final file = File('test/navigation/route.json');
     final jsonString = await file.readAsString();
@@ -52,8 +50,7 @@ void main() {
               'errorCode': 0,
             });
 
-    final response =
-        await methodChannelNBNavigation.fetchRoute(routeRequestParams);
+    final response = await nbNavMethodChannel.fetchRoute(routeRequestParams);
 
     expect(response.message, equals(expectedResponse.message));
     expect(response.errorCode, equals(expectedResponse.errorCode));
@@ -75,7 +72,7 @@ void main() {
             NBNavigationLauncherMethodID.nbNavigationLauncherMethod, arguments))
         .thenAnswer((_) async => {});
 
-    await methodChannelNBNavigation.startNavigation(launcherConfig);
+    await nbNavMethodChannel.startNavigation(launcherConfig);
 
     verify(channel.invokeMethod(
         NBNavigationLauncherMethodID.nbNavigationLauncherMethod, arguments));
@@ -90,7 +87,7 @@ void main() {
             NBNavigationLauncherMethodID.nbPreviewNavigationMethod, arguments))
         .thenAnswer((_) async => {});
 
-    await methodChannelNBNavigation.startPreviewNavigation(route);
+    await nbNavMethodChannel.startPreviewNavigation(route);
 
     verify(channel.invokeMethod(
         NBNavigationLauncherMethodID.nbPreviewNavigationMethod, arguments));
@@ -106,7 +103,7 @@ void main() {
     when(channel.invokeMethod<int>('route/findSelectedRouteIndex', any))
         .thenAnswer((_) async => expectedIndex);
 
-    final index = await methodChannelNBNavigation.findSelectedRouteIndex(
+    final index = await nbNavMethodChannel.findSelectedRouteIndex(
         clickPoint, coordinates);
 
     expect(index, equals(expectedIndex));
@@ -119,7 +116,7 @@ void main() {
             NBNavigationLauncherMethodID.nbGetNavigationUriMethod))
         .thenAnswer((_) async => expectedUri);
 
-    final uri = await methodChannelNBNavigation.getRoutingBaseUri();
+    final uri = await nbNavMethodChannel.getRoutingBaseUri();
 
     expect(uri, equals(expectedUri));
   });
@@ -130,7 +127,7 @@ void main() {
     when(channel.invokeMethod<String>(NBRouteMethodID.routeFormattedDuration,
         {"duration": 60.toDouble()})).thenAnswer((_) async => expectedDuration);
 
-    final duration = await methodChannelNBNavigation.getFormattedDuration(60);
+    final duration = await nbNavMethodChannel.getFormattedDuration(60);
 
     expect(duration, equals(expectedDuration));
   });
@@ -142,7 +139,7 @@ void main() {
         .thenAnswer((_) async => expectedResponse);
 
     final response =
-        await methodChannelNBNavigation.captureRouteDurationSymbol(route, true);
+        await nbNavMethodChannel.captureRouteDurationSymbol(route, true);
 
     expect(response, equals(expectedResponse));
   });
@@ -154,8 +151,72 @@ void main() {
             NBRouteMethodID.navigationCaptureRouteWaypoints, any))
         .thenAnswer((_) async => expectedResponse);
 
-    final response = await methodChannelNBNavigation.captureRouteWaypoints(0);
+    final response = await nbNavMethodChannel.captureRouteWaypoints(0);
 
     expect(response, equals(expectedResponse));
+  });
+
+  test('setRoutingBaseUri calls the correct method on the method channel', () {
+    const uri = 'test_uri';
+
+    when(channel.invokeMethod(
+        NBNavigationLauncherMethodID.nbSetNavigationUriMethod,
+        {'navigationBaseUri': uri})).thenAnswer((realInvocation) async => null);
+    nbNavMethodChannel.setRoutingBaseUri(uri);
+
+    verify(channel.invokeMethod(
+        NBNavigationLauncherMethodID.nbSetNavigationUriMethod,
+        {'navigationBaseUri': uri})).called(1);
+  });
+
+  test('setOnNavigationExitCallback sets the correct callback', () {
+    bool callbackCalled = false;
+    void callback(bool shouldRefreshRoute, int remainingWaypoints) {
+      callbackCalled = true;
+    }
+
+    nbNavMethodChannel.setOnNavigationExitCallback(callback);
+    nbNavMethodChannel.navigationExitCallback!.call(true, 0);
+
+    expect(callbackCalled, true);
+  });
+
+  test('setUserId calls the correct method on the method channel', () {
+    const userId = 'test_user_id';
+
+    when(channel.invokeMethod(
+            NBNavigationConfigMethodID.configSetUserId, {'userId': userId}))
+        .thenAnswer((realInvocation) async => true);
+    nbNavMethodChannel.setUserId(userId);
+
+    verify(channel.invokeMethod(
+            NBNavigationConfigMethodID.configSetUserId, {'userId': userId}))
+        .called(1);
+  });
+
+  test('getUserId calls the correct method on the method channel', () async {
+    const userId = 'test_user_id';
+
+    when(channel.invokeMethod(NBNavigationConfigMethodID.configGetUserId))
+        .thenAnswer((_) async => userId);
+
+    final result = await nbNavMethodChannel.getUserId();
+
+    verify(channel.invokeMethod(NBNavigationConfigMethodID.configGetUserId))
+        .called(1);
+    expect(result, userId);
+  });
+
+  test('getNBId calls the correct method on the method channel', () async {
+    const nbId = 'test_nb_id';
+
+    when(channel.invokeMethod(NBNavigationConfigMethodID.configGetNBId))
+        .thenAnswer((_) async => nbId);
+
+    final result = await nbNavMethodChannel.getNBId();
+
+    verify(channel.invokeMethod(NBNavigationConfigMethodID.configGetNBId))
+        .called(1);
+    expect(result, nbId);
   });
 }
