@@ -28,7 +28,8 @@ class MethodHandleFactory: NSObject {
         case MethodID.NAVIGATION_LAUNCH_NAVIGATION, MethodID.NAVIGATION_PREVIEW_NAVIGATION:
             methodChannelHandler = navigationLauncherHandler
             
-        case MethodID.NAVIGATION_INIT_NAVIGATION, MethodID.NAVIGATION_GET_ACCESS_KEY, MethodID.NAVIGATION_GET_BASE_URL, MethodID.NAVIGATION_SET_BASE_URL:
+        case MethodID.NAVIGATION_INIT_NAVIGATION, MethodID.NAVIGATION_GET_ACCESS_KEY, MethodID.NAVIGATION_GET_BASE_URL,
+            MethodID.NAVIGATION_SET_BASE_URL,MethodID.NAVIGATION_SET_USER_ID, MethodID.NAVIGATION_GET_USER_ID, MethodID.NAVIGATION_GET_NB_ID:
             methodChannelHandler = nbNavigationHandler
             
         default:

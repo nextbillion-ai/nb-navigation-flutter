@@ -30,4 +30,10 @@ abstract class NBNavigationPlatform {
 
   Future<Uint8List?> captureRouteWaypoints(int waypointIndex);
 
+  Future<bool> setUserId(String userId);
+
+  Future<String?> getUserId();
+
+  Future<String?> getNBId();
+
 }

@@ -24,7 +24,7 @@ final Map<String, Widget> _allPages = <String, Widget>{
 };
 
 class NavigationDemo extends StatefulWidget {
-  static const String ACCESS_KEY = String.fromEnvironment("ACCESS_KEY");
+  static const String ACCESS_KEY = "opensesame";//String.fromEnvironment("ACCESS_KEY");
 
   @override
   State<NavigationDemo> createState() => _NavigationDemoState();
@@ -34,7 +34,16 @@ class _NavigationDemoState extends State<NavigationDemo> {
   @override
   void initState() {
     super.initState();
-    NextBillion.initNextBillion(NavigationDemo.ACCESS_KEY);
+    NBNavigation.initNextBillion(NavigationDemo.ACCESS_KEY);
+
+    // Set user ID If needed
+    NBNavigation.setUserId("123344").then((value) => print("User ID set: $value"));
+
+    // Check user ID If needed
+    NBNavigation.getUserId().then((value) => print("User ID: $value"));
+
+    // Get NB ID If needed
+    NBNavigation.getNBId().then((value) => print("NB ID: $value"));
   }
 
   void _pushPage(BuildContext context, Widget page) async {

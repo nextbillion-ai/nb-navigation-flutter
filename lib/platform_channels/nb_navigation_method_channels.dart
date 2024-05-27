@@ -186,4 +186,43 @@ class NBNavigationMethodChannel extends NBNavigationPlatform {
     }
     return null;
   }
+
+  @override
+  Future<bool> setUserId(String userId) async {
+    try {
+      return await _channel
+          .invokeMethod(NBNavigationConfigMethodID.configSetUserId, {"userId": userId});
+    } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+    return false;
+  }
+
+  @override
+  Future<String?> getNBId() async {
+    try {
+      return await _channel
+          .invokeMethod(NBNavigationConfigMethodID.configGetNBId);
+    } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+    return null;
+  }
+
+  @override
+  Future<String?> getUserId() async {
+    try {
+      return await _channel
+          .invokeMethod(NBNavigationConfigMethodID.configGetUserId);
+    } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+    return null;
+  }
 }
