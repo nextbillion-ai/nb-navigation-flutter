@@ -1,12 +1,13 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
-import 'package:nb_maps_flutter/nb_maps_flutter.dart';
-
 
 class RouteLineStyle extends StatefulWidget {
   static const String title = "Customize Route Line Style";
+
+  const RouteLineStyle({super.key});
 
   @override
   RouteLineStyleState createState() => RouteLineStyleState();
@@ -88,7 +89,9 @@ class RouteLineStyleState extends State<RouteLineStyle> {
       });
       drawRoutes(routeData);
     } else if (response.message != null) {
-      print("====error====${response.message}===${response.errorCode}");
+      if (kDebugMode) {
+        print("====error====${response.message}===${response.errorCode}");
+      }
     }
   }
 
@@ -122,7 +125,7 @@ class RouteLineStyleState extends State<RouteLineStyle> {
           children: [
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
+                backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
               ),
               onPressed: () {
                 _fetchRoute();
@@ -132,7 +135,7 @@ class RouteLineStyleState extends State<RouteLineStyle> {
             const Padding(padding: EdgeInsets.only(left: 8)),
             ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
+                  backgroundColor: WidgetStateProperty.all(
                       routes.isEmpty ? Colors.grey : Colors.blueAccent),
                   enableFeedback: routes.isNotEmpty),
               onPressed: () {

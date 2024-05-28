@@ -1,12 +1,14 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
-import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 
 
 class CustomNavigationStyle extends StatefulWidget {
   static const String title = "Customize Navigation Style";
+
+  const CustomNavigationStyle({super.key});
 
   @override
   CustomNavigationStyleState createState() => CustomNavigationStyleState();
@@ -87,8 +89,10 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
       });
       drawRoutes(routes);
     } else if (routeResponse.message != null) {
-      print(
+      if (kDebugMode) {
+        print(
           "====error====${routeResponse.message}===${routeResponse.errorCode}");
+      }
     }
   }
 
@@ -122,7 +126,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
           children: [
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
+                backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
               ),
               onPressed: () {
                 _fetchRoute();
@@ -132,7 +136,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
             const Padding(padding: EdgeInsets.only(left: 8)),
             ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
+                  backgroundColor: WidgetStateProperty.all(
                       routes.isEmpty ? Colors.grey : Colors.blueAccent),
                   enableFeedback: routes.isNotEmpty),
               onPressed: () {

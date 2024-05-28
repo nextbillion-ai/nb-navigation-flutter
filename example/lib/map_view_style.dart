@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nb_maps_flutter/nb_maps_flutter.dart';
+import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 
 class MapViewStyle extends StatefulWidget {
   static const String title = "MapView Style";
+
+  const MapViewStyle({super.key});
 
   @override
   MapViewStyleState createState() => MapViewStyleState();

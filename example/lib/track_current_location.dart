@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nb_maps_flutter/nb_maps_flutter.dart';
+import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 
 class TrackCurrentLocation extends StatefulWidget {
   static const String title = "Track Current Location";
+
+  const TrackCurrentLocation({super.key});
 
   @override
   TrackCurrentLocationState createState() => TrackCurrentLocationState();
@@ -26,7 +27,9 @@ class TrackCurrentLocationState extends State<TrackCurrentLocation> {
   }
 
   _onUserLocationUpdate(UserLocation location) {
-    print('${location.position.longitude}, ${location.position.latitude}');
+    if (kDebugMode) {
+      print('${location.position.longitude}, ${location.position.latitude}');
+    }
   }
 
   _onCameraTrackingChanged() {

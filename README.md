@@ -35,7 +35,6 @@ import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 ### Initialization
 To run the Navigation Flutter Plugin you will need to configure the NB Maps Token at the beginning of your flutter app using `NextBillion.initNextBillion(YOUR_ACCESS_KEY)`. 
 ```
-import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 
 class _NavigationDemoState extends State<NavigationDemo> {

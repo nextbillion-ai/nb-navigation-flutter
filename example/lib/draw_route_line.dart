@@ -1,12 +1,14 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 
 class DrawRouteLine extends StatefulWidget {
   static const String title = "Draw Route Line";
+
+  const DrawRouteLine({super.key});
 
   @override
   DrawRouteLineState createState() => DrawRouteLineState();
@@ -114,8 +116,10 @@ class DrawRouteLineState extends State<DrawRouteLine> {
       });
       drawRoutes(routes);
     } else if (routeResponse.message != null) {
-      print(
+      if (kDebugMode) {
+        print(
           "====error====${routeResponse.message}===${routeResponse.errorCode}");
+      }
     }
   }
 
@@ -146,7 +150,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
         children: [
           ElevatedButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
+              backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
             ),
             onPressed: () {
               _fetchRoute();
@@ -156,7 +160,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
           const Padding(padding: EdgeInsets.only(left: 8)),
           ElevatedButton(
             style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(
                     routes.isEmpty ? Colors.grey : Colors.blueAccent),
                 enableFeedback: routes.isNotEmpty),
             onPressed: () {
@@ -178,7 +182,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
         children: [
           Row(
             children: [
-              Text("Display Alternative Route"),
+              const Text("Display Alternative Route"),
               Switch(
                   value: enableAlternativeRoutes,
                   onChanged: (value) {
@@ -191,7 +195,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
           ),
           Row(
             children: [
-              Text("Display Route Duration Symbol"),
+              const Text("Display Route Duration Symbol"),
               Switch(
                   value: enableRouteDurationSymbol,
                   onChanged: (value) async {
