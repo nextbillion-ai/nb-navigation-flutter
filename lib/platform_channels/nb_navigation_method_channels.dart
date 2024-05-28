@@ -1,18 +1,21 @@
 part of nb_navigation_flutter;
 
 class NBNavigationMethodChannel extends NBNavigationPlatform {
-  MethodChannel _channel = NBNavigationMethodChannelsFactory.nbNavigationChannel;
+  MethodChannel _channel =
+      NBNavigationMethodChannelsFactory.nbNavigationChannel;
 
   NBNavigationMethodChannel() {
-    _channel.setMethodCallHandler(_handleMethodCall);
+    _channel.setMethodCallHandler(handleMethodCall);
   }
 
+  @visibleForTesting
   void setMethodChanenl(MethodChannel channel) {
     _channel = channel;
-    _channel.setMethodCallHandler(_handleMethodCall);
+    _channel.setMethodCallHandler(handleMethodCall);
   }
 
-  Future<dynamic> _handleMethodCall(MethodCall call) async {
+  @visibleForTesting
+  Future<dynamic> handleMethodCall(MethodCall call) async {
     switch (call.method) {
       case NBNavigationLauncherMethodID.nbOnNavigationExit:
         var arguments = call.arguments;
@@ -23,7 +26,6 @@ class NBNavigationMethodChannel extends NBNavigationPlatform {
               arguments["shouldRefreshRoute"], arguments["remainingWaypoints"]);
         }
         break;
-
       default:
         throw MissingPluginException();
     }
@@ -190,8 +192,8 @@ class NBNavigationMethodChannel extends NBNavigationPlatform {
   @override
   Future<bool> setUserId(String userId) async {
     try {
-      return await _channel
-          .invokeMethod(NBNavigationConfigMethodID.configSetUserId, {"userId": userId});
+      return await _channel.invokeMethod(
+          NBNavigationConfigMethodID.configSetUserId, {"userId": userId});
     } on PlatformException catch (e) {
       if (kDebugMode) {
         print(e.toString());

@@ -58,6 +58,47 @@ void main() {
         response.directionsRoutes, equals(expectedResponse.directionsRoutes));
   });
 
+  test('setOnNavigationExitCallback sets the correct callback', () {
+    bool callbackCalled = false;
+    void callback(bool shouldRefreshRoute, int remainingWaypoints) {
+      callbackCalled = true;
+    }
+
+    nbNavMethodChannel.setOnNavigationExitCallback(callback);
+    nbNavMethodChannel.navigationExitCallback!.call(true, 0);
+
+    expect(callbackCalled, true);
+  });
+
+  test('handleMethodCall should call navigationExitCallback', () async {
+    bool expectedShouldRefreshRoute = false;
+    int expectedRemainingWaypoints = 0;
+    void callback(bool shouldRefreshRoute, int remainingWaypoints) {
+      expectedShouldRefreshRoute = shouldRefreshRoute;
+      expectedRemainingWaypoints = remainingWaypoints;
+    }
+
+    nbNavMethodChannel.setOnNavigationExitCallback(callback);
+    final arguments = {
+      'shouldRefreshRoute': true,
+      'remainingWaypoints': 1,
+    };
+
+    nbNavMethodChannel.handleMethodCall(
+        MethodCall(NBNavigationLauncherMethodID.nbOnNavigationExit, arguments));
+
+    expect(expectedRemainingWaypoints, 1);
+    expect(expectedShouldRefreshRoute, true);
+  });
+
+  test('handleMethodCall throws MissingPluginException for unknown method',
+      () async {
+    const call = MethodCall('unknownMethod');
+
+    expect(() async => await nbNavMethodChannel.handleMethodCall(call),
+        throwsA(isA<MissingPluginException>()));
+  });
+
   //Assume Platform.IOS == false;
   test('startNavigation should invoke method on channel', () async {
     List<DirectionsRoute> routes = [route];
@@ -156,6 +197,26 @@ void main() {
     expect(response, equals(expectedResponse));
   });
 
+  test('captureRouteWaypoints handles PlatformException correctly', () async {
+    const waypointIndex = 1;
+    final exception = PlatformException(code: 'test');
+
+    when(channel.invokeMethod(
+      NBRouteMethodID.navigationCaptureRouteWaypoints,
+      any,
+    )).thenThrow(exception);
+
+    final result =
+        await nbNavMethodChannel.captureRouteWaypoints(waypointIndex);
+
+    verify(channel.invokeMethod(
+      NBRouteMethodID.navigationCaptureRouteWaypoints,
+      {"waypointIndex": waypointIndex},
+    )).called(1);
+
+    expect(result, null);
+  });
+
   test('setRoutingBaseUri calls the correct method on the method channel', () {
     const uri = 'test_uri';
 
@@ -167,18 +228,6 @@ void main() {
     verify(channel.invokeMethod(
         NBNavigationLauncherMethodID.nbSetNavigationUriMethod,
         {'navigationBaseUri': uri})).called(1);
-  });
-
-  test('setOnNavigationExitCallback sets the correct callback', () {
-    bool callbackCalled = false;
-    void callback(bool shouldRefreshRoute, int remainingWaypoints) {
-      callbackCalled = true;
-    }
-
-    nbNavMethodChannel.setOnNavigationExitCallback(callback);
-    nbNavMethodChannel.navigationExitCallback!.call(true, 0);
-
-    expect(callbackCalled, true);
   });
 
   test('setUserId calls the correct method on the method channel', () {
