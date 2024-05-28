@@ -1,15 +1,17 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
-import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 import 'package:nb_navigation_flutter_example/constants.dart';
 
 class FullNavigationExample extends StatefulWidget {
   static const String title = "Full Navigation Experience Example";
+
+  const FullNavigationExample({super.key});
 
   @override
   FullNavigationExampleState createState() => FullNavigationExampleState();
@@ -123,7 +125,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
                 children: [
                   ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
+                          backgroundColor: WidgetStateProperty.all(
                               routes.isEmpty ? Colors.grey : Colors.blueAccent),
                           enableFeedback: routes.isNotEmpty),
                       onPressed: () {
@@ -134,7 +136,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
                   const Padding(padding: EdgeInsets.only(left: 8)),
                   ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
+                          backgroundColor: WidgetStateProperty.all(
                               routes.isEmpty ? Colors.grey : Colors.blueAccent),
                           enableFeedback: routes.isNotEmpty),
                       onPressed: () {
@@ -189,8 +191,10 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
       fitCameraToBounds(routes);
       addImageFromAsset(destination);
     } else if (routeResponse.message != null) {
-      print(
+      if (kDebugMode) {
+        print(
           "====error====${routeResponse.message}===${routeResponse.errorCode}");
+      }
     }
   }
 

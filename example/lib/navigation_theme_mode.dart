@@ -1,10 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 
 class NavigationTheme extends StatefulWidget {
   static const String title = "Navigation Theme Mode";
+
+  const NavigationTheme({super.key});
 
   @override
   NavigationThemeState createState() => NavigationThemeState();
@@ -86,8 +88,10 @@ class NavigationThemeState extends State<NavigationTheme> {
       });
       drawRoutes(routes);
     } else if (routeResponse.message != null) {
-      print(
+      if (kDebugMode) {
+        print(
           "====error====${routeResponse.message}===${routeResponse.errorCode}");
+      }
     }
   }
 
@@ -119,7 +123,7 @@ class NavigationThemeState extends State<NavigationTheme> {
         children: [
           ElevatedButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
+              backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
             ),
             onPressed: () {
               _fetchRoute();
@@ -128,7 +132,7 @@ class NavigationThemeState extends State<NavigationTheme> {
           ),
           ElevatedButton(
             style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(
                     routes.isEmpty ? Colors.grey : Colors.blueAccent),
                 enableFeedback: routes.isNotEmpty),
             onPressed: () {
@@ -139,7 +143,7 @@ class NavigationThemeState extends State<NavigationTheme> {
           ),
           ElevatedButton(
             style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(
                     routes.isEmpty ? Colors.grey : Colors.blueAccent),
                 enableFeedback: routes.isNotEmpty),
             onPressed: () {
@@ -150,7 +154,7 @@ class NavigationThemeState extends State<NavigationTheme> {
           ),
           ElevatedButton(
             style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(
                     routes.isEmpty ? Colors.grey : Colors.blueAccent),
                 enableFeedback: routes.isNotEmpty),
             onPressed: () {
