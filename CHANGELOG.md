@@ -1,3 +1,10 @@
+## v0.5.0, May 28, 2024
+* Code test coverage improvement
+* Support to set user id into the navigation request params user-agent
+  * NBNavigation.setUserId(userId)
+* Support to get the current navigation nb id
+  * NBNavigation.getNBId()
+  
 ## v0.4.5, May 16, 2024
 * Configure the minimum flutter version to 3.3.0
 * Fix the build error
