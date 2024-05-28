@@ -24,7 +24,7 @@ final Map<String, Widget> _allPages = <String, Widget>{
 };
 
 class NavigationDemo extends StatefulWidget {
-  static const String ACCESS_KEY = "opensesame";//String.fromEnvironment("ACCESS_KEY");
+  static const String ACCESS_KEY = String.fromEnvironment("ACCESS_KEY");
 
   @override
   State<NavigationDemo> createState() => _NavigationDemoState();
