@@ -375,7 +375,7 @@ class NavNextBillionMap implements NavigationMap {
   /// Clears the currently displayed route from the map.
   @override
   Future<void> clearRoute() async {
-    clearSources();
+    await clearSources();
     routeLines.clear();
   }
 
