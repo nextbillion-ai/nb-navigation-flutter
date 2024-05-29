@@ -2,7 +2,10 @@ part of nb_navigation_flutter;
 
 class MapRouteLayerProvider {
   LineLayerProperties initializeRouteShieldLayer(
-      double routeScale, double alternativeRouteScale, Color routeShieldColor, Color alternativeRouteShieldColor) {
+      double routeScale,
+      double alternativeRouteScale,
+      Color routeShieldColor,
+      Color alternativeRouteShieldColor) {
     return LineLayerProperties(
       lineCap: "round",
       lineJoin: "round",
@@ -32,7 +35,10 @@ class MapRouteLayerProvider {
   }
 
   LineLayerProperties initializeRouteLayer(
-      double routeScale, double alternativeRouteScale, Color routeDefaultColor, Color alternativeRouteDefaultColor) {
+      double routeScale,
+      double alternativeRouteScale,
+      Color routeDefaultColor,
+      Color alternativeRouteDefaultColor) {
     return LineLayerProperties(
       lineCap: "round",
       lineJoin: "round",
@@ -63,26 +69,32 @@ class MapRouteLayerProvider {
     );
   }
 
-  SymbolLayerProperties initializeWayPointLayer(String originMarkerName, String destinationMarkerName) {
+  SymbolLayerProperties initializeWayPointLayer(
+      String originMarkerName, String destinationMarkerName) {
     var sizeAndroid = [0.8, 1.2, 1.6, 2.8];
     var sizeIos = [0.6, 0.8, 1.0, 2.2];
     var size = Platform.isAndroid ? sizeAndroid : sizeIos;
-    return SymbolLayerProperties(iconImage: [
-      Expressions.get,
-      waypointPropertyKey
-    ], iconSize: [
-      Expressions.interpolate,
-      ['exponential', 1.5],
-      [Expressions.zoom],
-      0,
-      size[0],
-      10,
-      size[1],
-      12,
-      size[2],
-      22,
-      size[3],
-    ], iconPitchAlignment: 'map', iconAllowOverlap: true, iconIgnorePlacement: true);
+    return SymbolLayerProperties(
+        iconImage: [
+          Expressions.get,
+          waypointPropertyKey
+        ],
+        iconSize: [
+          Expressions.interpolate,
+          ['exponential', 1.5],
+          [Expressions.zoom],
+          0,
+          size[0],
+          10,
+          size[1],
+          12,
+          size[2],
+          22,
+          size[3],
+        ],
+        iconPitchAlignment: 'map',
+        iconAllowOverlap: true,
+        iconIgnorePlacement: true);
   }
 
   SymbolLayerProperties initializeDurationSymbolLayer() {
@@ -115,7 +127,8 @@ class MapRouteLayerProvider {
         ]);
   }
 
-  List<Object> list(double base, double routeScale, double alternativeRouteScale) {
+  List<Object> list(
+      double base, double routeScale, double alternativeRouteScale) {
     return [
       Expressions.multiply,
       base,

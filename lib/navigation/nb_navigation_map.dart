@@ -46,25 +46,9 @@ class NavNextBillionMap implements NavigationMap {
       return;
     }
     await _removePreviousSource();
-    if (controller.disposed) {
-      return;
-    }
     await _prepareSources();
-
-    if (controller.disposed) {
-      return;
-    }
     await _loadAssetImage();
-
-    if (controller.disposed) {
-      return;
-    }
     await initRouteLayers();
-
-    if (controller.disposed) {
-      return;
-    }
-
     _addListeners();
   }
 
@@ -72,36 +56,15 @@ class NavNextBillionMap implements NavigationMap {
     if (controller.disposed) {
       return;
     }
+    await safeRemoveLayer(routeShieldLayerId);
+    await safeRemoveLayer(routeLayerId);
+    await safeRemoveLayer(waypointLayerId);
+    await safeRemoveLayer(routeDurationLayerId);
 
-    await controller.removeLayer(routeShieldLayerId);
-    if (controller.disposed) {
-      return;
-    }
-    await controller.removeLayer(routeLayerId);
-    if (controller.disposed) {
-      return;
-    }
-    await controller.removeLayer(waypointLayerId);
-    if (controller.disposed) {
-      return;
-    }
-    await controller.removeLayer(routeDurationLayerId);
-    if (controller.disposed) {
-      return;
-    }
-    await controller.removeSource(routeShieldSourceId);
-    if (controller.disposed) {
-      return;
-    }
-    await controller.removeSource(routeSourceId);
-    if (controller.disposed) {
-      return;
-    }
-    await controller.removeSource(waypointSourceId);
-    if (controller.disposed) {
-      return;
-    }
-    await controller.removeSource(routeDurationSourceId);
+    await safeRemoveSource(routeShieldSourceId);
+    await safeRemoveSource(routeSourceId);
+    await safeRemoveSource(waypointSourceId);
+    await safeRemoveSource(routeDurationSourceId);
   }
 
   Future<void> _prepareSources() async {
@@ -109,22 +72,10 @@ class NavNextBillionMap implements NavigationMap {
       return;
     }
 
-    await controller.addGeoJsonSource(
-        routeShieldSourceId, buildFeatureCollection([]));
-    if (controller.disposed) {
-      return;
-    }
-    await controller.addGeoJsonSource(
-        routeSourceId, buildFeatureCollection([]));
-    if (controller.disposed) {
-      return;
-    }
-    await controller.addGeoJsonSource(
-        waypointSourceId, buildFeatureCollection([]));
-    if (controller.disposed) {
-      return;
-    }
-    await controller.addGeoJsonSource(
+    await safeAddGeoJsonSource(routeShieldSourceId, buildFeatureCollection([]));
+    await safeAddGeoJsonSource(routeSourceId, buildFeatureCollection([]));
+    await safeAddGeoJsonSource(waypointSourceId, buildFeatureCollection([]));
+    await safeAddGeoJsonSource(
         routeDurationSourceId, buildFeatureCollection([]));
   }
 
@@ -156,9 +107,7 @@ class NavNextBillionMap implements NavigationMap {
     }
     String? belowLayer = await controller.findBelowLayerId(
         [nbmapLocationId, highwayShieldLayerId, nbmapAnnotationId]);
-    if (controller.disposed) {
-      return;
-    }
+
     LineLayerProperties routeShieldLayer =
         routeLayerProvider.initializeRouteShieldLayer(
       routeLineProperties.routeScale,
@@ -166,15 +115,14 @@ class NavNextBillionMap implements NavigationMap {
       routeLineProperties.routeShieldColor,
       routeLineProperties.alternativeRouteShieldColor,
     );
+
     if (controller.disposed) {
       return;
     }
     await controller.addLineLayer(
         routeShieldSourceId, routeShieldLayerId, routeShieldLayer,
         belowLayerId: belowLayer);
-    if (controller.disposed) {
-      return;
-    }
+
     routeLayers[routeShieldLayerId] = routeShieldLayer;
 
     LineLayerProperties routeLayer = routeLayerProvider.initializeRouteLayer(
@@ -184,11 +132,12 @@ class NavNextBillionMap implements NavigationMap {
       routeLineProperties.alternativeRouteDefaultColor,
     );
 
-    await controller.addLineLayer(routeSourceId, routeLayerId, routeLayer,
-        belowLayerId: belowLayer);
     if (controller.disposed) {
       return;
     }
+    await controller.addLineLayer(routeSourceId, routeLayerId, routeLayer,
+        belowLayerId: belowLayer);
+
     routeLayers[routeLayerId] = routeLayer;
 
     SymbolLayerProperties wayPointLayer = routeLayerProvider
@@ -198,20 +147,17 @@ class NavNextBillionMap implements NavigationMap {
     }
     await controller.addSymbolLayer(
         waypointSourceId, waypointLayerId, wayPointLayer);
-    if (controller.disposed) {
-      return;
-    }
+
     SymbolLayerProperties durationSymbolLayer =
         routeLayerProvider.initializeDurationSymbolLayer();
+
     if (controller.disposed) {
       return;
     }
     await controller.addSymbolLayer(
         routeDurationSourceId, routeDurationLayerId, durationSymbolLayer,
         belowLayerId: nbmapWaynameLayer);
-    if (controller.disposed) {
-      return;
-    }
+
     routeLayers[routeDurationLayerId] = durationSymbolLayer;
   }
 
@@ -229,17 +175,8 @@ class NavNextBillionMap implements NavigationMap {
     }
 
     await clearRoute();
-    if (controller.disposed) {
-      return;
-    }
     await _drawRoutesFeatureCollections(routes);
-    if (controller.disposed) {
-      return;
-    }
     await _drawWayPoints(routes.first);
-    if (controller.disposed) {
-      return;
-    }
     await _drawRouteDurationSymbol(routes);
   }
 
@@ -269,18 +206,9 @@ class NavNextBillionMap implements NavigationMap {
     }
 
     List<Map<String, dynamic>> reversed = routeLineFeatures.reversed.toList();
-
-    if (controller.disposed) {
-      return;
-    }
-
-    await controller.setGeoJsonSource(
+    await safeSetGeoJsonSource(
         routeShieldSourceId, buildFeatureCollection(reversed));
-    if (controller.disposed) {
-      return;
-    }
-    await controller.setGeoJsonSource(
-        routeSourceId, buildFeatureCollection(reversed));
+    await safeSetGeoJsonSource(routeSourceId, buildFeatureCollection(reversed));
   }
 
   int _getDecodePrecision(RouteRequestParams? routeOptions) {
@@ -313,9 +241,6 @@ class NavNextBillionMap implements NavigationMap {
             return;
           }
           await _buildWaypointNumberView(waypointName, i + 1);
-          if (controller.disposed) {
-            return;
-          }
         }
       }
     }
@@ -323,11 +248,7 @@ class NavNextBillionMap implements NavigationMap {
     var desGeo = _generateWaypointSymbolGeo(destination, destinationMarkerName);
     wayPoints.add(desGeo);
 
-    if (controller.disposed) {
-      return;
-    }
-
-    await controller.setGeoJsonSource(
+    await safeSetGeoJsonSource(
         waypointSourceId, buildFeatureCollection(wayPoints));
   }
 
@@ -354,6 +275,9 @@ class NavNextBillionMap implements NavigationMap {
   }
 
   Future<void> _drawRouteDurationSymbol(List<DirectionsRoute> routes) async {
+    if (controller.disposed) {
+      return;
+    }
     List<Map<String, dynamic>> durationSymbols = [];
     for (int i = 0; i < routes.length; i++) {
       DirectionsRoute route = routes[i];
@@ -374,23 +298,23 @@ class NavNextBillionMap implements NavigationMap {
       }
       await _setRouteDurationSymbol(durationSymbolKey, i, route);
     }
-    if (controller.disposed) {
-      return;
-    }
-    await controller.setGeoJsonSource(
+    await safeSetGeoJsonSource(
         routeDurationSourceId, buildFeatureCollection(durationSymbols));
   }
 
   Future<void> _setRouteDurationSymbol(
       String durationSymbolKey, int index, DirectionsRoute route) async {
-    var image =
-        await NBNavigation.captureRouteDurationSymbol(route, index == 0);
     if (controller.disposed) {
       return;
     }
+    var image =
+        await NBNavigation.captureRouteDurationSymbol(route, index == 0);
 
+    if (controller.disposed) {
+      return;
+    }
     if (image != null) {
-      controller.addImage(durationSymbolKey, image);
+      await controller.addImage(durationSymbolKey, image);
     }
   }
 
@@ -451,30 +375,19 @@ class NavNextBillionMap implements NavigationMap {
   /// Clears the currently displayed route from the map.
   @override
   Future<void> clearRoute() async {
-    if (controller.disposed) {
-      return;
-    }
-    await controller.setGeoJsonSource(
-        routeShieldSourceId, buildFeatureCollection([]));
-    if (controller.disposed) {
-      return;
-    }
-    await controller.setGeoJsonSource(
-        routeSourceId, buildFeatureCollection([]));
-    if (controller.disposed) {
-      return;
-    }
-    await controller.setGeoJsonSource(
-        waypointSourceId, buildFeatureCollection([]));
-    if (controller.disposed) {
-      return;
-    }
-    await controller.setGeoJsonSource(
-        routeDurationSourceId, buildFeatureCollection([]));
-    if (controller.disposed) {
-      return;
-    }
+    clearSources();
     routeLines.clear();
+  }
+
+  Future<void> clearSources() async {
+    if (controller.disposed) {
+      return;
+    }
+    await safeSetGeoJsonSource(routeShieldSourceId, buildFeatureCollection([]));
+    await safeSetGeoJsonSource(routeSourceId, buildFeatureCollection([]));
+    await safeSetGeoJsonSource(waypointSourceId, buildFeatureCollection([]));
+    await safeSetGeoJsonSource(
+        routeDurationSourceId, buildFeatureCollection([]));
   }
 
   void _addListeners() {
@@ -499,5 +412,31 @@ class NavNextBillionMap implements NavigationMap {
         onRouteSelectedCallback!(routeIndex);
       }
     });
+  }
+
+  Future safeRemoveLayer(String layerId) async {
+    if (!controller.disposed) {
+      await controller.removeLayer(layerId);
+    }
+  }
+
+  Future safeRemoveSource(String sourceId) async {
+    if (!controller.disposed) {
+      await controller.removeSource(sourceId);
+    }
+  }
+
+  Future safeAddGeoJsonSource(
+      String sourceId, Map<String, dynamic> geoJson) async {
+    if (!controller.disposed) {
+      await controller.addGeoJsonSource(sourceId, geoJson);
+    }
+  }
+
+  Future safeSetGeoJsonSource(
+      String sourceId, Map<String, dynamic> geoJson) async {
+    if (!controller.disposed) {
+      await controller.setGeoJsonSource(sourceId, geoJson);
+    }
   }
 }
