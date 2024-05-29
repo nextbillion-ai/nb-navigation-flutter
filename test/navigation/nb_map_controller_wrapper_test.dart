@@ -447,7 +447,7 @@ void main() {
     final Symbol symbol = Symbol('symbolId', options);
     when(mockController.addSymbol(options)).thenAnswer((_) async => symbol);
 
-    Symbol addedSymbol = await mapControllerWrapper.addSymbol(options);
+    Symbol? addedSymbol = await mapControllerWrapper.addSymbol(options);
     verify(mockController.addSymbol(options)).called(1);
     expect(addedSymbol, equals(symbol));
   });
