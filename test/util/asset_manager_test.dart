@@ -7,6 +7,8 @@ import 'package:nb_navigation_flutter/util/asset_manager.dart';
 import 'asset_manager_test.mocks.dart';
 
 
+
+
 @GenerateMocks([AssetBundle])
 void main() {
   group('AssetManager', () {

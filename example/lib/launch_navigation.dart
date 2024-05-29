@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
-import 'package:nb_maps_flutter/nb_maps_flutter.dart';
+
 class LaunchNavigation extends StatefulWidget {
   static const String title = "Route Request and Launch Navigation";
+
+  const LaunchNavigation({super.key});
 
   @override
   LaunchNavigationState createState() => LaunchNavigationState();
@@ -32,7 +34,7 @@ class LaunchNavigationState extends State<LaunchNavigation> {
                 const Padding(padding: EdgeInsets.only(left: 8)),
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
+                    backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
                   ),
                   onPressed: () {
                     _fetchRoute();
@@ -42,7 +44,7 @@ class LaunchNavigationState extends State<LaunchNavigation> {
                 const Padding(padding: EdgeInsets.only(left: 8)),
                 ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                      backgroundColor: WidgetStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
                       enableFeedback: routes.isNotEmpty),
                   onPressed: () {
                     _startNavigation();
@@ -62,8 +64,8 @@ class LaunchNavigationState extends State<LaunchNavigation> {
   }
 
   void _fetchRoute() async {
-    LatLng origin = LatLng(1.312533169133601, 103.75986708439264);
-    LatLng dest = LatLng( 1.310473772283314, 103.77982271935586);
+    LatLng origin = const LatLng(1.312533169133601, 103.75986708439264);
+    LatLng dest = const LatLng( 1.310473772283314, 103.77982271935586);
 
     RouteRequestParams requestParams = RouteRequestParams(
       origin: origin,
@@ -84,7 +86,9 @@ class LaunchNavigationState extends State<LaunchNavigation> {
         routes = routeResponse.directionsRoutes;
       });
     } else if (routeResponse.message != null) {
-      print("====error====${routeResponse.message}===${routeResponse.errorCode}");
+      if (kDebugMode) {
+        print("====error====${routeResponse.message}===${routeResponse.errorCode}");
+      }
     }
   }
 

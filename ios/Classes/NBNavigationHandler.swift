@@ -8,6 +8,7 @@
 import Foundation
 import Flutter
 import Nbmap
+import NbmapDirections
 
 class NBNavigationHandler: MethodChannelHandler {
     override init() {
@@ -25,21 +26,38 @@ class NBNavigationHandler: MethodChannelHandler {
         switch call.method {
         case MethodID.NAVIGATION_INIT_NAVIGATION:
             guard let args = call.arguments as? [String : Any] else {
+                result(nil)
                 return
             }
             if let accessKey = args["accessKey"] as? String {
                 NGLAccountManager.accessToken = accessKey
             }
-            
+            result(nil)
         case MethodID.NAVIGATION_GET_BASE_URL:
             result(RoutingApiUtils.shared().baseUri)
             
         case MethodID.NAVIGATION_SET_BASE_URL:
             guard let args = call.arguments as? [String : Any] else {
+                result(false)
                 return
             }
             RoutingApiUtils.shared().baseUri = args["navigationBaseUri"] as! String
-            
+            result(true)
+        case MethodID.NAVIGATION_SET_USER_ID:
+            guard let args = call.arguments as? [String : Any] else {
+                 result(false)
+                 return
+            }
+            if let userId = args["userId"] as? String {
+                Directions.shared.userId = userId
+                result(true)
+                return
+            }
+            result(false)
+        case MethodID.NAVIGATION_GET_USER_ID:
+            result(Directions.shared.userId)
+        case MethodID.NAVIGATION_GET_NB_ID:
+            result(Directions.shared.nbId)
         default:
             break
         }

@@ -5,6 +5,11 @@ class NBNavigation {
   static NBNavigationPlatform _nbNavigationPlatform =
       NBNavigationPlatform.instance;
 
+  /// Initializes the NextBillion SDK with the provided [accessKey].
+  static initNextBillion(String accessKey) async {
+    await NextBillion.initNextBillion(accessKey);
+  }
+
   /// allow to set the [NBNavigationPlatform] for testing
   @visibleForTesting
   static setNBNavigationPlatform(NBNavigationPlatform nbNavigationPlatform) {
@@ -84,4 +89,20 @@ class NBNavigation {
   static Future<Uint8List?> captureRouteWaypoints(int waypointIndex) async {
     return await _nbNavigationPlatform.captureRouteWaypoints(waypointIndex);
   }
+
+  /// Set the user ID for the current user if you need to add a user ID to the navigation request user-agent.
+  static Future<bool> setUserId(String userId) async {
+    return await _nbNavigationPlatform.setUserId(userId);
+  }
+
+  /// Get the user ID for the current user if you need to add a user ID to the navigation request user-agent.
+  static Future<String?> getUserId() async {
+    return await _nbNavigationPlatform.getUserId();
+  }
+
+  /// Get the NextBillion ID for the current user.
+  static Future<String?> getNBId() async {
+    return await _nbNavigationPlatform.getNBId();
+  }
+
 }

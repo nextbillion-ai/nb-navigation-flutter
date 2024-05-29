@@ -21,8 +21,13 @@ class NBNavigationLauncherMethodID {
   static const nbSetNavigationUriMethod = "navigation/setBaseUri";
   static const nbOnNavigationExit = "navigation/onNavigationExit";
   static const nbPreviewNavigationMethod = "navigation/previewNavigation";
+
 }
 
 class NBNavigationConfigMethodID {
-  static const initNBNavigationMethod = "config/initNBNavigation";
+  static const configSetUserId = "config/setUserId";
+
+  static const configGetUserId = "config/getUserId";
+
+  static const configGetNBId = "config/getNBId";
 }
