@@ -153,7 +153,7 @@ class NavNextBillionMap implements NavigationMap {
     if (controller.disposed) {
       return;
     }
-    String belowLayer = await controller.findBelowLayerId(
+    String? belowLayer = await controller.findBelowLayerId(
         [nbmapLocationId, highwayShieldLayerId, nbmapAnnotationId]);
     if (controller.disposed) {
       return;

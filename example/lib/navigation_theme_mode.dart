@@ -90,7 +90,7 @@ class NavigationThemeState extends State<NavigationTheme> {
     } else if (routeResponse.message != null) {
       if (kDebugMode) {
         print(
-          "====error====${routeResponse.message}===${routeResponse.errorCode}");
+            "====error====${routeResponse.message}===${routeResponse.errorCode}");
       }
     }
   }
