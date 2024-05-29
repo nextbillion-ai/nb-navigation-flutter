@@ -10,7 +10,6 @@ import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart'
 
 import 'nb_map_controller_wrapper_test.mocks.dart';
 
-
 @GenerateMocks([NextbillionMapController])
 void main() {
   late NextbillionMapControllerWrapper mapControllerWrapper;
@@ -763,28 +762,17 @@ void main() {
     const imageSourceId = 'imageSourceId';
     const belowLayerId = 'belowLayerId';
     await mapControllerWrapper.addImageLayerBelow(
-      imageLayerId,
-      imageSourceId,
-      belowLayerId
-    );
+        imageLayerId, imageSourceId, belowLayerId);
     verify(mockController.addImageLayerBelow(
-      imageLayerId,
-      imageSourceId,
-      belowLayerId
-    )).called(1);
+            imageLayerId, imageSourceId, belowLayerId))
+        .called(1);
   });
 
   test('addImageLayer should call addImageLayer on the controller', () async {
     const imageLayerId = 'imageLayerId';
     const imageSourceId = 'imageSourceId';
-    await mapControllerWrapper.addImageLayer(
-      imageLayerId,
-      imageSourceId
-    );
-    verify(mockController.addImageLayer(
-      imageLayerId,
-      imageSourceId
-    )).called(1);
+    await mapControllerWrapper.addImageLayer(imageLayerId, imageSourceId);
+    verify(mockController.addImageLayer(imageLayerId, imageSourceId)).called(1);
   });
 
   test('moveCamera should call moveCamera on the controller', () async {
@@ -793,5 +781,4 @@ void main() {
     await mapControllerWrapper.moveCamera(cameraUpdate);
     verify(mockController.moveCamera(cameraUpdate)).called(1);
   });
-
 }

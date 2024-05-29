@@ -104,5 +104,4 @@ class NBNavigation {
   static Future<String?> getNBId() async {
     return await _nbNavigationPlatform.getNBId();
   }
-
 }

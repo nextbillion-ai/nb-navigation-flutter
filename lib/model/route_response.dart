@@ -5,5 +5,6 @@ class DirectionsRouteResponse {
   int? errorCode;
   List<DirectionsRoute> directionsRoutes;
 
-  DirectionsRouteResponse({this.message, this.errorCode, this.directionsRoutes = const []});
+  DirectionsRouteResponse(
+      {this.message, this.errorCode, this.directionsRoutes = const []});
 }

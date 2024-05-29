@@ -730,4 +730,4 @@ class NextbillionMapControllerWrapper extends MapController {
   void dispose() {
     _controller.dispose();
   }
-}  // class MapControllerWrapper extends IMapController {
+} // class MapControllerWrapper extends IMapController {

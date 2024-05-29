@@ -37,5 +37,4 @@ List<LatLng> decode(String encodedPath, int precision) {
   }
 
   return path;
-
 }

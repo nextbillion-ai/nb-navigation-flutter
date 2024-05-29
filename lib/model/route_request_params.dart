@@ -103,12 +103,17 @@ class RouteRequestParams {
 
   factory RouteRequestParams.fromJson(Map<String, dynamic> map) {
     if (map.isEmpty) {
-      return RouteRequestParams(origin: const LatLng(0, 0), destination: const LatLng(0, 0),);
+      return RouteRequestParams(
+        origin: const LatLng(0, 0),
+        destination: const LatLng(0, 0),
+      );
     }
     return RouteRequestParams(
       altCount: map['altCount'],
       alternatives: map['alternatives'],
-      avoid: List<SupportedAvoid>.from((map['avoid'] as List<dynamic>?)?.map((x) => SupportedAvoid.fromValue(x)) ?? []),
+      avoid: List<SupportedAvoid>.from((map['avoid'] as List<dynamic>?)
+              ?.map((x) => SupportedAvoid.fromValue(x)) ??
+          []),
       baseUrl: map['baseUrl'],
       departureTime: map['departureTime'],
       destination: LatLng(map['destination'][1], map['destination'][0]),
@@ -119,11 +124,14 @@ class RouteRequestParams {
       overview: ValidOverview.fromValue(map['overview']),
       simulation: map['simulation'],
       truckWeight: map['truckWeight'],
-      truckSize: (map['truckSize'] as List<dynamic>?)?.map((item) => (item is String) ? int.parse(item) : (item as int)).toList(),
+      truckSize: (map['truckSize'] as List<dynamic>?)
+          ?.map((item) => (item is String) ? int.parse(item) : (item as int))
+          .toList(),
       unit: SupportedUnits.fromValue(map['unit']),
       option: SupportedOption.fromValue(map['option']),
       geometry: SupportedGeometry.fromValue(map["geometry"]),
-      waypoints: List<LatLng>.from(map['waypoints']?.map((point) => LatLng(point[1], point[0])) ?? []),
+      waypoints: List<LatLng>.from(
+          map['waypoints']?.map((point) => LatLng(point[1], point[0])) ?? []),
     );
   }
 

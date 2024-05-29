@@ -86,5 +86,4 @@ class NavigationLauncherConfig {
       // 'minNavCameraZoom': minNavCameraZoom,
     };
   }
-
 }
