@@ -33,8 +33,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
 
   _onStyleLoadedCallback() {
     if (controller != null) {
-      NavNextBillionMap.create(NextbillionMapControllerWrapper(controller!))
-          .then((value) {
+      NavNextBillionMap.create(controller!).then((value) {
         navNextBillionMap = value;
         loadAssetImage();
         Fluttertoast.showToast(
@@ -193,7 +192,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
     } else if (routeResponse.message != null) {
       if (kDebugMode) {
         print(
-          "====error====${routeResponse.message}===${routeResponse.errorCode}");
+            "====error====${routeResponse.message}===${routeResponse.errorCode}");
       }
     }
   }

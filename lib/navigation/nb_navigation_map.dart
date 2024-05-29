@@ -17,9 +17,10 @@ class NavNextBillionMap implements NavigationMap {
   NavNextBillionMap._create(this.controller,
       {this.routeLineProperties = const RouteLineProperties()});
 
-  static Future<NavNextBillionMap> create(MapController mapController,
+  static Future<NavNextBillionMap> create(NextbillionMapController controller,
       {RouteLineProperties routeLineProperties =
           const RouteLineProperties()}) async {
+    MapController mapController = NextbillionMapControllerWrapper(controller);
     var navMap = NavNextBillionMap._create(mapController,
         routeLineProperties: routeLineProperties);
     navMap.assetManager = AssetManager();
