@@ -37,8 +37,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
 
   void _onStyleLoaded() async {
     if (controller != null) {
-      navNextBillionMap = await NavNextBillionMap.create(
-          NextbillionMapControllerWrapper(controller!));
+      navNextBillionMap = await NavNextBillionMap.create(controller!);
     }
   }
 
@@ -118,7 +117,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
     } else if (routeResponse.message != null) {
       if (kDebugMode) {
         print(
-          "====error====${routeResponse.message}===${routeResponse.errorCode}");
+            "====error====${routeResponse.message}===${routeResponse.errorCode}");
       }
     }
   }

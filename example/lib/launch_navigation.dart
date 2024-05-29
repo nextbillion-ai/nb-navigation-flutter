@@ -44,7 +44,8 @@ class LaunchNavigationState extends State<LaunchNavigation> {
                 const Padding(padding: EdgeInsets.only(left: 8)),
                 ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                      backgroundColor: WidgetStateProperty.all(
+                          routes.isEmpty ? Colors.grey : Colors.blueAccent),
                       enableFeedback: routes.isNotEmpty),
                   onPressed: () {
                     _startNavigation();
@@ -55,7 +56,8 @@ class LaunchNavigationState extends State<LaunchNavigation> {
             ),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: Text("route info: ${routes.isEmpty ? "" : routes.first.geometry ?? ""}"),
+              child: Text(
+                  "route info: ${routes.isEmpty ? "" : routes.first.geometry ?? ""}"),
             )
           ],
         ),
@@ -65,7 +67,7 @@ class LaunchNavigationState extends State<LaunchNavigation> {
 
   void _fetchRoute() async {
     LatLng origin = const LatLng(1.312533169133601, 103.75986708439264);
-    LatLng dest = const LatLng( 1.310473772283314, 103.77982271935586);
+    LatLng dest = const LatLng(1.310473772283314, 103.77982271935586);
 
     RouteRequestParams requestParams = RouteRequestParams(
       origin: origin,
@@ -80,21 +82,24 @@ class LaunchNavigationState extends State<LaunchNavigation> {
       mode: ValidModes.car,
     );
 
-    DirectionsRouteResponse routeResponse = await NBNavigation.fetchRoute(requestParams);
+    DirectionsRouteResponse routeResponse =
+        await NBNavigation.fetchRoute(requestParams);
     if (routeResponse.directionsRoutes.isNotEmpty) {
       setState(() {
         routes = routeResponse.directionsRoutes;
       });
     } else if (routeResponse.message != null) {
       if (kDebugMode) {
-        print("====error====${routeResponse.message}===${routeResponse.errorCode}");
+        print(
+            "====error====${routeResponse.message}===${routeResponse.errorCode}");
       }
     }
   }
 
   void _startNavigation() {
     if (routes.isEmpty) return;
-    NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
+    NavigationLauncherConfig config =
+        NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.gps;
     config.shouldSimulateRoute = true;
     config.themeMode = NavigationThemeMode.system;

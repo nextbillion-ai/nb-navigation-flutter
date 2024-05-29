@@ -7,7 +7,6 @@ abstract class IAssetManager {
 }
 
 class AssetManager implements IAssetManager {
-  
   AssetBundle localRootBundle = rootBundle;
 
   setAssetBundle(AssetBundle assetBundle) {

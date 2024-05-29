@@ -11,7 +11,8 @@ class NBRouteMethodID {
   static const nbRouteSelectedIndexMethod = "route/findSelectedRouteIndex";
 
   static const routeFormattedDuration = "format/routeDuration";
-  static const navigationCaptureRouteDurationSymbol = "capture/routeDurationSymbol";
+  static const navigationCaptureRouteDurationSymbol =
+      "capture/routeDurationSymbol";
   static const navigationCaptureRouteWaypoints = "capture/routeWayPoints";
 }
 
@@ -21,7 +22,6 @@ class NBNavigationLauncherMethodID {
   static const nbSetNavigationUriMethod = "navigation/setBaseUri";
   static const nbOnNavigationExit = "navigation/onNavigationExit";
   static const nbPreviewNavigationMethod = "navigation/previewNavigation";
-
 }
 
 class NBNavigationConfigMethodID {

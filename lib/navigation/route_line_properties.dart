@@ -44,8 +44,10 @@ class RouteLineProperties {
     this.alternativeRouteScale = 0.7,
     this.routeDefaultColor = const Color(0xFF7588E9),
     this.alternativeRouteDefaultColor = const Color(0xFFB6B0B0),
-    this.originMarkerName = "packages/nb_navigation_flutter/assets/ic_route_origin.png",
-    this.destinationMarkerName = "packages/nb_navigation_flutter/assets/ic_route_destination.png",
+    this.originMarkerName =
+        "packages/nb_navigation_flutter/assets/ic_route_origin.png",
+    this.destinationMarkerName =
+        "packages/nb_navigation_flutter/assets/ic_route_destination.png",
     this.durationSymbolPrimaryBackgroundColor = const Color(0xFF7588E9),
     this.durationSymbolAlternativeBackgroundColor = Colors.white,
     this.durationSymbolPrimaryTextStyle = const TextStyle(

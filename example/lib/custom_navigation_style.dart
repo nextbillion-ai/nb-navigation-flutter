@@ -32,8 +32,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
           alternativeRouteScale: 1.0,
           routeShieldColor: Color(0xFF54E910),
           durationSymbolPrimaryBackgroundColor: Color(0xFFE97F2F));
-      navNextBillionMap = await NavNextBillionMap.create(
-          NextbillionMapControllerWrapper(controller!),
+      navNextBillionMap = await NavNextBillionMap.create(controller!,
           routeLineProperties: routeLineStyle);
     }
   }

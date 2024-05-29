@@ -13,5 +13,4 @@ class TimeFormatter {
       return '$minutes min';
     }
   }
-
 }

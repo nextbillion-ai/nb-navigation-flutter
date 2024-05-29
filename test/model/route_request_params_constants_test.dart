@@ -1,12 +1,10 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 
-
 void main() {
-
   test('SupportedUnits.fromValue should return SupportedUnits', () {
-    expect(SupportedUnits.fromValue('imperial'), equals(SupportedUnits.imperial));
+    expect(
+        SupportedUnits.fromValue('imperial'), equals(SupportedUnits.imperial));
     expect(SupportedUnits.fromValue('metric'), equals(SupportedUnits.metric));
     expect(SupportedUnits.fromValue(null), equals(SupportedUnits.metric));
     expect(SupportedUnits.fromValue('invalid'), equals(SupportedUnits.metric));
@@ -30,21 +28,27 @@ void main() {
 
   test('ValidOverview.fromValue should return ValidOverview', () {
     expect(ValidOverview.fromValue('full'), equals(ValidOverview.full));
-    expect(ValidOverview.fromValue('simplified'), equals(ValidOverview.simplified));
+    expect(ValidOverview.fromValue('simplified'),
+        equals(ValidOverview.simplified));
     expect(ValidOverview.fromValue('false'), equals(ValidOverview.none));
     expect(ValidOverview.fromValue(null), equals(ValidOverview.full));
     expect(ValidOverview.fromValue('invalid'), equals(ValidOverview.full));
   });
 
   test('SupportedGeometry.fromValue should return SupportedGeometry', () {
-    expect(SupportedGeometry.fromValue('polyline'), equals(SupportedGeometry.polyline));
-    expect(SupportedGeometry.fromValue('polyline6'), equals(SupportedGeometry.polyline6));
-    expect(SupportedGeometry.fromValue(null), equals(SupportedGeometry.polyline6));
-    expect(SupportedGeometry.fromValue('invalid'), equals(SupportedGeometry.polyline6));
+    expect(SupportedGeometry.fromValue('polyline'),
+        equals(SupportedGeometry.polyline));
+    expect(SupportedGeometry.fromValue('polyline6'),
+        equals(SupportedGeometry.polyline6));
+    expect(
+        SupportedGeometry.fromValue(null), equals(SupportedGeometry.polyline6));
+    expect(SupportedGeometry.fromValue('invalid'),
+        equals(SupportedGeometry.polyline6));
   });
 
   test('SupportedOption.fromValue should return SupportedOption', () {
-    expect(SupportedOption.fromValue('flexible'), equals(SupportedOption.flexible));
+    expect(SupportedOption.fromValue('flexible'),
+        equals(SupportedOption.flexible));
     expect(SupportedOption.fromValue(null), equals(null));
     expect(SupportedOption.fromValue('invalid'), equals(null));
   });

@@ -16,9 +16,13 @@ class BannerInstructions {
   factory BannerInstructions.fromJson(Map<String, dynamic> map) {
     return BannerInstructions(
       distanceAlongGeometry: map['distanceAlongGeometry'],
-      primary: map['primary'] != null ? Primary.fromJson(map['primary'] ?? {}) : null,
+      primary: map['primary'] != null
+          ? Primary.fromJson(map['primary'] ?? {})
+          : null,
       sub: map['sub'] != null ? Primary.fromJson(map['sub'] ?? {}) : null,
-      secondary: map['secondary'] != null ? Primary.fromJson( map['secondary'] ?? {}) : null,
+      secondary: map['secondary'] != null
+          ? Primary.fromJson(map['secondary'] ?? {})
+          : null,
     );
   }
 
@@ -53,7 +57,8 @@ class Primary {
 
   factory Primary.fromJson(Map<String, dynamic> map) {
     return Primary(
-      components: List<Component>.from(map['components']?.map((x) => Component.fromJson(x)) ?? []),
+      components: List<Component>.from(
+          map['components']?.map((x) => Component.fromJson(x)) ?? []),
       degrees: map['degrees'],
       instruction: map['instruction'] ?? "",
       modifier: map['modifier'],

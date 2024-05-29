@@ -62,18 +62,14 @@ class Leg {
   List<RouteStep>? steps;
   String? summary;
 
-  Leg({
-    this.distance,
-    this.duration,
-    this.steps,
-    this.summary
-  });
+  Leg({this.distance, this.duration, this.steps, this.summary});
 
   factory Leg.fromJson(Map<String, dynamic> map) {
     return Leg(
       distance: Distance.fromJson(map['distance'] ?? {}),
       duration: TimeDuration.fromJson(map['duration'] ?? {}),
-      steps: List<RouteStep>.from(map['steps']?.map((step) => RouteStep.fromJson(step)) ?? []),
+      steps: List<RouteStep>.from(
+          map['steps']?.map((step) => RouteStep.fromJson(step)) ?? []),
       summary: map['summary'] ?? "",
     );
   }
