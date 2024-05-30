@@ -27,8 +27,7 @@ class NavigationThemeState extends State<NavigationTheme> {
 
   void _onStyleLoaded() async {
     if (controller != null) {
-      navNextBillionMap = await NavNextBillionMap.create(
-          NextbillionMapControllerWrapper(controller!));
+      navNextBillionMap = await NavNextBillionMap.create(controller!);
     }
   }
 
@@ -90,7 +89,7 @@ class NavigationThemeState extends State<NavigationTheme> {
     } else if (routeResponse.message != null) {
       if (kDebugMode) {
         print(
-          "====error====${routeResponse.message}===${routeResponse.errorCode}");
+            "====error====${routeResponse.message}===${routeResponse.errorCode}");
       }
     }
   }

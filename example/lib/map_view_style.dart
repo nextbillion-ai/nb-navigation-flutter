@@ -18,8 +18,7 @@ class MapViewStyleState extends State<MapViewStyle> {
     this.controller = controller;
   }
 
-  void _onStyleLoaded() {
-  }
+  void _onStyleLoaded() {}
 
   @override
   void initState() {
@@ -37,7 +36,7 @@ class MapViewStyleState extends State<MapViewStyle> {
         child: FloatingActionButton(
           child: const Icon(Icons.swap_horiz),
           onPressed: () => setState(
-                () => isLight = !isLight,
+            () => isLight = !isLight,
           ),
         ),
       ),
@@ -61,5 +60,4 @@ class MapViewStyleState extends State<MapViewStyle> {
   void dispose() {
     super.dispose();
   }
-
 }

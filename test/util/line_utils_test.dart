@@ -6,7 +6,7 @@ void main() {
   test('decode should return a list of LatLng points', () {
     // const encodedPath = 'mk{FcnsxRoMaBiGiAoF_AqB_@cEW{IsB[`CCxD';
     const encodedPath = '}u{FspsxRsLaB';
-    const precision =  5;
+    const precision = 5;
     // const expectedPath = [
     //   LatLng(103.81554000000001, 1.2922300000000002),
     //   LatLng(103.81603000000001, 1.29455),
@@ -20,7 +20,7 @@ void main() {
     // ];
 
     const expectedPath = [
-      LatLng(1.29391,103.81594),
+      LatLng(1.29391, 103.81594),
       LatLng(1.29609, 103.81643)
     ];
 
@@ -41,5 +41,4 @@ void main() {
 
     expect(result, equals(expectedPath));
   });
-
 }

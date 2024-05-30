@@ -76,7 +76,6 @@ void main() {
     verify(mockNBNavigationPlatform.setRoutingBaseUri(baseUri)).called(1);
   });
 
-
   test('findSelectedRouteIndex should return selected route index', () async {
     const clickPoint = LatLng(1.312533169133601, 103.75986708439264);
     const coordinates = [
@@ -84,10 +83,12 @@ void main() {
       [LatLng(1.312533169133601, 103.75986708439264)]
     ];
 
-    when(mockNBNavigationPlatform.findSelectedRouteIndex(clickPoint, coordinates))
+    when(mockNBNavigationPlatform.findSelectedRouteIndex(
+            clickPoint, coordinates))
         .thenAnswer((_) async => 0);
 
-    final response = await NBNavigation.findSelectedRouteIndex(clickPoint, coordinates);
+    final response =
+        await NBNavigation.findSelectedRouteIndex(clickPoint, coordinates);
 
     expect(response, equals(0));
   });
@@ -108,7 +109,8 @@ void main() {
 
     await NBNavigation.setOnNavigationExitCallback(callback);
 
-    verify(mockNBNavigationPlatform.setOnNavigationExitCallback(callback)).called(1);
+    verify(mockNBNavigationPlatform.setOnNavigationExitCallback(callback))
+        .called(1);
   });
 
   test('startPreviewNavigation should start preview navigation', () async {
@@ -127,7 +129,8 @@ void main() {
     verify(mockNBNavigationPlatform.startPreviewNavigation(route)).called(1);
   });
 
-  test('captureRouteDurationSymbol should return route duration symbol', () async {
+  test('captureRouteDurationSymbol should return route duration symbol',
+      () async {
     Map<String, dynamic> routeJson = <String, dynamic>{
       'distance': 0,
       'duration': 0,
@@ -142,7 +145,6 @@ void main() {
 
     when(mockNBNavigationPlatform.captureRouteDurationSymbol(route, true))
         .thenAnswer((_) async => expectedResponse);
-
 
     final response = await NBNavigation.captureRouteDurationSymbol(route, true);
 
@@ -161,37 +163,41 @@ void main() {
 
     expect(response, equals(expectedResponse));
   });
-  
-  test('setUserId calls the correct method on the NBNavigationPlatform', () async {
-      const userId = 'test_user_id';
 
-      when(mockNBNavigationPlatform.setUserId(userId)).thenAnswer((_) async => true);
+  test('setUserId calls the correct method on the NBNavigationPlatform',
+      () async {
+    const userId = 'test_user_id';
 
-      final result = await NBNavigation.setUserId(userId);
+    when(mockNBNavigationPlatform.setUserId(userId))
+        .thenAnswer((_) async => true);
 
-      verify(mockNBNavigationPlatform.setUserId(userId)).called(1);
-      expect(result, true);
-    });
+    final result = await NBNavigation.setUserId(userId);
 
-    test('getUserId calls the correct method on the NBNavigationPlatform', () async {
-      const userId = 'test_user_id';
+    verify(mockNBNavigationPlatform.setUserId(userId)).called(1);
+    expect(result, true);
+  });
 
-      when(mockNBNavigationPlatform.getUserId()).thenAnswer((_) async => userId);
+  test('getUserId calls the correct method on the NBNavigationPlatform',
+      () async {
+    const userId = 'test_user_id';
 
-      final result = await NBNavigation.getUserId();
+    when(mockNBNavigationPlatform.getUserId()).thenAnswer((_) async => userId);
 
-      verify(mockNBNavigationPlatform.getUserId()).called(1);
-      expect(result, userId);
-    });
+    final result = await NBNavigation.getUserId();
 
-    test('getNBId calls the correct method on the NBNavigationPlatform', () async {
-      const nbId = 'test_nb_id';
+    verify(mockNBNavigationPlatform.getUserId()).called(1);
+    expect(result, userId);
+  });
 
-      when(mockNBNavigationPlatform.getNBId()).thenAnswer((_) async => nbId);
+  test('getNBId calls the correct method on the NBNavigationPlatform',
+      () async {
+    const nbId = 'test_nb_id';
 
-      final result = await NBNavigation.getNBId();
+    when(mockNBNavigationPlatform.getNBId()).thenAnswer((_) async => nbId);
 
-      verify(mockNBNavigationPlatform.getNBId()).called(1);
-      expect(result, nbId);
-    });
+    final result = await NBNavigation.getNBId();
+
+    verify(mockNBNavigationPlatform.getNBId()).called(1);
+    expect(result, nbId);
+  });
 }

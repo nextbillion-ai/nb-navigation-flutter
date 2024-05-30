@@ -105,14 +105,14 @@ abstract class MapController {
 
   Future<bool> getTelemetryEnabled();
 
-  Future<Symbol> addSymbol(SymbolOptions options, [Map? data]);
+  Future<Symbol?> addSymbol(SymbolOptions options, [Map? data]);
 
-  Future<List<Symbol>> addSymbols(List<SymbolOptions> options,
+  Future<List<Symbol>?> addSymbols(List<SymbolOptions> options,
       [List<Map>? data]);
 
   Future<void> updateSymbol(Symbol symbol, SymbolOptions changes);
 
-  Future<LatLng> getSymbolLatLng(Symbol symbol);
+  Future<LatLng?> getSymbolLatLng(Symbol symbol);
 
   Future<void> removeSymbol(Symbol symbol);
 
@@ -120,13 +120,13 @@ abstract class MapController {
 
   Future<void> clearSymbols();
 
-  Future<Line> addLine(LineOptions options, [Map? data]);
+  Future<Line?> addLine(LineOptions options, [Map? data]);
 
-  Future<List<Line>> addLines(List<LineOptions> options, [List<Map>? data]);
+  Future<List<Line>?> addLines(List<LineOptions> options, [List<Map>? data]);
 
   Future<void> updateLine(Line line, LineOptions changes);
 
-  Future<List<LatLng>> getLineLatLngs(Line line);
+  Future<List<LatLng>?> getLineLatLngs(Line line);
 
   Future<void> removeLine(Line line);
 
@@ -134,14 +134,14 @@ abstract class MapController {
 
   Future<void> clearLines();
 
-  Future<Circle> addCircle(CircleOptions options, [Map? data]);
+  Future<Circle?> addCircle(CircleOptions options, [Map? data]);
 
-  Future<List<Circle>> addCircles(List<CircleOptions> options,
+  Future<List<Circle>?> addCircles(List<CircleOptions> options,
       [List<Map>? data]);
 
   Future<void> updateCircle(Circle circle, CircleOptions changes);
 
-  Future<LatLng> getCircleLatLng(Circle circle);
+  Future<LatLng?> getCircleLatLng(Circle circle);
 
   Future<void> removeCircle(Circle circle);
 
@@ -149,9 +149,9 @@ abstract class MapController {
 
   Future<void> clearCircles();
 
-  Future<Fill> addFill(FillOptions options, [Map? data]);
+  Future<Fill?> addFill(FillOptions options, [Map? data]);
 
-  Future<List<Fill>> addFills(List<FillOptions> options, [List<Map>? data]);
+  Future<List<Fill>?> addFills(List<FillOptions> options, [List<Map>? data]);
 
   Future<void> updateFill(Fill fill, FillOptions changes);
 
@@ -161,17 +161,17 @@ abstract class MapController {
 
   Future<void> removeFills(Iterable<Fill> fills);
 
-  Future<List> queryRenderedFeatures(
+  Future<List?> queryRenderedFeatures(
       Point<double> point, List<String> layerIds, List<Object>? filter);
 
-  Future<List> queryRenderedFeaturesInRect(
+  Future<List?> queryRenderedFeaturesInRect(
       Rect rect, List<String> layerIds, String? filter);
 
   Future invalidateAmbientCache();
 
   Future<LatLng?> requestMyLocationLatLng();
 
-  Future<LatLngBounds> getVisibleRegion();
+  Future<LatLngBounds?> getVisibleRegion();
 
   Future<void> setStyleString(String styleString);
 
@@ -206,10 +206,10 @@ abstract class MapController {
 
   Future<void> setVisibility(String layerId, bool isVisible);
 
-  Future<Point> toScreenLocation(LatLng latLng);
-  Future<List<Point>> toScreenLocationBatch(Iterable<LatLng> latLngs);
-  Future<LatLng> toLatLng(Point screenLocation);
-  Future<double> getMetersPerPixelAtLatitude(double latitude);
+  Future<Point?> toScreenLocation(LatLng latLng);
+  Future<List<Point>?> toScreenLocationBatch(Iterable<LatLng> latLngs);
+  Future<LatLng?> toLatLng(Point screenLocation);
+  Future<double?> getMetersPerPixelAtLatitude(double latitude);
   Future<void> addSource(String sourceid, SourceProperties properties);
   Future<void> addLayer(
       String sourceId, String layerId, LayerProperties properties,
@@ -219,8 +219,8 @@ abstract class MapController {
       double? minzoom,
       double? maxzoom,
       dynamic filter});
-  Future<String> takeSnapshot(SnapshotOptions snapshotOptions);
-  Future<String> findBelowLayerId(List<String> belowAt);
+  Future<String?> takeSnapshot(SnapshotOptions snapshotOptions);
+  Future<String?> findBelowLayerId(List<String> belowAt);
   void dispose();
 }
 
@@ -433,12 +433,12 @@ class NextbillionMapControllerWrapper extends MapController {
   }
 
   @override
-  Future<Symbol> addSymbol(SymbolOptions options, [Map? data]) {
+  Future<Symbol?> addSymbol(SymbolOptions options, [Map? data]) {
     return _controller.addSymbol(options, data);
   }
 
   @override
-  Future<List<Symbol>> addSymbols(List<SymbolOptions> options,
+  Future<List<Symbol>?> addSymbols(List<SymbolOptions> options,
       [List<Map>? data]) {
     return _controller.addSymbols(options, data);
   }
@@ -449,7 +449,7 @@ class NextbillionMapControllerWrapper extends MapController {
   }
 
   @override
-  Future<LatLng> getSymbolLatLng(Symbol symbol) {
+  Future<LatLng?> getSymbolLatLng(Symbol symbol) {
     return _controller.getSymbolLatLng(symbol);
   }
 
@@ -469,12 +469,12 @@ class NextbillionMapControllerWrapper extends MapController {
   }
 
   @override
-  Future<Line> addLine(LineOptions options, [Map? data]) {
+  Future<Line?> addLine(LineOptions options, [Map? data]) {
     return _controller.addLine(options, data);
   }
 
   @override
-  Future<List<Line>> addLines(List<LineOptions> options, [List<Map>? data]) {
+  Future<List<Line>?> addLines(List<LineOptions> options, [List<Map>? data]) {
     return _controller.addLines(options, data);
   }
 
@@ -484,7 +484,7 @@ class NextbillionMapControllerWrapper extends MapController {
   }
 
   @override
-  Future<List<LatLng>> getLineLatLngs(Line line) {
+  Future<List<LatLng>?> getLineLatLngs(Line line) {
     return _controller.getLineLatLngs(line);
   }
 
@@ -504,12 +504,12 @@ class NextbillionMapControllerWrapper extends MapController {
   }
 
   @override
-  Future<Circle> addCircle(CircleOptions options, [Map? data]) {
+  Future<Circle?> addCircle(CircleOptions options, [Map? data]) {
     return _controller.addCircle(options, data);
   }
 
   @override
-  Future<List<Circle>> addCircles(List<CircleOptions> options,
+  Future<List<Circle>?> addCircles(List<CircleOptions> options,
       [List<Map>? data]) {
     return _controller.addCircles(options, data);
   }
@@ -520,7 +520,7 @@ class NextbillionMapControllerWrapper extends MapController {
   }
 
   @override
-  Future<LatLng> getCircleLatLng(Circle circle) {
+  Future<LatLng?> getCircleLatLng(Circle circle) {
     return _controller.getCircleLatLng(circle);
   }
 
@@ -540,7 +540,7 @@ class NextbillionMapControllerWrapper extends MapController {
   }
 
   @override
-  Future<Fill> addFill(FillOptions options, [Map? data]) {
+  Future<Fill?> addFill(FillOptions options, [Map? data]) {
     return _controller.addFill(options, data);
   }
 
@@ -576,7 +576,7 @@ class NextbillionMapControllerWrapper extends MapController {
   }
 
   @override
-  Future<List> queryRenderedFeaturesInRect(
+  Future<List?> queryRenderedFeaturesInRect(
       Rect rect, List<String> layerIds, String? filter) {
     return _controller.queryRenderedFeaturesInRect(rect, layerIds, filter);
   }
@@ -592,7 +592,7 @@ class NextbillionMapControllerWrapper extends MapController {
   }
 
   @override
-  Future<LatLngBounds> getVisibleRegion() {
+  Future<LatLngBounds?> getVisibleRegion() {
     return _controller.getVisibleRegion();
   }
 
@@ -679,17 +679,17 @@ class NextbillionMapControllerWrapper extends MapController {
   }
 
   @override
-  Future<List<Point>> toScreenLocationBatch(Iterable<LatLng> latLngs) {
+  Future<List<Point>?> toScreenLocationBatch(Iterable<LatLng> latLngs) {
     return _controller.toScreenLocationBatch(latLngs);
   }
 
   @override
-  Future<LatLng> toLatLng(Point screenLocation) {
+  Future<LatLng?> toLatLng(Point screenLocation) {
     return _controller.toLatLng(screenLocation);
   }
 
   @override
-  Future<double> getMetersPerPixelAtLatitude(double latitude) {
+  Future<double?> getMetersPerPixelAtLatitude(double latitude) {
     return _controller.getMetersPerPixelAtLatitude(latitude);
   }
 
@@ -717,12 +717,12 @@ class NextbillionMapControllerWrapper extends MapController {
   }
 
   @override
-  Future<String> takeSnapshot(SnapshotOptions snapshotOptions) {
+  Future<String?> takeSnapshot(SnapshotOptions snapshotOptions) {
     return _controller.takeSnapshot(snapshotOptions);
   }
 
   @override
-  Future<String> findBelowLayerId(List<String> belowAt) {
+  Future<String?> findBelowLayerId(List<String> belowAt) {
     return _controller.findBelowLayerId(belowAt);
   }
 
@@ -730,4 +730,4 @@ class NextbillionMapControllerWrapper extends MapController {
   void dispose() {
     _controller.dispose();
   }
-}  // class MapControllerWrapper extends IMapController {
+} // class MapControllerWrapper extends IMapController {

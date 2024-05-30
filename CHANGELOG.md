@@ -1,8 +1,13 @@
+## v0.5.1, May 29, 2024
+* Updated the nb_maps_flutter dependency to 0.4.0
+* Fix state error exception when the widget is disposed
+* Error: This NextbillionMapController has already been disposed. This happens if flutter disposes a NBMap and you try to use its Controller afterwards.
+  
 ## v0.5.0, May 28, 2024
-* Code test coverage improvement
-* Support to set user id into the navigation request params user-agent
+* Added Unit Tests
+* Supporting set user id (HTTP Request's User-Agent)
   * NBNavigation.setUserId(userId)
-* Support to get the current navigation nb id
+* Supporting get the current nbid
   * NBNavigation.getNBId()
   
 ## v0.4.5, May 16, 2024

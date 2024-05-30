@@ -27,7 +27,8 @@ class Intersection {
       inCount: map['intersection_in'],
       lanes: List<Lane>.from(map['lanes']?.map(
             (lane) => Lane.fromJson(lane),
-      ) ?? []),
+          ) ??
+          []),
       outCount: map['intersection_out'] ?? 0,
       location: Coordinate.fromJson(map['location'] ?? {}),
     );
@@ -77,5 +78,3 @@ class Lane {
     };
   }
 }
-
-

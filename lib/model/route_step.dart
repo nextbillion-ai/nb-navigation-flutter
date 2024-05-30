@@ -29,29 +29,34 @@ class RouteStep {
 
   factory RouteStep.fromJson(Map<String, dynamic> json) {
     return RouteStep(
-        bannerInstructions:
-            List<BannerInstructions>.from(json['bannerInstructions']?.map((e) => BannerInstructions.fromJson(e)) ?? []),
+        bannerInstructions: List<BannerInstructions>.from(
+            json['bannerInstructions']
+                    ?.map((e) => BannerInstructions.fromJson(e)) ??
+                []),
         drivingSide: json['driving_side'] ?? '',
         geometry: json['geometry'] ?? '',
-        intersections: List<Intersection>.from(
-            json['intersections']?.map((intersection) => Intersection.fromJson(intersection)) ?? []),
+        intersections: List<Intersection>.from(json['intersections']
+                ?.map((intersection) => Intersection.fromJson(intersection)) ??
+            []),
         maneuver: Maneuver.fromJson(json['maneuver'] ?? {}),
         name: json['name'] ?? '',
         distance: Distance.fromJson(json['distance'] ?? {}),
         duration: TimeDuration.fromJson(json['duration'] ?? {}),
         roadShield: RoadShield.fromJson(json['road_shield_type'] ?? {}),
         reference: json['reference'] ?? "",
-        voiceInstructions:
-            List<VoiceInstruction>.from(json['voiceInstructions']?.map((vi) => VoiceInstruction.fromJson(vi)) ?? [])
-        );
+        voiceInstructions: List<VoiceInstruction>.from(json['voiceInstructions']
+                ?.map((vi) => VoiceInstruction.fromJson(vi)) ??
+            []));
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'bannerInstructions': bannerInstructions?.map((vi) => vi.toJson()).toList(),
+      'bannerInstructions':
+          bannerInstructions?.map((vi) => vi.toJson()).toList(),
       'driving_side': drivingSide,
       'geometry': geometry,
-      'intersections': intersections?.map((intersection) => intersection.toJson()).toList(),
+      'intersections':
+          intersections?.map((intersection) => intersection.toJson()).toList(),
       'maneuver': maneuver?.toJson(),
       'name': name,
       'distance': distance?.toJson(),

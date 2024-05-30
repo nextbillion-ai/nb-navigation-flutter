@@ -7,11 +7,8 @@ enum SupportedUnits {
   /// Metric units (e.g., kilometers, meters).
   metric;
 
-  static SupportedUnits fromValue(String? s) => switch (s) {
-    "imperial" => imperial,
-    "metric" => metric,
-    _ => metric
-  };
+  static SupportedUnits fromValue(String? s) =>
+      switch (s) { "imperial" => imperial, "metric" => metric, _ => metric };
 }
 
 enum ValidModes {
@@ -21,11 +18,8 @@ enum ValidModes {
   /// Travel mode: truck.
   truck;
 
-  static ValidModes fromValue(String? s) => switch (s) {
-    "car" => car,
-    "truck" => truck,
-    _ => car
-  };
+  static ValidModes fromValue(String? s) =>
+      switch (s) { "car" => car, "truck" => truck, _ => car };
 }
 
 enum SupportedAvoid {
@@ -42,12 +36,12 @@ enum SupportedAvoid {
   none;
 
   static SupportedAvoid fromValue(String? s) => switch (s) {
-    "toll" => toll,
-    "ferry" => ferry,
-    "highway" => highway,
-    "none" => none,
-    _ => ferry
-  };
+        "toll" => toll,
+        "ferry" => ferry,
+        "highway" => highway,
+        "none" => none,
+        _ => ferry
+      };
 }
 
 enum ValidOverview {
@@ -61,11 +55,11 @@ enum ValidOverview {
   none;
 
   static ValidOverview fromValue(String? s) => switch (s) {
-    "full" => full,
-    "simplified" => simplified,
-    "false" => none,
-    _ => full
-  };
+        "full" => full,
+        "simplified" => simplified,
+        "false" => none,
+        _ => full
+      };
 }
 
 enum SupportedGeometry {
@@ -76,19 +70,19 @@ enum SupportedGeometry {
   polyline6;
 
   static SupportedGeometry fromValue(String? s) => switch (s) {
-    "polyline" => polyline,
-    "polyline6" => polyline6,
-    _ => polyline6
-  };
+        "polyline" => polyline,
+        "polyline6" => polyline6,
+        _ => polyline6
+      };
 }
 
 enum SupportedOption {
   flexible;
 
   static SupportedOption? fromValue(String? s) => switch (s) {
-    "flexible" => flexible,
-    _ => null,
-  };
+        "flexible" => flexible,
+        _ => null,
+      };
 }
 
 enum SupportedHazmatType {
@@ -100,7 +94,7 @@ enum SupportedHazmatType {
   static SupportedHazmatType? fromValue(String? s) => switch (s) {
     "general" => general,
     "circumstantial" => circumstantial,
-    "explosive" => general,
+    "explosive" => explosive,
     "harmful_to_water" => harmfulToWater,
     _ => null,
   };

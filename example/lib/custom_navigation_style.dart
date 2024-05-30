@@ -1,9 +1,7 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
-
 
 class CustomNavigationStyle extends StatefulWidget {
   static const String title = "Customize Navigation Style";
@@ -34,8 +32,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
           alternativeRouteScale: 1.0,
           routeShieldColor: Color(0xFF54E910),
           durationSymbolPrimaryBackgroundColor: Color(0xFFE97F2F));
-      navNextBillionMap = await NavNextBillionMap.create(
-          NextbillionMapControllerWrapper(controller!),
+      navNextBillionMap = await NavNextBillionMap.create(controller!,
           routeLineProperties: routeLineStyle);
     }
   }
@@ -91,7 +88,7 @@ class CustomNavigationStyleState extends State<CustomNavigationStyle> {
     } else if (routeResponse.message != null) {
       if (kDebugMode) {
         print(
-          "====error====${routeResponse.message}===${routeResponse.errorCode}");
+            "====error====${routeResponse.message}===${routeResponse.errorCode}");
       }
     }
   }

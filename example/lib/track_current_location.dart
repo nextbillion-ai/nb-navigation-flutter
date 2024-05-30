@@ -72,7 +72,8 @@ class TrackCurrentLocationState extends State<TrackCurrentLocation> {
                       height: 28,
                     ),
                     onTap: () {
-                      controller?.updateMyLocationTrackingMode(MyLocationTrackingMode.Tracking);
+                      controller?.updateMyLocationTrackingMode(
+                          MyLocationTrackingMode.Tracking);
                       setState(() {
                         locationTrackImage = 'assets/location_on.png';
                       });
@@ -84,6 +85,7 @@ class TrackCurrentLocationState extends State<TrackCurrentLocation> {
       ),
     );
   }
+
   @override
   void initState() {
     super.initState();

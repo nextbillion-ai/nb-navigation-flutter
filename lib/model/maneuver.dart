@@ -33,8 +33,9 @@ class Maneuver {
       type: map['maneuver_type'],
       bearing: map['bearing'],
       muted: map['muted'],
-      voiceInstructions:
-          List<VoiceInstruction>.from(map['voice_instruction']?.map((vi) => VoiceInstruction.fromJson(vi)) ?? []),
+      voiceInstructions: List<VoiceInstruction>.from(map['voice_instruction']
+              ?.map((vi) => VoiceInstruction.fromJson(vi)) ??
+          []),
     );
   }
 

@@ -135,7 +135,9 @@ class RouteRequestParams {
     return RouteRequestParams(
       altCount: map['altCount'],
       alternatives: map['alternatives'],
-      avoid: List<SupportedAvoid>.from((map['avoid'] as List<dynamic>?)?.map((x) => SupportedAvoid.fromValue(x)) ?? []),
+      avoid: List<SupportedAvoid>.from((map['avoid'] as List<dynamic>?)
+              ?.map((x) => SupportedAvoid.fromValue(x)) ??
+          []),
       baseUrl: map['baseUrl'],
       departureTime: map['departureTime'],
       destination: LatLng(map['destination'][1], map['destination'][0]),
