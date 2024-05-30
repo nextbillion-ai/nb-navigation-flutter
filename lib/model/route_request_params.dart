@@ -80,6 +80,28 @@ class RouteRequestParams {
   /// The default is [SupportedGeometry.polyline6].
   SupportedGeometry? geometry;
 
+  /// Specify the type of hazardous material being carried and the service will avoid roads which are not suitable for the type of goods specified.
+  /// Please note that this parameter is effective only when mode=truck.
+  /// @return  a string  list representing the avoid types . Allowed Values:
+  /// [SupportedHazmatType.general]
+  /// [SupportedHazmatType.circumstantial]
+  /// [SupportedHazmatType.explosive]
+  /// [SupportedHazmatType.harmfulToWater]
+  List<SupportedHazmatType>? hazmatType;
+
+  /// Indicates from which side of the road to approach a waypoint.
+  /// Accepts [SupportedApproaches.unrestricted] (default) or
+  /// [SupportedApproaches.curb].
+  /// If set to [SupportedApproaches.unrestricted], the route can approach waypoints
+  /// from either side of the road.
+  /// If set to [SupportedApproaches.curb], the route will be returned so that on
+  /// arrival, the waypoint will be found on the side that corresponds with the driving_side of the
+  /// region in which the returned route is located.
+  /// If provided, the list of approaches must be the same length as the list of waypoints.
+  ///
+  /// @return a string representing approaches for each waypoint
+  List<SupportedApproaches>? approaches;
+
   RouteRequestParams({
     required this.origin,
     required this.destination,
@@ -99,11 +121,16 @@ class RouteRequestParams {
     this.waypoints,
     this.option,
     this.geometry,
+    this.hazmatType,
+    this.approaches,
   });
 
   factory RouteRequestParams.fromJson(Map<String, dynamic> map) {
     if (map.isEmpty) {
-      return RouteRequestParams(origin: const LatLng(0, 0), destination: const LatLng(0, 0),);
+      return RouteRequestParams(
+        origin: const LatLng(0, 0),
+        destination: const LatLng(0, 0),
+      );
     }
     return RouteRequestParams(
       altCount: map['altCount'],
@@ -119,11 +146,21 @@ class RouteRequestParams {
       overview: ValidOverview.fromValue(map['overview']),
       simulation: map['simulation'],
       truckWeight: map['truckWeight'],
-      truckSize: (map['truckSize'] as List<dynamic>?)?.map((item) => (item is String) ? int.parse(item) : (item as int)).toList(),
+      truckSize: (map['truckSize'] as List<dynamic>?)
+          ?.map((item) => (item is String) ? int.parse(item) : (item as int))
+          .toList(),
       unit: SupportedUnits.fromValue(map['unit']),
       option: SupportedOption.fromValue(map['option']),
       geometry: SupportedGeometry.fromValue(map["geometry"]),
       waypoints: List<LatLng>.from(map['waypoints']?.map((point) => LatLng(point[1], point[0])) ?? []),
+      hazmatType: (map['hazmatType'] as List<dynamic>?)
+          ?.map((x) => SupportedHazmatType.fromValue(x))
+          .whereType<SupportedHazmatType>()
+          .toList(),
+      approaches: (map['approaches'] as List<dynamic>?)
+          ?.map((x) => SupportedApproaches.fromValue(x))
+          .whereType<SupportedApproaches>()
+          .toList(),
     );
   }
 
@@ -132,6 +169,7 @@ class RouteRequestParams {
       'altCount': altCount,
       'alternatives': alternatives,
       'avoid': avoid?.map((e) => e.description).toList(),
+      'approaches': approaches?.map((e) => e.description).toList(),
       'baseUrl': baseUrl,
       'departureTime': departureTime,
       'destination': destination.toGeoJsonCoordinates(),
@@ -147,6 +185,7 @@ class RouteRequestParams {
       'option': option?.description,
       'geometry': geometry?.description,
       'waypoints': waypoints?.map((e) => e.toGeoJsonCoordinates()).toList(),
+      'hazmatType': hazmatType?.map((e) => e.description).toList(),
     };
   }
 }

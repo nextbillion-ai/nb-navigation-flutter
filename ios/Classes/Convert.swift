@@ -46,6 +46,12 @@ class Convert {
             allWayPoints.append(destinationWayPoint)
         }
         
+        if let approaches = options["approaches"] as? [String], approaches.count == allWayPoints.count - 1 {
+            for (index, approache) in approaches.enumerated() {
+                allWayPoints[index + 1].allowsArrivingOnOppositeSide = approache == "unrestricted"
+            }
+        }
+        
         if !allWayPoints.isEmpty {
             routeOptions = NBNavRouteOptions(waypoints: allWayPoints, profile: convertMode(mode: mode) ?? .car)
         }
@@ -79,6 +85,10 @@ class Convert {
         
         if let avoid = options["avoid"] as? [String], let avoidClasses = RoadClasses(descriptions: avoid) {
             routeOptions.roadClassesToAvoid = avoidClasses
+        }
+
+        if let hazmatType = options["hazmatType"] as? [String], let hazmatTypes = NavigationHazmatTypes(descriptions: hazmatType) {
+            routeOptions.hazmatTypes = hazmatTypes
         }
         
         if let shapeFormat = options["geometry"] as? String {
@@ -120,6 +130,8 @@ class Convert {
         var options: [String: Any] = [:]
         
         var wayPoints: [[Double]] = []
+        var approaches: [String] = []
+
         let optionWayPoints = routeOptions.waypoints
         if !optionWayPoints.isEmpty, optionWayPoints.count > 1 {
             optionWayPoints.forEach { wayPoint in
@@ -131,7 +143,12 @@ class Convert {
                 options["waypoints"] = Array(wayPoints.dropFirst().dropLast())
             }
         }
-    
+        
+        let forbiddenArrivingOnOppositeSide = optionWayPoints.dropFirst().contains { !$0.allowsArrivingOnOppositeSide }
+        if forbiddenArrivingOnOppositeSide {
+            approaches = optionWayPoints.dropFirst().compactMap { $0.allowsArrivingOnOppositeSide ? "unrestricted" : "curb" }
+        }
+        
         options["mode"] = routeOptions.profileIdentifier.rawValue
         options["language"] = routeOptions.locale.languageCode
         options["unit"] = routeOptions.distanceMeasurementSystem.description
@@ -143,8 +160,14 @@ class Convert {
         options["geometry"] = routeOptions.shapeFormat.description
         options["truckSize"] = routeOptions.truckSize
         options["truckWeight"] = routeOptions.truckWeight
-
-
+        
+        if (!routeOptions.hazmatTypes.isEmpty) {
+            options["hazmatType"] = routeOptions.hazmatTypes.description.components(separatedBy: ";")
+        }
+        
+        if (!approaches.isEmpty) {
+            options["approaches"] = approaches
+        }
         return options
     }
     

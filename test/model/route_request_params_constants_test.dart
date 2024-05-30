@@ -49,9 +49,24 @@ void main() {
     expect(SupportedOption.fromValue('invalid'), equals(null));
   });
 
+  test('SupportedHazmatType.fromValue should return SupportedHazmatType', () {
+    expect(SupportedHazmatType.fromValue('general'), equals(SupportedHazmatType.general));
+    expect(SupportedHazmatType.fromValue("circumstantial"), equals(SupportedHazmatType.circumstantial));
+    expect(SupportedHazmatType.fromValue('explosive'), equals(SupportedHazmatType.explosive));
+    expect(SupportedHazmatType.fromValue('harmful_to_water'), equals(SupportedHazmatType.harmfulToWater));
+    expect(SupportedHazmatType.fromValue(null), equals(null));
+  });
+
+  test('SupportedApproaches.fromValue should return SupportedApproaches', () {
+    expect(SupportedApproaches.fromValue('curb'), equals(SupportedApproaches.curb));
+    expect(SupportedApproaches.fromValue('unrestricted'), equals(SupportedApproaches.unrestricted));
+    expect(SupportedApproaches.fromValue(null), equals(null));
+  });
+
   test('EnumExtension.description should return description', () {
     expect(ValidOverview.none.description, equals('false'));
     expect(ValidOverview.full.description, equals('full'));
     expect(ValidOverview.simplified.description, equals('simplified'));
+    expect(SupportedHazmatType.harmfulToWater.description, equals('harmful_to_water'));
   });
 }
