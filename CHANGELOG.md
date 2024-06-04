@@ -1,3 +1,8 @@
+## v0.5.2, June 4, 2024
+* Add route request params
+  * hazmatType
+  * approaches
+
 ## v0.5.1, May 29, 2024
 * Updated the nb_maps_flutter dependency to 0.4.0
 * Fix state error exception when the widget is disposed
