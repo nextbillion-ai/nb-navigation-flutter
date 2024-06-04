@@ -85,10 +85,40 @@ enum SupportedOption {
       };
 }
 
+enum SupportedHazmatType {
+  general,
+  circumstantial,
+  explosive,
+  harmfulToWater;
+
+  static SupportedHazmatType? fromValue(String? s) => switch (s) {
+    "general" => general,
+    "circumstantial" => circumstantial,
+    "explosive" => explosive,
+    "harmful_to_water" => harmfulToWater,
+    _ => null,
+  };
+}
+
+
+enum SupportedApproaches {
+  curb,
+  unrestricted;
+
+  static SupportedApproaches? fromValue(String? s) => switch (s) {
+    "curb" => curb,
+    "unrestricted" => unrestricted,
+    _ => null,
+  };
+}
+
 extension EnumExtension on Enum {
   String get description {
     if (this == ValidOverview.none) {
       return "false";
+    }
+    if (this == SupportedHazmatType.harmfulToWater) {
+      return "harmful_to_water";
     }
     return toString().split('.').last;
   }
