@@ -32,6 +32,15 @@ enum SupportedAvoid {
   /// Avoid highways during the route.
   highway,
 
+  /// Avoid uTurn during the route.
+  uTurn,
+
+  /// Avoid sharpTurn during the route.
+  sharpTurn,
+
+  /// Avoid serviceRoad during the route.
+  serviceRoad,
+
   /// Avoid noting during the route.
   none;
 
@@ -39,6 +48,9 @@ enum SupportedAvoid {
         "toll" => toll,
         "ferry" => ferry,
         "highway" => highway,
+        "uturn" => uTurn,
+        "sharp_turn" => sharpTurn,
+        "service_road" => serviceRoad,
         "none" => none,
         _ => ferry
       };
@@ -119,6 +131,15 @@ extension EnumExtension on Enum {
     }
     if (this == SupportedHazmatType.harmfulToWater) {
       return "harmful_to_water";
+    }
+    if (this == SupportedAvoid.uTurn) {
+      return "uturn";
+    }
+    if (this == SupportedAvoid.sharpTurn) {
+      return "sharp_turn";
+    }
+    if (this == SupportedAvoid.serviceRoad) {
+      return "service_road";
     }
     return toString().split('.').last;
   }

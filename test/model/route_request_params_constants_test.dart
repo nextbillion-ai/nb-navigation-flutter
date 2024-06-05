@@ -24,6 +24,9 @@ void main() {
     expect(SupportedAvoid.fromValue('none'), equals(SupportedAvoid.none));
     expect(SupportedAvoid.fromValue(null), equals(SupportedAvoid.ferry));
     expect(SupportedAvoid.fromValue('invalid'), equals(SupportedAvoid.ferry));
+    expect(SupportedAvoid.fromValue('uturn'), equals(SupportedAvoid.uTurn));
+    expect(SupportedAvoid.fromValue('sharp_turn'), equals(SupportedAvoid.sharpTurn));
+    expect(SupportedAvoid.fromValue('service_road'), equals(SupportedAvoid.serviceRoad));
   });
 
   test('ValidOverview.fromValue should return ValidOverview', () {
@@ -72,5 +75,8 @@ void main() {
     expect(ValidOverview.full.description, equals('full'));
     expect(ValidOverview.simplified.description, equals('simplified'));
     expect(SupportedHazmatType.harmfulToWater.description, equals('harmful_to_water'));
+    expect(SupportedAvoid.uTurn.description, equals('uturn'));
+    expect(SupportedAvoid.sharpTurn.description, equals('sharp_turn'));
+    expect(SupportedAvoid.serviceRoad.description, equals('service_road'));
   });
 }
