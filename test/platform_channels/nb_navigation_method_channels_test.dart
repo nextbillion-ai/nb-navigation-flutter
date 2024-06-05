@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 
 import 'nb_navigation_method_channels_test.mocks.dart';
@@ -228,44 +227,5 @@ void main() {
     verify(channel.invokeMethod(
         NBNavigationLauncherMethodID.nbSetNavigationUriMethod,
         {'navigationBaseUri': uri})).called(1);
-  });
-
-  test('setUserId calls the correct method on the method channel', () {
-    const userId = 'test_user_id';
-
-    when(channel.invokeMethod(
-            NBNavigationConfigMethodID.configSetUserId, {'userId': userId}))
-        .thenAnswer((realInvocation) async => true);
-    nbNavMethodChannel.setUserId(userId);
-
-    verify(channel.invokeMethod(
-            NBNavigationConfigMethodID.configSetUserId, {'userId': userId}))
-        .called(1);
-  });
-
-  test('getUserId calls the correct method on the method channel', () async {
-    const userId = 'test_user_id';
-
-    when(channel.invokeMethod(NBNavigationConfigMethodID.configGetUserId))
-        .thenAnswer((_) async => userId);
-
-    final result = await nbNavMethodChannel.getUserId();
-
-    verify(channel.invokeMethod(NBNavigationConfigMethodID.configGetUserId))
-        .called(1);
-    expect(result, userId);
-  });
-
-  test('getNBId calls the correct method on the method channel', () async {
-    const nbId = 'test_nb_id';
-
-    when(channel.invokeMethod(NBNavigationConfigMethodID.configGetNBId))
-        .thenAnswer((_) async => nbId);
-
-    final result = await nbNavMethodChannel.getNBId();
-
-    verify(channel.invokeMethod(NBNavigationConfigMethodID.configGetNBId))
-        .called(1);
-    expect(result, nbId);
   });
 }

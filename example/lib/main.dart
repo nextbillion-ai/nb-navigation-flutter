@@ -40,9 +40,7 @@ class _NavigationDemoState extends State<NavigationDemo> {
 
     // Set user ID If needed
     NBNavigation.setUserId("123344").then((value) {
-      if (kDebugMode) {
-        print("User ID set: $value");
-      }
+
     });
 
     // Check user ID If needed
