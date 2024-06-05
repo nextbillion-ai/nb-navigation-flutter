@@ -22,10 +22,6 @@ struct MethodID {
 
     static let NAVIGATION_INIT_NAVIGATION = "config/initNBNavigation"
     static let NAVIGATION_GET_ACCESS_KEY = "config/getAccessKey"
-
-    static let NAVIGATION_SET_USER_ID = "config/setUserId"
-    static let NAVIGATION_GET_USER_ID = "config/getUserId"
-    static let NAVIGATION_GET_NB_ID = "config/getNBId"
 }
 
 struct ResultID {

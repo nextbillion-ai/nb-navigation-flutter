@@ -33,10 +33,4 @@ abstract class NBNavigationPlatform {
       DirectionsRoute route, bool isPrimaryRoute);
 
   Future<Uint8List?> captureRouteWaypoints(int waypointIndex);
-
-  Future<bool> setUserId(String userId);
-
-  Future<String?> getUserId();
-
-  Future<String?> getNBId();
 }

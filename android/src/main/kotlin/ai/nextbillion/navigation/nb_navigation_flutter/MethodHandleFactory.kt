@@ -45,10 +45,7 @@ class MethodHandleFactory(methodChannel: MethodChannel) {
             MethodID.NAVIGATION_INIT_NAVIGATION,
             MethodID.NAVIGATION_GET_ACCESS_KEY,
             MethodID.NAVIGATION_GET_BASE_URL,
-            MethodID.NAVIGATION_SET_BASE_URL,
-            MethodID.NAVIGATION_GET_NB_ID,
-            MethodID.NAVIGATION_GET_USER_ID,
-            MethodID.NAVIGATION_SET_USER_ID -> methodChannelHandler =
+            MethodID.NAVIGATION_SET_BASE_URL -> methodChannelHandler =
                 nbNavigationHandler
 
             else -> {}

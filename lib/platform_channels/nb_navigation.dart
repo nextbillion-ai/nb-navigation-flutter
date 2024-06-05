@@ -91,17 +91,17 @@ class NBNavigation {
   }
 
   /// Set the user ID for the current user if you need to add a user ID to the navigation request user-agent.
-  static Future<bool> setUserId(String userId) async {
-    return await _nbNavigationPlatform.setUserId(userId);
+  static Future<void> setUserId(String userId) async {
+    await NextBillion.setUserId(userId);
   }
 
   /// Get the user ID for the current user if you need to add a user ID to the navigation request user-agent.
   static Future<String?> getUserId() async {
-    return await _nbNavigationPlatform.getUserId();
+    return await NextBillion.getUserId();
   }
 
   /// Get the NextBillion ID for the current user.
   static Future<String?> getNBId() async {
-    return await _nbNavigationPlatform.getNBId();
+    return await NextBillion.getNbId();
   }
 }

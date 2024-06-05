@@ -33,26 +33,6 @@ class NBNavigationHandler(methodChannel: MethodChannel?) : MethodChannelHandler(
                 }
                 result.success(true)
             }
-            MethodID.NAVIGATION_SET_USER_ID -> {
-                activity.let {
-                    val args = call.arguments as? Map<*, *>
-                    val isSet = Nextbillion.setUserId(args?.get("userId")?.toString())
-                    result.success(isSet)
-                    return
-                }
-            }
-            MethodID.NAVIGATION_GET_USER_ID -> {
-                activity.let {
-                    val userId = Nextbillion.getUserId()
-                    result.success(userId)
-                }
-            }
-            MethodID.NAVIGATION_GET_NB_ID -> {
-                activity.let {
-                    val nbId = Nextbillion.getNBId()
-                    result.success(nbId)
-                }
-            }
             MethodID.NAVIGATION_GET_ACCESS_KEY -> {
                 val accessKey = Nextbillion.getAccessKey()
                 result.success(accessKey)
