@@ -137,8 +137,8 @@ void _onMapCreated(NextbillionMapController controller) {
 }
 
 void _onStyleLoaded() {
-    if (controller != null) {
-      navNextBillionMap = NavNextBillionMap.create(controller!);
+    if (controller != null) async {
+      navNextBillionMap = await NavNextBillionMap.create(controller!);
     }
   }
 ```
