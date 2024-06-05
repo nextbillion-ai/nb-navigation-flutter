@@ -1,3 +1,10 @@
+## v0.5.3, June 5, 2024
+* Updated the nb_maps_flutter dependency to 0.4.1
+* Add avoid options
+  * SupportedAvoid.uTurn
+  * SupportedAvoid.sharpTurn
+  * SupportedAvoid.serviceRoad
+
 ## v0.5.2, June 4, 2024
 * Add route request params
   * hazmatType
