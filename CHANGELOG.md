@@ -1,3 +1,9 @@
+## v0.5.4, June 4, 2024
+* Updated dependencies to support new user-agent format in the network requests
+  * Updated the nb_maps_flutter dependency to 0.4.2
+  * Updated the android navigation native framework to 1.3.3 
+  * Updated iOS navigation native framework from 1.3.3 to 1.4.8
+* 
 ## v0.5.3, June 5, 2024
 * Updated the nb_maps_flutter dependency to 0.4.1
 * Add avoid options
