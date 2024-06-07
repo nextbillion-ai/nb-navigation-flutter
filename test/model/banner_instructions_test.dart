@@ -59,9 +59,7 @@ void main() {
       final bannerInstructions = BannerInstructions(
         distanceAlongGeometry: 10.0,
         primary: Primary(
-          components: [
-            Component(countryCode: 'US', text: 'Component 1')
-          ],
+          components: [Component(countryCode: 'US', text: 'Component 1')],
           degrees: 90,
           instruction: 'Instruction 1',
           modifier: 'Modifier 1',
@@ -70,9 +68,7 @@ void main() {
           drivingSide: 'left',
         ),
         sub: Primary(
-          components: [
-            Component(countryCode: 'US', text: 'Component 2')
-          ],
+          components: [Component(countryCode: 'US', text: 'Component 2')],
           degrees: 180,
           instruction: 'Instruction 2',
           modifier: 'Modifier 2',
@@ -81,9 +77,7 @@ void main() {
           drivingSide: 'right',
         ),
         secondary: Primary(
-          components: [
-            Component(countryCode: 'US', text: 'Component 3')
-          ],
+          components: [Component(countryCode: 'US', text: 'Component 3')],
           degrees: 270,
           instruction: 'Instruction 3',
           modifier: 'Modifier 3',
@@ -132,9 +126,7 @@ void main() {
 
     test('toJson should return a valid JSON map', () {
       final primary = Primary(
-        components: [
-          Component(countryCode: 'US', text: 'Component 1')
-        ],
+        components: [Component(countryCode: 'US', text: 'Component 1')],
         degrees: 90,
         instruction: 'Instruction 1',
         modifier: 'Modifier 1',

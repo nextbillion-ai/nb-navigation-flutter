@@ -104,24 +104,23 @@ enum SupportedHazmatType {
   harmfulToWater;
 
   static SupportedHazmatType? fromValue(String? s) => switch (s) {
-    "general" => general,
-    "circumstantial" => circumstantial,
-    "explosive" => explosive,
-    "harmful_to_water" => harmfulToWater,
-    _ => null,
-  };
+        "general" => general,
+        "circumstantial" => circumstantial,
+        "explosive" => explosive,
+        "harmful_to_water" => harmfulToWater,
+        _ => null,
+      };
 }
-
 
 enum SupportedApproaches {
   curb,
   unrestricted;
 
   static SupportedApproaches? fromValue(String? s) => switch (s) {
-    "curb" => curb,
-    "unrestricted" => unrestricted,
-    _ => null,
-  };
+        "curb" => curb,
+        "unrestricted" => unrestricted,
+        _ => null,
+      };
 }
 
 extension EnumExtension on Enum {

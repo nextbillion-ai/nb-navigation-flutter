@@ -61,6 +61,5 @@ void main() {
         SupportedApproaches.fromValue('unrestricted')
       ]);
     });
-
   });
 }

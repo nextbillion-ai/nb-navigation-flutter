@@ -4,7 +4,6 @@ import 'package:mockito/annotations.dart';
 
 import 'nb_navigation_method_channels_test.mocks.dart';
 
-
 @GenerateMocks([MethodChannel])
 void main() {
   late MockMethodChannel mockMethodChannel;

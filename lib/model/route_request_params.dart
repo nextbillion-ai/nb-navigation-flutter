@@ -154,7 +154,8 @@ class RouteRequestParams {
       unit: SupportedUnits.fromValue(map['unit']),
       option: SupportedOption.fromValue(map['option']),
       geometry: SupportedGeometry.fromValue(map["geometry"]),
-      waypoints: List<LatLng>.from(map['waypoints']?.map((point) => LatLng(point[1], point[0])) ?? []),
+      waypoints: List<LatLng>.from(
+          map['waypoints']?.map((point) => LatLng(point[1], point[0])) ?? []),
       hazmatType: (map['hazmatType'] as List<dynamic>?)
           ?.map((x) => SupportedHazmatType.fromValue(x))
           .whereType<SupportedHazmatType>()
