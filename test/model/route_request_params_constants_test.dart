@@ -25,8 +25,10 @@ void main() {
     expect(SupportedAvoid.fromValue(null), equals(SupportedAvoid.ferry));
     expect(SupportedAvoid.fromValue('invalid'), equals(SupportedAvoid.ferry));
     expect(SupportedAvoid.fromValue('uturn'), equals(SupportedAvoid.uTurn));
-    expect(SupportedAvoid.fromValue('sharp_turn'), equals(SupportedAvoid.sharpTurn));
-    expect(SupportedAvoid.fromValue('service_road'), equals(SupportedAvoid.serviceRoad));
+    expect(SupportedAvoid.fromValue('sharp_turn'),
+        equals(SupportedAvoid.sharpTurn));
+    expect(SupportedAvoid.fromValue('service_road'),
+        equals(SupportedAvoid.serviceRoad));
   });
 
   test('ValidOverview.fromValue should return ValidOverview', () {
@@ -57,16 +59,22 @@ void main() {
   });
 
   test('SupportedHazmatType.fromValue should return SupportedHazmatType', () {
-    expect(SupportedHazmatType.fromValue('general'), equals(SupportedHazmatType.general));
-    expect(SupportedHazmatType.fromValue("circumstantial"), equals(SupportedHazmatType.circumstantial));
-    expect(SupportedHazmatType.fromValue('explosive'), equals(SupportedHazmatType.explosive));
-    expect(SupportedHazmatType.fromValue('harmful_to_water'), equals(SupportedHazmatType.harmfulToWater));
+    expect(SupportedHazmatType.fromValue('general'),
+        equals(SupportedHazmatType.general));
+    expect(SupportedHazmatType.fromValue("circumstantial"),
+        equals(SupportedHazmatType.circumstantial));
+    expect(SupportedHazmatType.fromValue('explosive'),
+        equals(SupportedHazmatType.explosive));
+    expect(SupportedHazmatType.fromValue('harmful_to_water'),
+        equals(SupportedHazmatType.harmfulToWater));
     expect(SupportedHazmatType.fromValue(null), equals(null));
   });
 
   test('SupportedApproaches.fromValue should return SupportedApproaches', () {
-    expect(SupportedApproaches.fromValue('curb'), equals(SupportedApproaches.curb));
-    expect(SupportedApproaches.fromValue('unrestricted'), equals(SupportedApproaches.unrestricted));
+    expect(SupportedApproaches.fromValue('curb'),
+        equals(SupportedApproaches.curb));
+    expect(SupportedApproaches.fromValue('unrestricted'),
+        equals(SupportedApproaches.unrestricted));
     expect(SupportedApproaches.fromValue(null), equals(null));
   });
 
@@ -74,7 +82,8 @@ void main() {
     expect(ValidOverview.none.description, equals('false'));
     expect(ValidOverview.full.description, equals('full'));
     expect(ValidOverview.simplified.description, equals('simplified'));
-    expect(SupportedHazmatType.harmfulToWater.description, equals('harmful_to_water'));
+    expect(SupportedHazmatType.harmfulToWater.description,
+        equals('harmful_to_water'));
     expect(SupportedAvoid.uTurn.description, equals('uturn'));
     expect(SupportedAvoid.sharpTurn.description, equals('sharp_turn'));
     expect(SupportedAvoid.serviceRoad.description, equals('service_road'));

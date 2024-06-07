@@ -3,19 +3,19 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
-import 'dart:math' as _i3;
+import 'dart:async' as _i5;
+import 'dart:math' as _i7;
 import 'dart:typed_data' as _i9;
 import 'dart:ui' as _i8;
 
-import 'package:flutter/painting.dart' as _i7;
+import 'package:flutter/painting.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i10;
-import 'package:nb_maps_flutter/nb_maps_flutter.dart' as _i2;
+import 'package:mockito/src/dummies.dart' as _i11;
+import 'package:nb_maps_flutter/nb_maps_flutter.dart' as _i4;
 import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart'
-    as _i5;
-import 'package:nb_navigation_flutter/nb_navigation_flutter.dart' as _i4;
-import 'package:nb_navigation_flutter/util/asset_manager.dart' as _i11;
+    as _i3;
+import 'package:nb_navigation_flutter/nb_navigation_flutter.dart' as _i2;
+import 'package:nb_navigation_flutter/util/asset_manager.dart' as _i10;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -30,80 +30,9 @@ import 'package:nb_navigation_flutter/util/asset_manager.dart' as _i11;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeSymbol_0 extends _i1.SmartFake implements _i2.Symbol {
-  _FakeSymbol_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeLatLng_1 extends _i1.SmartFake implements _i2.LatLng {
-  _FakeLatLng_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeLine_2 extends _i1.SmartFake implements _i2.Line {
-  _FakeLine_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeCircle_3 extends _i1.SmartFake implements _i2.Circle {
-  _FakeCircle_3(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeFill_4 extends _i1.SmartFake implements _i2.Fill {
-  _FakeFill_4(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeLatLngBounds_5 extends _i1.SmartFake implements _i2.LatLngBounds {
-  _FakeLatLngBounds_5(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakePoint_6<T extends num> extends _i1.SmartFake
-    implements _i3.Point<T> {
-  _FakePoint_6(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeDirectionsRouteResponse_7 extends _i1.SmartFake
-    implements _i4.DirectionsRouteResponse {
-  _FakeDirectionsRouteResponse_7(
+class _FakeDirectionsRouteResponse_0 extends _i1.SmartFake
+    implements _i2.DirectionsRouteResponse {
+  _FakeDirectionsRouteResponse_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -115,7 +44,7 @@ class _FakeDirectionsRouteResponse_7 extends _i1.SmartFake
 /// A class which mocks [MapController].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMapController extends _i1.Mock implements _i5.MapController {
+class MockMapController extends _i1.Mock implements _i3.MapController {
   @override
   bool get disposed => (super.noSuchMethod(
         Invocation.getter(#disposed),
@@ -124,12 +53,12 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
       ) as bool);
 
   @override
-  List<_i2.OnFeatureInteractionCallback> get onFeatureTapped =>
+  List<_i4.OnFeatureInteractionCallback> get onFeatureTapped =>
       (super.noSuchMethod(
         Invocation.getter(#onFeatureTapped),
-        returnValue: <_i2.OnFeatureInteractionCallback>[],
-        returnValueForMissingStub: <_i2.OnFeatureInteractionCallback>[],
-      ) as List<_i2.OnFeatureInteractionCallback>);
+        returnValue: <_i4.OnFeatureInteractionCallback>[],
+        returnValueForMissingStub: <_i4.OnFeatureInteractionCallback>[],
+      ) as List<_i4.OnFeatureInteractionCallback>);
 
   @override
   void resizeWebMap() => super.noSuchMethod(
@@ -150,8 +79,8 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
       );
 
   @override
-  _i6.Future<bool?> animateCamera(
-    _i2.CameraUpdate? cameraUpdate, {
+  _i5.Future<bool?> animateCamera(
+    _i4.CameraUpdate? cameraUpdate, {
     Duration? duration,
   }) =>
       (super.noSuchMethod(
@@ -160,23 +89,23 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
           [cameraUpdate],
           {#duration: duration},
         ),
-        returnValue: _i6.Future<bool?>.value(),
-        returnValueForMissingStub: _i6.Future<bool?>.value(),
-      ) as _i6.Future<bool?>);
+        returnValue: _i5.Future<bool?>.value(),
+        returnValueForMissingStub: _i5.Future<bool?>.value(),
+      ) as _i5.Future<bool?>);
 
   @override
-  _i6.Future<bool?> moveCamera(_i2.CameraUpdate? cameraUpdate) =>
+  _i5.Future<bool?> moveCamera(_i4.CameraUpdate? cameraUpdate) =>
       (super.noSuchMethod(
         Invocation.method(
           #moveCamera,
           [cameraUpdate],
         ),
-        returnValue: _i6.Future<bool?>.value(),
-        returnValueForMissingStub: _i6.Future<bool?>.value(),
-      ) as _i6.Future<bool?>);
+        returnValue: _i5.Future<bool?>.value(),
+        returnValueForMissingStub: _i5.Future<bool?>.value(),
+      ) as _i5.Future<bool?>);
 
   @override
-  _i6.Future<void> addGeoJsonSource(
+  _i5.Future<void> addGeoJsonSource(
     String? sourceId,
     Map<String, dynamic>? geojson, {
     String? promoteId,
@@ -190,12 +119,12 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
           ],
           {#promoteId: promoteId},
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> setGeoJsonSource(
+  _i5.Future<void> setGeoJsonSource(
     String? sourceId,
     Map<String, dynamic>? geojson,
   ) =>
@@ -207,12 +136,12 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             geojson,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> setGeoJsonFeature(
+  _i5.Future<void> setGeoJsonFeature(
     String? sourceId,
     Map<String, dynamic>? geojsonFeature,
   ) =>
@@ -224,15 +153,15 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             geojsonFeature,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addSymbolLayer(
+  _i5.Future<void> addSymbolLayer(
     String? sourceId,
     String? layerId,
-    _i2.SymbolLayerProperties? properties, {
+    _i4.SymbolLayerProperties? properties, {
     String? belowLayerId,
     String? sourceLayer,
     double? minzoom,
@@ -257,15 +186,15 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             #enableInteraction: enableInteraction,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addLineLayer(
+  _i5.Future<void> addLineLayer(
     String? sourceId,
     String? layerId,
-    _i2.LineLayerProperties? properties, {
+    _i4.LineLayerProperties? properties, {
     String? belowLayerId,
     String? sourceLayer,
     double? minzoom,
@@ -290,15 +219,15 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             #enableInteraction: enableInteraction,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addFillLayer(
+  _i5.Future<void> addFillLayer(
     String? sourceId,
     String? layerId,
-    _i2.FillLayerProperties? properties, {
+    _i4.FillLayerProperties? properties, {
     String? belowLayerId,
     String? sourceLayer,
     double? minzoom,
@@ -323,15 +252,15 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             #enableInteraction: enableInteraction,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addFillExtrusionLayer(
+  _i5.Future<void> addFillExtrusionLayer(
     String? sourceId,
     String? layerId,
-    _i2.FillExtrusionLayerProperties? properties, {
+    _i4.FillExtrusionLayerProperties? properties, {
     String? belowLayerId,
     String? sourceLayer,
     double? minzoom,
@@ -356,15 +285,15 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             #enableInteraction: enableInteraction,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addCircleLayer(
+  _i5.Future<void> addCircleLayer(
     String? sourceId,
     String? layerId,
-    _i2.CircleLayerProperties? properties, {
+    _i4.CircleLayerProperties? properties, {
     String? belowLayerId,
     String? sourceLayer,
     double? minzoom,
@@ -389,15 +318,15 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             #enableInteraction: enableInteraction,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addRasterLayer(
+  _i5.Future<void> addRasterLayer(
     String? sourceId,
     String? layerId,
-    _i2.RasterLayerProperties? properties, {
+    _i4.RasterLayerProperties? properties, {
     String? belowLayerId,
     String? sourceLayer,
     double? minzoom,
@@ -418,15 +347,15 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             #maxzoom: maxzoom,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addHillshadeLayer(
+  _i5.Future<void> addHillshadeLayer(
     String? sourceId,
     String? layerId,
-    _i2.HillshadeLayerProperties? properties, {
+    _i4.HillshadeLayerProperties? properties, {
     String? belowLayerId,
     String? sourceLayer,
     double? minzoom,
@@ -447,15 +376,15 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             #maxzoom: maxzoom,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addHeatmapLayer(
+  _i5.Future<void> addHeatmapLayer(
     String? sourceId,
     String? layerId,
-    _i2.HeatmapLayerProperties? properties, {
+    _i4.HeatmapLayerProperties? properties, {
     String? belowLayerId,
     String? sourceLayer,
     double? minzoom,
@@ -476,35 +405,35 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             #maxzoom: maxzoom,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> updateMyLocationTrackingMode(
-          _i2.MyLocationTrackingMode? myLocationTrackingMode) =>
+  _i5.Future<void> updateMyLocationTrackingMode(
+          _i4.MyLocationTrackingMode? myLocationTrackingMode) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateMyLocationTrackingMode,
           [myLocationTrackingMode],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> matchMapLanguageWithDeviceDefault() => (super.noSuchMethod(
+  _i5.Future<void> matchMapLanguageWithDeviceDefault() => (super.noSuchMethod(
         Invocation.method(
           #matchMapLanguageWithDeviceDefault,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> updateContentInsets(
-    _i7.EdgeInsets? insets, [
+  _i5.Future<void> updateContentInsets(
+    _i6.EdgeInsets? insets, [
     bool? animated = false,
   ]) =>
       (super.noSuchMethod(
@@ -515,43 +444,43 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             animated,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> setMapLanguage(String? language) => (super.noSuchMethod(
+  _i5.Future<void> setMapLanguage(String? language) => (super.noSuchMethod(
         Invocation.method(
           #setMapLanguage,
           [language],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> setTelemetryEnabled(bool? enabled) => (super.noSuchMethod(
+  _i5.Future<void> setTelemetryEnabled(bool? enabled) => (super.noSuchMethod(
         Invocation.method(
           #setTelemetryEnabled,
           [enabled],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<bool> getTelemetryEnabled() => (super.noSuchMethod(
+  _i5.Future<bool> getTelemetryEnabled() => (super.noSuchMethod(
         Invocation.method(
           #getTelemetryEnabled,
           [],
         ),
-        returnValue: _i6.Future<bool>.value(false),
-        returnValueForMissingStub: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+        returnValue: _i5.Future<bool>.value(false),
+        returnValueForMissingStub: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
 
   @override
-  _i6.Future<_i2.Symbol> addSymbol(
-    _i2.SymbolOptions? options, [
+  _i5.Future<_i4.Symbol?> addSymbol(
+    _i4.SymbolOptions? options, [
     Map<dynamic, dynamic>? data,
   ]) =>
       (super.noSuchMethod(
@@ -562,31 +491,13 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             data,
           ],
         ),
-        returnValue: _i6.Future<_i2.Symbol>.value(_FakeSymbol_0(
-          this,
-          Invocation.method(
-            #addSymbol,
-            [
-              options,
-              data,
-            ],
-          ),
-        )),
-        returnValueForMissingStub: _i6.Future<_i2.Symbol>.value(_FakeSymbol_0(
-          this,
-          Invocation.method(
-            #addSymbol,
-            [
-              options,
-              data,
-            ],
-          ),
-        )),
-      ) as _i6.Future<_i2.Symbol>);
+        returnValue: _i5.Future<_i4.Symbol?>.value(),
+        returnValueForMissingStub: _i5.Future<_i4.Symbol?>.value(),
+      ) as _i5.Future<_i4.Symbol?>);
 
   @override
-  _i6.Future<List<_i2.Symbol>> addSymbols(
-    List<_i2.SymbolOptions>? options, [
+  _i5.Future<List<_i4.Symbol>?> addSymbols(
+    List<_i4.SymbolOptions>? options, [
     List<Map<dynamic, dynamic>>? data,
   ]) =>
       (super.noSuchMethod(
@@ -597,15 +508,14 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             data,
           ],
         ),
-        returnValue: _i6.Future<List<_i2.Symbol>>.value(<_i2.Symbol>[]),
-        returnValueForMissingStub:
-            _i6.Future<List<_i2.Symbol>>.value(<_i2.Symbol>[]),
-      ) as _i6.Future<List<_i2.Symbol>>);
+        returnValue: _i5.Future<List<_i4.Symbol>?>.value(),
+        returnValueForMissingStub: _i5.Future<List<_i4.Symbol>?>.value(),
+      ) as _i5.Future<List<_i4.Symbol>?>);
 
   @override
-  _i6.Future<void> updateSymbol(
-    _i2.Symbol? symbol,
-    _i2.SymbolOptions? changes,
+  _i5.Future<void> updateSymbol(
+    _i4.Symbol? symbol,
+    _i4.SymbolOptions? changes,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -615,67 +525,55 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             changes,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<_i2.LatLng> getSymbolLatLng(_i2.Symbol? symbol) =>
+  _i5.Future<_i4.LatLng?> getSymbolLatLng(_i4.Symbol? symbol) =>
       (super.noSuchMethod(
         Invocation.method(
           #getSymbolLatLng,
           [symbol],
         ),
-        returnValue: _i6.Future<_i2.LatLng>.value(_FakeLatLng_1(
-          this,
-          Invocation.method(
-            #getSymbolLatLng,
-            [symbol],
-          ),
-        )),
-        returnValueForMissingStub: _i6.Future<_i2.LatLng>.value(_FakeLatLng_1(
-          this,
-          Invocation.method(
-            #getSymbolLatLng,
-            [symbol],
-          ),
-        )),
-      ) as _i6.Future<_i2.LatLng>);
+        returnValue: _i5.Future<_i4.LatLng?>.value(),
+        returnValueForMissingStub: _i5.Future<_i4.LatLng?>.value(),
+      ) as _i5.Future<_i4.LatLng?>);
 
   @override
-  _i6.Future<void> removeSymbol(_i2.Symbol? symbol) => (super.noSuchMethod(
+  _i5.Future<void> removeSymbol(_i4.Symbol? symbol) => (super.noSuchMethod(
         Invocation.method(
           #removeSymbol,
           [symbol],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> removeSymbols(Iterable<_i2.Symbol>? symbols) =>
+  _i5.Future<void> removeSymbols(Iterable<_i4.Symbol>? symbols) =>
       (super.noSuchMethod(
         Invocation.method(
           #removeSymbols,
           [symbols],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> clearSymbols() => (super.noSuchMethod(
+  _i5.Future<void> clearSymbols() => (super.noSuchMethod(
         Invocation.method(
           #clearSymbols,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<_i2.Line> addLine(
-    _i2.LineOptions? options, [
+  _i5.Future<_i4.Line?> addLine(
+    _i4.LineOptions? options, [
     Map<dynamic, dynamic>? data,
   ]) =>
       (super.noSuchMethod(
@@ -686,31 +584,13 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             data,
           ],
         ),
-        returnValue: _i6.Future<_i2.Line>.value(_FakeLine_2(
-          this,
-          Invocation.method(
-            #addLine,
-            [
-              options,
-              data,
-            ],
-          ),
-        )),
-        returnValueForMissingStub: _i6.Future<_i2.Line>.value(_FakeLine_2(
-          this,
-          Invocation.method(
-            #addLine,
-            [
-              options,
-              data,
-            ],
-          ),
-        )),
-      ) as _i6.Future<_i2.Line>);
+        returnValue: _i5.Future<_i4.Line?>.value(),
+        returnValueForMissingStub: _i5.Future<_i4.Line?>.value(),
+      ) as _i5.Future<_i4.Line?>);
 
   @override
-  _i6.Future<List<_i2.Line>> addLines(
-    List<_i2.LineOptions>? options, [
+  _i5.Future<List<_i4.Line>?> addLines(
+    List<_i4.LineOptions>? options, [
     List<Map<dynamic, dynamic>>? data,
   ]) =>
       (super.noSuchMethod(
@@ -721,15 +601,14 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             data,
           ],
         ),
-        returnValue: _i6.Future<List<_i2.Line>>.value(<_i2.Line>[]),
-        returnValueForMissingStub:
-            _i6.Future<List<_i2.Line>>.value(<_i2.Line>[]),
-      ) as _i6.Future<List<_i2.Line>>);
+        returnValue: _i5.Future<List<_i4.Line>?>.value(),
+        returnValueForMissingStub: _i5.Future<List<_i4.Line>?>.value(),
+      ) as _i5.Future<List<_i4.Line>?>);
 
   @override
-  _i6.Future<void> updateLine(
-    _i2.Line? line,
-    _i2.LineOptions? changes,
+  _i5.Future<void> updateLine(
+    _i4.Line? line,
+    _i4.LineOptions? changes,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -739,56 +618,55 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             changes,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<List<_i2.LatLng>> getLineLatLngs(_i2.Line? line) =>
+  _i5.Future<List<_i4.LatLng>?> getLineLatLngs(_i4.Line? line) =>
       (super.noSuchMethod(
         Invocation.method(
           #getLineLatLngs,
           [line],
         ),
-        returnValue: _i6.Future<List<_i2.LatLng>>.value(<_i2.LatLng>[]),
-        returnValueForMissingStub:
-            _i6.Future<List<_i2.LatLng>>.value(<_i2.LatLng>[]),
-      ) as _i6.Future<List<_i2.LatLng>>);
+        returnValue: _i5.Future<List<_i4.LatLng>?>.value(),
+        returnValueForMissingStub: _i5.Future<List<_i4.LatLng>?>.value(),
+      ) as _i5.Future<List<_i4.LatLng>?>);
 
   @override
-  _i6.Future<void> removeLine(_i2.Line? line) => (super.noSuchMethod(
+  _i5.Future<void> removeLine(_i4.Line? line) => (super.noSuchMethod(
         Invocation.method(
           #removeLine,
           [line],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> removeLines(Iterable<_i2.Line>? lines) =>
+  _i5.Future<void> removeLines(Iterable<_i4.Line>? lines) =>
       (super.noSuchMethod(
         Invocation.method(
           #removeLines,
           [lines],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> clearLines() => (super.noSuchMethod(
+  _i5.Future<void> clearLines() => (super.noSuchMethod(
         Invocation.method(
           #clearLines,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<_i2.Circle> addCircle(
-    _i2.CircleOptions? options, [
+  _i5.Future<_i4.Circle?> addCircle(
+    _i4.CircleOptions? options, [
     Map<dynamic, dynamic>? data,
   ]) =>
       (super.noSuchMethod(
@@ -799,31 +677,13 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             data,
           ],
         ),
-        returnValue: _i6.Future<_i2.Circle>.value(_FakeCircle_3(
-          this,
-          Invocation.method(
-            #addCircle,
-            [
-              options,
-              data,
-            ],
-          ),
-        )),
-        returnValueForMissingStub: _i6.Future<_i2.Circle>.value(_FakeCircle_3(
-          this,
-          Invocation.method(
-            #addCircle,
-            [
-              options,
-              data,
-            ],
-          ),
-        )),
-      ) as _i6.Future<_i2.Circle>);
+        returnValue: _i5.Future<_i4.Circle?>.value(),
+        returnValueForMissingStub: _i5.Future<_i4.Circle?>.value(),
+      ) as _i5.Future<_i4.Circle?>);
 
   @override
-  _i6.Future<List<_i2.Circle>> addCircles(
-    List<_i2.CircleOptions>? options, [
+  _i5.Future<List<_i4.Circle>?> addCircles(
+    List<_i4.CircleOptions>? options, [
     List<Map<dynamic, dynamic>>? data,
   ]) =>
       (super.noSuchMethod(
@@ -834,15 +694,14 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             data,
           ],
         ),
-        returnValue: _i6.Future<List<_i2.Circle>>.value(<_i2.Circle>[]),
-        returnValueForMissingStub:
-            _i6.Future<List<_i2.Circle>>.value(<_i2.Circle>[]),
-      ) as _i6.Future<List<_i2.Circle>>);
+        returnValue: _i5.Future<List<_i4.Circle>?>.value(),
+        returnValueForMissingStub: _i5.Future<List<_i4.Circle>?>.value(),
+      ) as _i5.Future<List<_i4.Circle>?>);
 
   @override
-  _i6.Future<void> updateCircle(
-    _i2.Circle? circle,
-    _i2.CircleOptions? changes,
+  _i5.Future<void> updateCircle(
+    _i4.Circle? circle,
+    _i4.CircleOptions? changes,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -852,67 +711,55 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             changes,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<_i2.LatLng> getCircleLatLng(_i2.Circle? circle) =>
+  _i5.Future<_i4.LatLng?> getCircleLatLng(_i4.Circle? circle) =>
       (super.noSuchMethod(
         Invocation.method(
           #getCircleLatLng,
           [circle],
         ),
-        returnValue: _i6.Future<_i2.LatLng>.value(_FakeLatLng_1(
-          this,
-          Invocation.method(
-            #getCircleLatLng,
-            [circle],
-          ),
-        )),
-        returnValueForMissingStub: _i6.Future<_i2.LatLng>.value(_FakeLatLng_1(
-          this,
-          Invocation.method(
-            #getCircleLatLng,
-            [circle],
-          ),
-        )),
-      ) as _i6.Future<_i2.LatLng>);
+        returnValue: _i5.Future<_i4.LatLng?>.value(),
+        returnValueForMissingStub: _i5.Future<_i4.LatLng?>.value(),
+      ) as _i5.Future<_i4.LatLng?>);
 
   @override
-  _i6.Future<void> removeCircle(_i2.Circle? circle) => (super.noSuchMethod(
+  _i5.Future<void> removeCircle(_i4.Circle? circle) => (super.noSuchMethod(
         Invocation.method(
           #removeCircle,
           [circle],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> removeCircles(Iterable<_i2.Circle>? circles) =>
+  _i5.Future<void> removeCircles(Iterable<_i4.Circle>? circles) =>
       (super.noSuchMethod(
         Invocation.method(
           #removeCircles,
           [circles],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> clearCircles() => (super.noSuchMethod(
+  _i5.Future<void> clearCircles() => (super.noSuchMethod(
         Invocation.method(
           #clearCircles,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<_i2.Fill> addFill(
-    _i2.FillOptions? options, [
+  _i5.Future<_i4.Fill?> addFill(
+    _i4.FillOptions? options, [
     Map<dynamic, dynamic>? data,
   ]) =>
       (super.noSuchMethod(
@@ -923,31 +770,13 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             data,
           ],
         ),
-        returnValue: _i6.Future<_i2.Fill>.value(_FakeFill_4(
-          this,
-          Invocation.method(
-            #addFill,
-            [
-              options,
-              data,
-            ],
-          ),
-        )),
-        returnValueForMissingStub: _i6.Future<_i2.Fill>.value(_FakeFill_4(
-          this,
-          Invocation.method(
-            #addFill,
-            [
-              options,
-              data,
-            ],
-          ),
-        )),
-      ) as _i6.Future<_i2.Fill>);
+        returnValue: _i5.Future<_i4.Fill?>.value(),
+        returnValueForMissingStub: _i5.Future<_i4.Fill?>.value(),
+      ) as _i5.Future<_i4.Fill?>);
 
   @override
-  _i6.Future<List<_i2.Fill>> addFills(
-    List<_i2.FillOptions>? options, [
+  _i5.Future<List<_i4.Fill>?> addFills(
+    List<_i4.FillOptions>? options, [
     List<Map<dynamic, dynamic>>? data,
   ]) =>
       (super.noSuchMethod(
@@ -958,15 +787,14 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             data,
           ],
         ),
-        returnValue: _i6.Future<List<_i2.Fill>>.value(<_i2.Fill>[]),
-        returnValueForMissingStub:
-            _i6.Future<List<_i2.Fill>>.value(<_i2.Fill>[]),
-      ) as _i6.Future<List<_i2.Fill>>);
+        returnValue: _i5.Future<List<_i4.Fill>?>.value(),
+        returnValueForMissingStub: _i5.Future<List<_i4.Fill>?>.value(),
+      ) as _i5.Future<List<_i4.Fill>?>);
 
   @override
-  _i6.Future<void> updateFill(
-    _i2.Fill? fill,
-    _i2.FillOptions? changes,
+  _i5.Future<void> updateFill(
+    _i4.Fill? fill,
+    _i4.FillOptions? changes,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -976,44 +804,44 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             changes,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> clearFills() => (super.noSuchMethod(
+  _i5.Future<void> clearFills() => (super.noSuchMethod(
         Invocation.method(
           #clearFills,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> removeFill(_i2.Fill? fill) => (super.noSuchMethod(
+  _i5.Future<void> removeFill(_i4.Fill? fill) => (super.noSuchMethod(
         Invocation.method(
           #removeFill,
           [fill],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> removeFills(Iterable<_i2.Fill>? fills) =>
+  _i5.Future<void> removeFills(Iterable<_i4.Fill>? fills) =>
       (super.noSuchMethod(
         Invocation.method(
           #removeFills,
           [fills],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<List<dynamic>> queryRenderedFeatures(
-    _i3.Point<double>? point,
+  _i5.Future<List<dynamic>?> queryRenderedFeatures(
+    _i7.Point<double>? point,
     List<String>? layerIds,
     List<Object>? filter,
   ) =>
@@ -1026,12 +854,12 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             filter,
           ],
         ),
-        returnValue: _i6.Future<List<dynamic>>.value(<dynamic>[]),
-        returnValueForMissingStub: _i6.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i6.Future<List<dynamic>>);
+        returnValue: _i5.Future<List<dynamic>?>.value(),
+        returnValueForMissingStub: _i5.Future<List<dynamic>?>.value(),
+      ) as _i5.Future<List<dynamic>?>);
 
   @override
-  _i6.Future<List<dynamic>> queryRenderedFeaturesInRect(
+  _i5.Future<List<dynamic>?> queryRenderedFeaturesInRect(
     _i8.Rect? rect,
     List<String>? layerIds,
     String? filter,
@@ -1045,65 +873,52 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             filter,
           ],
         ),
-        returnValue: _i6.Future<List<dynamic>>.value(<dynamic>[]),
-        returnValueForMissingStub: _i6.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i6.Future<List<dynamic>>);
+        returnValue: _i5.Future<List<dynamic>?>.value(),
+        returnValueForMissingStub: _i5.Future<List<dynamic>?>.value(),
+      ) as _i5.Future<List<dynamic>?>);
 
   @override
-  _i6.Future<dynamic> invalidateAmbientCache() => (super.noSuchMethod(
+  _i5.Future<dynamic> invalidateAmbientCache() => (super.noSuchMethod(
         Invocation.method(
           #invalidateAmbientCache,
           [],
         ),
-        returnValue: _i6.Future<dynamic>.value(),
-        returnValueForMissingStub: _i6.Future<dynamic>.value(),
-      ) as _i6.Future<dynamic>);
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
 
   @override
-  _i6.Future<_i2.LatLng?> requestMyLocationLatLng() => (super.noSuchMethod(
+  _i5.Future<_i4.LatLng?> requestMyLocationLatLng() => (super.noSuchMethod(
         Invocation.method(
           #requestMyLocationLatLng,
           [],
         ),
-        returnValue: _i6.Future<_i2.LatLng?>.value(),
-        returnValueForMissingStub: _i6.Future<_i2.LatLng?>.value(),
-      ) as _i6.Future<_i2.LatLng?>);
+        returnValue: _i5.Future<_i4.LatLng?>.value(),
+        returnValueForMissingStub: _i5.Future<_i4.LatLng?>.value(),
+      ) as _i5.Future<_i4.LatLng?>);
 
   @override
-  _i6.Future<_i2.LatLngBounds> getVisibleRegion() => (super.noSuchMethod(
+  _i5.Future<_i4.LatLngBounds?> getVisibleRegion() => (super.noSuchMethod(
         Invocation.method(
           #getVisibleRegion,
           [],
         ),
-        returnValue: _i6.Future<_i2.LatLngBounds>.value(_FakeLatLngBounds_5(
-          this,
-          Invocation.method(
-            #getVisibleRegion,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i2.LatLngBounds>.value(_FakeLatLngBounds_5(
-          this,
-          Invocation.method(
-            #getVisibleRegion,
-            [],
-          ),
-        )),
-      ) as _i6.Future<_i2.LatLngBounds>);
+        returnValue: _i5.Future<_i4.LatLngBounds?>.value(),
+        returnValueForMissingStub: _i5.Future<_i4.LatLngBounds?>.value(),
+      ) as _i5.Future<_i4.LatLngBounds?>);
 
   @override
-  _i6.Future<void> setStyleString(String? styleString) => (super.noSuchMethod(
+  _i5.Future<void> setStyleString(String? styleString) => (super.noSuchMethod(
         Invocation.method(
           #setStyleString,
           [styleString],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addImage(
+  _i5.Future<void> addImage(
     String? name,
     _i9.Uint8List? bytes, [
     bool? sdf = false,
@@ -1117,59 +932,59 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             sdf,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> setSymbolIconAllowOverlap(bool? enable) =>
+  _i5.Future<void> setSymbolIconAllowOverlap(bool? enable) =>
       (super.noSuchMethod(
         Invocation.method(
           #setSymbolIconAllowOverlap,
           [enable],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> setSymbolIconIgnorePlacement(bool? enable) =>
+  _i5.Future<void> setSymbolIconIgnorePlacement(bool? enable) =>
       (super.noSuchMethod(
         Invocation.method(
           #setSymbolIconIgnorePlacement,
           [enable],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> setSymbolTextAllowOverlap(bool? enable) =>
+  _i5.Future<void> setSymbolTextAllowOverlap(bool? enable) =>
       (super.noSuchMethod(
         Invocation.method(
           #setSymbolTextAllowOverlap,
           [enable],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> setSymbolTextIgnorePlacement(bool? enable) =>
+  _i5.Future<void> setSymbolTextIgnorePlacement(bool? enable) =>
       (super.noSuchMethod(
         Invocation.method(
           #setSymbolTextIgnorePlacement,
           [enable],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addImageSource(
+  _i5.Future<void> addImageSource(
     String? imageSourceId,
     _i9.Uint8List? bytes,
-    _i2.LatLngQuad? coordinates,
+    _i4.LatLngQuad? coordinates,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1180,15 +995,15 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             coordinates,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> updateImageSource(
+  _i5.Future<void> updateImageSource(
     String? imageSourceId,
     _i9.Uint8List? bytes,
-    _i2.LatLngQuad? coordinates,
+    _i4.LatLngQuad? coordinates,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1199,22 +1014,22 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             coordinates,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> removeSource(String? sourceId) => (super.noSuchMethod(
+  _i5.Future<void> removeSource(String? sourceId) => (super.noSuchMethod(
         Invocation.method(
           #removeSource,
           [sourceId],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addImageLayer(
+  _i5.Future<void> addImageLayer(
     String? layerId,
     String? imageSourceId, {
     double? minzoom,
@@ -1232,12 +1047,12 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             #maxzoom: maxzoom,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addImageLayerBelow(
+  _i5.Future<void> addImageLayerBelow(
     String? layerId,
     String? sourceId,
     String? imageSourceId, {
@@ -1257,22 +1072,22 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             #maxzoom: maxzoom,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> removeLayer(String? layerId) => (super.noSuchMethod(
+  _i5.Future<void> removeLayer(String? layerId) => (super.noSuchMethod(
         Invocation.method(
           #removeLayer,
           [layerId],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> setFilter(
+  _i5.Future<void> setFilter(
     String? layerId,
     dynamic filter,
   ) =>
@@ -1284,12 +1099,12 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             filter,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> setVisibility(
+  _i5.Future<void> setVisibility(
     String? layerId,
     bool? isVisible,
   ) =>
@@ -1301,85 +1116,59 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             isVisible,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<_i3.Point<num>> toScreenLocation(_i2.LatLng? latLng) =>
+  _i5.Future<_i7.Point<num>?> toScreenLocation(_i4.LatLng? latLng) =>
       (super.noSuchMethod(
         Invocation.method(
           #toScreenLocation,
           [latLng],
         ),
-        returnValue: _i6.Future<_i3.Point<num>>.value(_FakePoint_6<num>(
-          this,
-          Invocation.method(
-            #toScreenLocation,
-            [latLng],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i3.Point<num>>.value(_FakePoint_6<num>(
-          this,
-          Invocation.method(
-            #toScreenLocation,
-            [latLng],
-          ),
-        )),
-      ) as _i6.Future<_i3.Point<num>>);
+        returnValue: _i5.Future<_i7.Point<num>?>.value(),
+        returnValueForMissingStub: _i5.Future<_i7.Point<num>?>.value(),
+      ) as _i5.Future<_i7.Point<num>?>);
 
   @override
-  _i6.Future<List<_i3.Point<num>>> toScreenLocationBatch(
-          Iterable<_i2.LatLng>? latLngs) =>
+  _i5.Future<List<_i7.Point<num>>?> toScreenLocationBatch(
+          Iterable<_i4.LatLng>? latLngs) =>
       (super.noSuchMethod(
         Invocation.method(
           #toScreenLocationBatch,
           [latLngs],
         ),
-        returnValue: _i6.Future<List<_i3.Point<num>>>.value(<_i3.Point<num>>[]),
-        returnValueForMissingStub:
-            _i6.Future<List<_i3.Point<num>>>.value(<_i3.Point<num>>[]),
-      ) as _i6.Future<List<_i3.Point<num>>>);
+        returnValue: _i5.Future<List<_i7.Point<num>>?>.value(),
+        returnValueForMissingStub: _i5.Future<List<_i7.Point<num>>?>.value(),
+      ) as _i5.Future<List<_i7.Point<num>>?>);
 
   @override
-  _i6.Future<_i2.LatLng> toLatLng(_i3.Point<num>? screenLocation) =>
+  _i5.Future<_i4.LatLng?> toLatLng(_i7.Point<num>? screenLocation) =>
       (super.noSuchMethod(
         Invocation.method(
           #toLatLng,
           [screenLocation],
         ),
-        returnValue: _i6.Future<_i2.LatLng>.value(_FakeLatLng_1(
-          this,
-          Invocation.method(
-            #toLatLng,
-            [screenLocation],
-          ),
-        )),
-        returnValueForMissingStub: _i6.Future<_i2.LatLng>.value(_FakeLatLng_1(
-          this,
-          Invocation.method(
-            #toLatLng,
-            [screenLocation],
-          ),
-        )),
-      ) as _i6.Future<_i2.LatLng>);
+        returnValue: _i5.Future<_i4.LatLng?>.value(),
+        returnValueForMissingStub: _i5.Future<_i4.LatLng?>.value(),
+      ) as _i5.Future<_i4.LatLng?>);
 
   @override
-  _i6.Future<double> getMetersPerPixelAtLatitude(double? latitude) =>
+  _i5.Future<double?> getMetersPerPixelAtLatitude(double? latitude) =>
       (super.noSuchMethod(
         Invocation.method(
           #getMetersPerPixelAtLatitude,
           [latitude],
         ),
-        returnValue: _i6.Future<double>.value(0.0),
-        returnValueForMissingStub: _i6.Future<double>.value(0.0),
-      ) as _i6.Future<double>);
+        returnValue: _i5.Future<double?>.value(),
+        returnValueForMissingStub: _i5.Future<double?>.value(),
+      ) as _i5.Future<double?>);
 
   @override
-  _i6.Future<void> addSource(
+  _i5.Future<void> addSource(
     String? sourceid,
-    _i2.SourceProperties? properties,
+    _i4.SourceProperties? properties,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1389,15 +1178,15 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             properties,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> addLayer(
+  _i5.Future<void> addLayer(
     String? sourceId,
     String? layerId,
-    _i2.LayerProperties? properties, {
+    _i4.LayerProperties? properties, {
     String? belowLayerId,
     bool? enableInteraction = true,
     String? sourceLayer,
@@ -1422,57 +1211,31 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
             #filter: filter,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<String> takeSnapshot(_i2.SnapshotOptions? snapshotOptions) =>
+  _i5.Future<String?> takeSnapshot(_i4.SnapshotOptions? snapshotOptions) =>
       (super.noSuchMethod(
         Invocation.method(
           #takeSnapshot,
           [snapshotOptions],
         ),
-        returnValue: _i6.Future<String>.value(_i10.dummyValue<String>(
-          this,
-          Invocation.method(
-            #takeSnapshot,
-            [snapshotOptions],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<String>.value(_i10.dummyValue<String>(
-          this,
-          Invocation.method(
-            #takeSnapshot,
-            [snapshotOptions],
-          ),
-        )),
-      ) as _i6.Future<String>);
+        returnValue: _i5.Future<String?>.value(),
+        returnValueForMissingStub: _i5.Future<String?>.value(),
+      ) as _i5.Future<String?>);
 
   @override
-  _i6.Future<String> findBelowLayerId(List<String>? belowAt) =>
+  _i5.Future<String?> findBelowLayerId(List<String>? belowAt) =>
       (super.noSuchMethod(
         Invocation.method(
           #findBelowLayerId,
           [belowAt],
         ),
-        returnValue: _i6.Future<String>.value(_i10.dummyValue<String>(
-          this,
-          Invocation.method(
-            #findBelowLayerId,
-            [belowAt],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<String>.value(_i10.dummyValue<String>(
-          this,
-          Invocation.method(
-            #findBelowLayerId,
-            [belowAt],
-          ),
-        )),
-      ) as _i6.Future<String>);
+        returnValue: _i5.Future<String?>.value(),
+        returnValueForMissingStub: _i5.Future<String?>.value(),
+      ) as _i5.Future<String?>);
 
   @override
   void dispose() => super.noSuchMethod(
@@ -1487,31 +1250,31 @@ class MockMapController extends _i1.Mock implements _i5.MapController {
 /// A class which mocks [IAssetManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIAssetManager extends _i1.Mock implements _i11.IAssetManager {
+class MockIAssetManager extends _i1.Mock implements _i10.IAssetManager {
   @override
-  _i6.Future<_i9.Uint8List> load(String? key) => (super.noSuchMethod(
+  _i5.Future<_i9.Uint8List> load(String? key) => (super.noSuchMethod(
         Invocation.method(
           #load,
           [key],
         ),
-        returnValue: _i6.Future<_i9.Uint8List>.value(_i9.Uint8List(0)),
+        returnValue: _i5.Future<_i9.Uint8List>.value(_i9.Uint8List(0)),
         returnValueForMissingStub:
-            _i6.Future<_i9.Uint8List>.value(_i9.Uint8List(0)),
-      ) as _i6.Future<_i9.Uint8List>);
+            _i5.Future<_i9.Uint8List>.value(_i9.Uint8List(0)),
+      ) as _i5.Future<_i9.Uint8List>);
 }
 
 /// A class which mocks [NBNavigationPlatform].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockNBNavigationPlatform extends _i1.Mock
-    implements _i4.NBNavigationPlatform {
+    implements _i2.NBNavigationPlatform {
   MockNBNavigationPlatform() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   set navigationExitCallback(
-          _i4.OnNavigationExitCallback? _navigationExitCallback) =>
+          _i2.OnNavigationExitCallback? _navigationExitCallback) =>
       super.noSuchMethod(
         Invocation.setter(
           #navigationExitCallback,
@@ -1521,75 +1284,75 @@ class MockNBNavigationPlatform extends _i1.Mock
       );
 
   @override
-  _i6.Future<_i4.DirectionsRouteResponse> fetchRoute(
-          _i4.RouteRequestParams? routeRequestParams) =>
+  _i5.Future<_i2.DirectionsRouteResponse> fetchRoute(
+          _i2.RouteRequestParams? routeRequestParams) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchRoute,
           [routeRequestParams],
         ),
-        returnValue: _i6.Future<_i4.DirectionsRouteResponse>.value(
-            _FakeDirectionsRouteResponse_7(
+        returnValue: _i5.Future<_i2.DirectionsRouteResponse>.value(
+            _FakeDirectionsRouteResponse_0(
           this,
           Invocation.method(
             #fetchRoute,
             [routeRequestParams],
           ),
         )),
-      ) as _i6.Future<_i4.DirectionsRouteResponse>);
+      ) as _i5.Future<_i2.DirectionsRouteResponse>);
 
   @override
-  _i6.Future<void> startNavigation(
-          _i4.NavigationLauncherConfig? launcherConfig) =>
+  _i5.Future<void> startNavigation(
+          _i2.NavigationLauncherConfig? launcherConfig) =>
       (super.noSuchMethod(
         Invocation.method(
           #startNavigation,
           [launcherConfig],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<void> startPreviewNavigation(_i4.DirectionsRoute? route) =>
+  _i5.Future<void> startPreviewNavigation(_i2.DirectionsRoute? route) =>
       (super.noSuchMethod(
         Invocation.method(
           #startPreviewNavigation,
           [route],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<String> getRoutingBaseUri() => (super.noSuchMethod(
+  _i5.Future<String> getRoutingBaseUri() => (super.noSuchMethod(
         Invocation.method(
           #getRoutingBaseUri,
           [],
         ),
-        returnValue: _i6.Future<String>.value(_i10.dummyValue<String>(
+        returnValue: _i5.Future<String>.value(_i11.dummyValue<String>(
           this,
           Invocation.method(
             #getRoutingBaseUri,
             [],
           ),
         )),
-      ) as _i6.Future<String>);
+      ) as _i5.Future<String>);
 
   @override
-  _i6.Future<void> setRoutingBaseUri(String? baseUri) => (super.noSuchMethod(
+  _i5.Future<void> setRoutingBaseUri(String? baseUri) => (super.noSuchMethod(
         Invocation.method(
           #setRoutingBaseUri,
           [baseUri],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<int> findSelectedRouteIndex(
-    _i2.LatLng? clickPoint,
-    List<List<_i2.LatLng>>? coordinates,
+  _i5.Future<int> findSelectedRouteIndex(
+    _i4.LatLng? clickPoint,
+    List<List<_i4.LatLng>>? coordinates,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1599,40 +1362,40 @@ class MockNBNavigationPlatform extends _i1.Mock
             coordinates,
           ],
         ),
-        returnValue: _i6.Future<int>.value(0),
-      ) as _i6.Future<int>);
+        returnValue: _i5.Future<int>.value(0),
+      ) as _i5.Future<int>);
 
   @override
-  _i6.Future<String> getFormattedDuration(num? durationSeconds) =>
+  _i5.Future<String> getFormattedDuration(num? durationSeconds) =>
       (super.noSuchMethod(
         Invocation.method(
           #getFormattedDuration,
           [durationSeconds],
         ),
-        returnValue: _i6.Future<String>.value(_i10.dummyValue<String>(
+        returnValue: _i5.Future<String>.value(_i11.dummyValue<String>(
           this,
           Invocation.method(
             #getFormattedDuration,
             [durationSeconds],
           ),
         )),
-      ) as _i6.Future<String>);
+      ) as _i5.Future<String>);
 
   @override
-  _i6.Future<void> setOnNavigationExitCallback(
-          _i4.OnNavigationExitCallback? navigationExitCallback) =>
+  _i5.Future<void> setOnNavigationExitCallback(
+          _i2.OnNavigationExitCallback? navigationExitCallback) =>
       (super.noSuchMethod(
         Invocation.method(
           #setOnNavigationExitCallback,
           [navigationExitCallback],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i6.Future<_i9.Uint8List?> captureRouteDurationSymbol(
-    _i4.DirectionsRoute? route,
+  _i5.Future<_i9.Uint8List?> captureRouteDurationSymbol(
+    _i2.DirectionsRoute? route,
     bool? isPrimaryRoute,
   ) =>
       (super.noSuchMethod(
@@ -1643,43 +1406,16 @@ class MockNBNavigationPlatform extends _i1.Mock
             isPrimaryRoute,
           ],
         ),
-        returnValue: _i6.Future<_i9.Uint8List?>.value(),
-      ) as _i6.Future<_i9.Uint8List?>);
+        returnValue: _i5.Future<_i9.Uint8List?>.value(),
+      ) as _i5.Future<_i9.Uint8List?>);
 
   @override
-  _i6.Future<_i9.Uint8List?> captureRouteWaypoints(int? waypointIndex) =>
+  _i5.Future<_i9.Uint8List?> captureRouteWaypoints(int? waypointIndex) =>
       (super.noSuchMethod(
         Invocation.method(
           #captureRouteWaypoints,
           [waypointIndex],
         ),
-        returnValue: _i6.Future<_i9.Uint8List?>.value(),
-      ) as _i6.Future<_i9.Uint8List?>);
-
-  @override
-  _i6.Future<bool> setUserId(String? userId) => (super.noSuchMethod(
-        Invocation.method(
-          #setUserId,
-          [userId],
-        ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
-
-  @override
-  _i6.Future<String?> getUserId() => (super.noSuchMethod(
-        Invocation.method(
-          #getUserId,
-          [],
-        ),
-        returnValue: _i6.Future<String?>.value(),
-      ) as _i6.Future<String?>);
-
-  @override
-  _i6.Future<String?> getNBId() => (super.noSuchMethod(
-        Invocation.method(
-          #getNBId,
-          [],
-        ),
-        returnValue: _i6.Future<String?>.value(),
-      ) as _i6.Future<String?>);
+        returnValue: _i5.Future<_i9.Uint8List?>.value(),
+      ) as _i5.Future<_i9.Uint8List?>);
 }

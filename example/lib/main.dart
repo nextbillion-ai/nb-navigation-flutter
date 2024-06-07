@@ -39,9 +39,7 @@ class _NavigationDemoState extends State<NavigationDemo> {
     NBNavigation.initNextBillion(NavigationDemo.accessKey);
 
     // Set user ID If needed
-    NBNavigation.setUserId("123344").then((value) {
-
-    });
+    NBNavigation.setUserId("123344").then((value) {});
 
     // Check user ID If needed
     NBNavigation.getUserId().then((value) {
