@@ -1,14 +1,12 @@
-import 'dart:typed_data';
-
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 
 import 'nb_navigation_test.mocks.dart';
 
-@GenerateMocks([NBNavigationPlatform])
+@GenerateMocks([NBNavigationPlatform, MethodChannel])
 void main() {
   late NBNavigationPlatform mockNBNavigationPlatform;
 
@@ -162,5 +160,62 @@ void main() {
     final response = await NBNavigation.captureRouteWaypoints(waypointIndex);
 
     expect(response, equals(expectedResponse));
+  });
+
+  group('Test Nextillion', () {
+    late MethodChannel mockChannel;
+
+    setUp(() {
+      mockChannel = MockMethodChannel();
+      NextBillion.setMockMethodChannel(mockChannel);
+    });
+
+    test('Verify setUserId', () async {
+      //nextbillion/set_user_id
+      const String userId = 'userId';
+      when(mockChannel.invokeMethod('nextbillion/set_user_id', any))
+          .thenAnswer((_) async {
+        return null;
+      });
+
+      await NBNavigation.setUserId(userId);
+
+      verify(mockChannel
+          .invokeMethod('nextbillion/set_user_id', {userId: userId})).called(1);
+    });
+
+    test('Verify getUserId', () async {
+      const String userId = 'userId';
+      when(mockChannel.invokeMethod('nextbillion/get_user_id', any))
+          .thenAnswer((_) async {
+        return userId;
+      });
+      //nextbillion/get_user_id
+      String? returnedUserId = await NBNavigation.getUserId();
+      expect(returnedUserId!, userId);
+    });
+
+    test('Verify Init nextbillion', () async {
+      const String accessKey = 'accessKey';
+      when(mockChannel.invokeMethod('nextbillion/init_nextbillion', any))
+          .thenAnswer((_) async {
+        return null;
+      });
+      //"nextbillion/init_nextbillion
+      await NBNavigation.initNextBillion(accessKey);
+      verify(mockChannel.invokeMethod(
+          'nextbillion/init_nextbillion', {accessKey: accessKey})).called(1);
+    });
+
+    test('Verify getNBId', () async {
+      const String nbid = 'nbid';
+      when(mockChannel.invokeMethod('nextbillion/get_nb_id', any))
+          .thenAnswer((_) async {
+        return nbid;
+      });
+
+      String? returnedNbId = await NBNavigation.getNBId();
+      expect(returnedNbId!, nbid);
+    });
   });
 }

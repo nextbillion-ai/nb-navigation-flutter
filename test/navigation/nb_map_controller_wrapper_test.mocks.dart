@@ -10,7 +10,6 @@ import 'dart:ui' as _i6;
 
 import 'package:flutter/material.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i8;
 import 'package:nb_maps_flutter/nb_maps_flutter.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -37,69 +36,9 @@ class _FakeArgumentCallbacks_0<T> extends _i1.SmartFake
         );
 }
 
-class _FakeSymbol_1 extends _i1.SmartFake implements _i2.Symbol {
-  _FakeSymbol_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeLatLng_2 extends _i1.SmartFake implements _i2.LatLng {
-  _FakeLatLng_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeLine_3 extends _i1.SmartFake implements _i2.Line {
-  _FakeLine_3(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeCircle_4 extends _i1.SmartFake implements _i2.Circle {
-  _FakeCircle_4(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeFill_5 extends _i1.SmartFake implements _i2.Fill {
-  _FakeFill_5(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeLatLngBounds_6 extends _i1.SmartFake implements _i2.LatLngBounds {
-  _FakeLatLngBounds_6(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakePoint_7<T extends num> extends _i1.SmartFake
+class _FakePoint_1<T extends num> extends _i1.SmartFake
     implements _i3.Point<T> {
-  _FakePoint_7(
+  _FakePoint_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -670,7 +609,7 @@ class MockNextbillionMapController extends _i1.Mock
       ) as _i4.Future<bool>);
 
   @override
-  _i4.Future<_i2.Symbol> addSymbol(
+  _i4.Future<_i2.Symbol?> addSymbol(
     _i2.SymbolOptions? options, [
     Map<dynamic, dynamic>? data,
   ]) =>
@@ -682,20 +621,11 @@ class MockNextbillionMapController extends _i1.Mock
             data,
           ],
         ),
-        returnValue: _i4.Future<_i2.Symbol>.value(_FakeSymbol_1(
-          this,
-          Invocation.method(
-            #addSymbol,
-            [
-              options,
-              data,
-            ],
-          ),
-        )),
-      ) as _i4.Future<_i2.Symbol>);
+        returnValue: _i4.Future<_i2.Symbol?>.value(),
+      ) as _i4.Future<_i2.Symbol?>);
 
   @override
-  _i4.Future<List<_i2.Symbol>> addSymbols(
+  _i4.Future<List<_i2.Symbol>?> addSymbols(
     List<_i2.SymbolOptions>? options, [
     List<Map<dynamic, dynamic>>? data,
   ]) =>
@@ -707,8 +637,8 @@ class MockNextbillionMapController extends _i1.Mock
             data,
           ],
         ),
-        returnValue: _i4.Future<List<_i2.Symbol>>.value(<_i2.Symbol>[]),
-      ) as _i4.Future<List<_i2.Symbol>>);
+        returnValue: _i4.Future<List<_i2.Symbol>?>.value(),
+      ) as _i4.Future<List<_i2.Symbol>?>);
 
   @override
   _i4.Future<void> updateSymbol(
@@ -728,20 +658,14 @@ class MockNextbillionMapController extends _i1.Mock
       ) as _i4.Future<void>);
 
   @override
-  _i4.Future<_i2.LatLng> getSymbolLatLng(_i2.Symbol? symbol) =>
+  _i4.Future<_i2.LatLng?> getSymbolLatLng(_i2.Symbol? symbol) =>
       (super.noSuchMethod(
         Invocation.method(
           #getSymbolLatLng,
           [symbol],
         ),
-        returnValue: _i4.Future<_i2.LatLng>.value(_FakeLatLng_2(
-          this,
-          Invocation.method(
-            #getSymbolLatLng,
-            [symbol],
-          ),
-        )),
-      ) as _i4.Future<_i2.LatLng>);
+        returnValue: _i4.Future<_i2.LatLng?>.value(),
+      ) as _i4.Future<_i2.LatLng?>);
 
   @override
   _i4.Future<void> removeSymbol(_i2.Symbol? symbol) => (super.noSuchMethod(
@@ -775,7 +699,7 @@ class MockNextbillionMapController extends _i1.Mock
       ) as _i4.Future<void>);
 
   @override
-  _i4.Future<_i2.Line> addLine(
+  _i4.Future<_i2.Line?> addLine(
     _i2.LineOptions? options, [
     Map<dynamic, dynamic>? data,
   ]) =>
@@ -787,20 +711,11 @@ class MockNextbillionMapController extends _i1.Mock
             data,
           ],
         ),
-        returnValue: _i4.Future<_i2.Line>.value(_FakeLine_3(
-          this,
-          Invocation.method(
-            #addLine,
-            [
-              options,
-              data,
-            ],
-          ),
-        )),
-      ) as _i4.Future<_i2.Line>);
+        returnValue: _i4.Future<_i2.Line?>.value(),
+      ) as _i4.Future<_i2.Line?>);
 
   @override
-  _i4.Future<List<_i2.Line>> addLines(
+  _i4.Future<List<_i2.Line>?> addLines(
     List<_i2.LineOptions>? options, [
     List<Map<dynamic, dynamic>>? data,
   ]) =>
@@ -812,8 +727,8 @@ class MockNextbillionMapController extends _i1.Mock
             data,
           ],
         ),
-        returnValue: _i4.Future<List<_i2.Line>>.value(<_i2.Line>[]),
-      ) as _i4.Future<List<_i2.Line>>);
+        returnValue: _i4.Future<List<_i2.Line>?>.value(),
+      ) as _i4.Future<List<_i2.Line>?>);
 
   @override
   _i4.Future<void> updateLine(
@@ -833,14 +748,14 @@ class MockNextbillionMapController extends _i1.Mock
       ) as _i4.Future<void>);
 
   @override
-  _i4.Future<List<_i2.LatLng>> getLineLatLngs(_i2.Line? line) =>
+  _i4.Future<List<_i2.LatLng>?> getLineLatLngs(_i2.Line? line) =>
       (super.noSuchMethod(
         Invocation.method(
           #getLineLatLngs,
           [line],
         ),
-        returnValue: _i4.Future<List<_i2.LatLng>>.value(<_i2.LatLng>[]),
-      ) as _i4.Future<List<_i2.LatLng>>);
+        returnValue: _i4.Future<List<_i2.LatLng>?>.value(),
+      ) as _i4.Future<List<_i2.LatLng>?>);
 
   @override
   _i4.Future<void> removeLine(_i2.Line? line) => (super.noSuchMethod(
@@ -874,7 +789,7 @@ class MockNextbillionMapController extends _i1.Mock
       ) as _i4.Future<void>);
 
   @override
-  _i4.Future<_i2.Circle> addCircle(
+  _i4.Future<_i2.Circle?> addCircle(
     _i2.CircleOptions? options, [
     Map<dynamic, dynamic>? data,
   ]) =>
@@ -886,20 +801,11 @@ class MockNextbillionMapController extends _i1.Mock
             data,
           ],
         ),
-        returnValue: _i4.Future<_i2.Circle>.value(_FakeCircle_4(
-          this,
-          Invocation.method(
-            #addCircle,
-            [
-              options,
-              data,
-            ],
-          ),
-        )),
-      ) as _i4.Future<_i2.Circle>);
+        returnValue: _i4.Future<_i2.Circle?>.value(),
+      ) as _i4.Future<_i2.Circle?>);
 
   @override
-  _i4.Future<List<_i2.Circle>> addCircles(
+  _i4.Future<List<_i2.Circle>?> addCircles(
     List<_i2.CircleOptions>? options, [
     List<Map<dynamic, dynamic>>? data,
   ]) =>
@@ -911,8 +817,8 @@ class MockNextbillionMapController extends _i1.Mock
             data,
           ],
         ),
-        returnValue: _i4.Future<List<_i2.Circle>>.value(<_i2.Circle>[]),
-      ) as _i4.Future<List<_i2.Circle>>);
+        returnValue: _i4.Future<List<_i2.Circle>?>.value(),
+      ) as _i4.Future<List<_i2.Circle>?>);
 
   @override
   _i4.Future<void> updateCircle(
@@ -932,20 +838,14 @@ class MockNextbillionMapController extends _i1.Mock
       ) as _i4.Future<void>);
 
   @override
-  _i4.Future<_i2.LatLng> getCircleLatLng(_i2.Circle? circle) =>
+  _i4.Future<_i2.LatLng?> getCircleLatLng(_i2.Circle? circle) =>
       (super.noSuchMethod(
         Invocation.method(
           #getCircleLatLng,
           [circle],
         ),
-        returnValue: _i4.Future<_i2.LatLng>.value(_FakeLatLng_2(
-          this,
-          Invocation.method(
-            #getCircleLatLng,
-            [circle],
-          ),
-        )),
-      ) as _i4.Future<_i2.LatLng>);
+        returnValue: _i4.Future<_i2.LatLng?>.value(),
+      ) as _i4.Future<_i2.LatLng?>);
 
   @override
   _i4.Future<void> removeCircle(_i2.Circle? circle) => (super.noSuchMethod(
@@ -979,7 +879,7 @@ class MockNextbillionMapController extends _i1.Mock
       ) as _i4.Future<void>);
 
   @override
-  _i4.Future<_i2.Fill> addFill(
+  _i4.Future<_i2.Fill?> addFill(
     _i2.FillOptions? options, [
     Map<dynamic, dynamic>? data,
   ]) =>
@@ -991,17 +891,8 @@ class MockNextbillionMapController extends _i1.Mock
             data,
           ],
         ),
-        returnValue: _i4.Future<_i2.Fill>.value(_FakeFill_5(
-          this,
-          Invocation.method(
-            #addFill,
-            [
-              options,
-              data,
-            ],
-          ),
-        )),
-      ) as _i4.Future<_i2.Fill>);
+        returnValue: _i4.Future<_i2.Fill?>.value(),
+      ) as _i4.Future<_i2.Fill?>);
 
   @override
   _i4.Future<List<_i2.Fill>> addFills(
@@ -1086,7 +977,7 @@ class MockNextbillionMapController extends _i1.Mock
       ) as _i4.Future<List<dynamic>>);
 
   @override
-  _i4.Future<List<dynamic>> queryRenderedFeaturesInRect(
+  _i4.Future<List<dynamic>?> queryRenderedFeaturesInRect(
     _i6.Rect? rect,
     List<String>? layerIds,
     String? filter,
@@ -1100,8 +991,8 @@ class MockNextbillionMapController extends _i1.Mock
             filter,
           ],
         ),
-        returnValue: _i4.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i4.Future<List<dynamic>>);
+        returnValue: _i4.Future<List<dynamic>?>.value(),
+      ) as _i4.Future<List<dynamic>?>);
 
   @override
   _i4.Future<dynamic> invalidateAmbientCache() => (super.noSuchMethod(
@@ -1122,19 +1013,13 @@ class MockNextbillionMapController extends _i1.Mock
       ) as _i4.Future<_i2.LatLng?>);
 
   @override
-  _i4.Future<_i2.LatLngBounds> getVisibleRegion() => (super.noSuchMethod(
+  _i4.Future<_i2.LatLngBounds?> getVisibleRegion() => (super.noSuchMethod(
         Invocation.method(
           #getVisibleRegion,
           [],
         ),
-        returnValue: _i4.Future<_i2.LatLngBounds>.value(_FakeLatLngBounds_6(
-          this,
-          Invocation.method(
-            #getVisibleRegion,
-            [],
-          ),
-        )),
-      ) as _i4.Future<_i2.LatLngBounds>);
+        returnValue: _i4.Future<_i2.LatLngBounds?>.value(),
+      ) as _i4.Future<_i2.LatLngBounds?>);
 
   @override
   _i4.Future<void> setStyleString(String? styleString) => (super.noSuchMethod(
@@ -1392,7 +1277,7 @@ class MockNextbillionMapController extends _i1.Mock
           #toScreenLocation,
           [latLng],
         ),
-        returnValue: _i4.Future<_i3.Point<num>>.value(_FakePoint_7<num>(
+        returnValue: _i4.Future<_i3.Point<num>>.value(_FakePoint_1<num>(
           this,
           Invocation.method(
             #toScreenLocation,
@@ -1402,41 +1287,35 @@ class MockNextbillionMapController extends _i1.Mock
       ) as _i4.Future<_i3.Point<num>>);
 
   @override
-  _i4.Future<List<_i3.Point<num>>> toScreenLocationBatch(
+  _i4.Future<List<_i3.Point<num>>?> toScreenLocationBatch(
           Iterable<_i2.LatLng>? latLngs) =>
       (super.noSuchMethod(
         Invocation.method(
           #toScreenLocationBatch,
           [latLngs],
         ),
-        returnValue: _i4.Future<List<_i3.Point<num>>>.value(<_i3.Point<num>>[]),
-      ) as _i4.Future<List<_i3.Point<num>>>);
+        returnValue: _i4.Future<List<_i3.Point<num>>?>.value(),
+      ) as _i4.Future<List<_i3.Point<num>>?>);
 
   @override
-  _i4.Future<_i2.LatLng> toLatLng(_i3.Point<num>? screenLocation) =>
+  _i4.Future<_i2.LatLng?> toLatLng(_i3.Point<num>? screenLocation) =>
       (super.noSuchMethod(
         Invocation.method(
           #toLatLng,
           [screenLocation],
         ),
-        returnValue: _i4.Future<_i2.LatLng>.value(_FakeLatLng_2(
-          this,
-          Invocation.method(
-            #toLatLng,
-            [screenLocation],
-          ),
-        )),
-      ) as _i4.Future<_i2.LatLng>);
+        returnValue: _i4.Future<_i2.LatLng?>.value(),
+      ) as _i4.Future<_i2.LatLng?>);
 
   @override
-  _i4.Future<double> getMetersPerPixelAtLatitude(double? latitude) =>
+  _i4.Future<double?> getMetersPerPixelAtLatitude(double? latitude) =>
       (super.noSuchMethod(
         Invocation.method(
           #getMetersPerPixelAtLatitude,
           [latitude],
         ),
-        returnValue: _i4.Future<double>.value(0.0),
-      ) as _i4.Future<double>);
+        returnValue: _i4.Future<double?>.value(),
+      ) as _i4.Future<double?>);
 
   @override
   _i4.Future<void> addSource(
@@ -1489,36 +1368,24 @@ class MockNextbillionMapController extends _i1.Mock
       ) as _i4.Future<void>);
 
   @override
-  _i4.Future<String> takeSnapshot(_i2.SnapshotOptions? snapshotOptions) =>
+  _i4.Future<String?> takeSnapshot(_i2.SnapshotOptions? snapshotOptions) =>
       (super.noSuchMethod(
         Invocation.method(
           #takeSnapshot,
           [snapshotOptions],
         ),
-        returnValue: _i4.Future<String>.value(_i8.dummyValue<String>(
-          this,
-          Invocation.method(
-            #takeSnapshot,
-            [snapshotOptions],
-          ),
-        )),
-      ) as _i4.Future<String>);
+        returnValue: _i4.Future<String?>.value(),
+      ) as _i4.Future<String?>);
 
   @override
-  _i4.Future<String> findBelowLayerId(List<String>? belowAt) =>
+  _i4.Future<String?> findBelowLayerId(List<String>? belowAt) =>
       (super.noSuchMethod(
         Invocation.method(
           #findBelowLayerId,
           [belowAt],
         ),
-        returnValue: _i4.Future<String>.value(_i8.dummyValue<String>(
-          this,
-          Invocation.method(
-            #findBelowLayerId,
-            [belowAt],
-          ),
-        )),
-      ) as _i4.Future<String>);
+        returnValue: _i4.Future<String?>.value(),
+      ) as _i4.Future<String?>);
 
   @override
   void dispose() => super.noSuchMethod(

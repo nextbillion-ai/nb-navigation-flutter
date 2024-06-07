@@ -136,6 +136,7 @@ class Component {
       'imageURL': imageUrl,
       'directions': directions,
       'reference': reference,
+      'active': active,
     };
   }
 }
