@@ -4,8 +4,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+
 import 'dart:math';
 
 import 'package:nb_maps_flutter/nb_maps_flutter.dart';
@@ -37,3 +40,10 @@ part 'navigation/route_line_properties.dart';
 
 part 'util/line_utils.dart';
 part 'util/time_format.dart';
+
+part 'view/nb_navigation_view.dart';
+part 'view/navigation_view_controller.dart';
+part 'platform_channels/navigation_view_method_channel.dart';
+part 'platform_channels/navigation_view_platform.dart';
+part 'model/navigation_progress.dart';
+part 'model/waypoint.dart';

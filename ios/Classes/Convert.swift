@@ -7,6 +7,8 @@
 
 import Foundation
 import NbmapDirections
+import NbmapNavigation
+import NbmapCoreNavigation
 
 class Convert {
     static let navigationMode = [
@@ -233,4 +235,42 @@ class Convert {
             return [:]
         }
     }
+    
+    class func convertNavigationOptions(args: [String : Any], routes: [Route]) -> NavigationOptions {
+        var simulate = SimulationMode.onPoorGPS
+        var navigationModeStyle: [NbmapNavigation.Style] = [NavStyleManager.customDayStyle, NavStyleManager.customNightStyle]
+
+        if let config = args["launcherConfig"] as? [String : Any] {
+            if let isSimulate = config["shouldSimulateRoute"] as? Bool {
+                simulate = isSimulate ? .always : .onPoorGPS
+            }
+            if let themeMode = config["themeMode"] as? String, let useCustom = config["useCustomNavigationStyle"] as? Bool {
+                let navigationDayStyle = dayStyle(useCustom)
+                let navigationNightStyle = nightStyle(useCustom)
+                
+                if let mapStyleUrl = config["navigationMapStyleUrl"] as? String {
+                    navigationDayStyle.mapStyleURL = URL(string: mapStyleUrl)!
+                }
+                
+                navigationModeStyle =
+                themeMode == "light" ? [navigationDayStyle] :
+                themeMode == "dark" ? [navigationNightStyle] :
+                [navigationDayStyle, navigationNightStyle]
+            }
+        }
+        
+        let navigationService = NBNavigationService(routes: routes, routeIndex: 0, simulating: simulate)
+        
+        let navigationOptions = NavigationOptions(styles: navigationModeStyle, navigationService: navigationService)
+        return navigationOptions
+    }
+    
+    class func dayStyle(_ useCustomNavigationStyle: Bool) -> Style {
+        return useCustomNavigationStyle ? NavStyleManager.customDayStyle : DayStyle()
+    }
+    
+    class func nightStyle(_ useCustomNavigationStyle: Bool) -> Style {
+        return useCustomNavigationStyle ? NavStyleManager.customNightStyle : NightStyle()
+    }
+    
 }

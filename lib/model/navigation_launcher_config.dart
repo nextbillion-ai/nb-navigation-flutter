@@ -47,6 +47,8 @@ class NavigationLauncherConfig {
   /// the navViewMapStyle of (`CustomNavigationViewLight`, `CustomNavigationViewDark`) set in the styles.xml for Android
   /// the mapStyleURL of (`customDayStyle`, `customNightStyle`) set in the AppDelegate for iOS
   String? navigationMapStyleUrl;
+
+  bool? showArriveDialog;
   // bool? showSpeedometer;
   // double? maxNavCameraTilt;
   // double? minNavCameraTilt;
@@ -62,6 +64,7 @@ class NavigationLauncherConfig {
     this.enableDissolvedRouteLine = true,
     this.useCustomNavigationStyle = true,
     this.navigationMapStyleUrl,
+    this.showArriveDialog = true,
     // this.showSpeedometer = true,
     // this.maxNavCameraTilt,
     // this.minNavCameraTilt,
@@ -79,6 +82,7 @@ class NavigationLauncherConfig {
       'enableDissolvedRouteLine': enableDissolvedRouteLine,
       'useCustomNavigationStyle': useCustomNavigationStyle,
       'navigationMapStyleUrl': navigationMapStyleUrl,
+      'showArriveDialog': showArriveDialog,
       // 'showSpeedometer': showSpeedometer,
       // 'maxNavCameraTilt': maxNavCameraTilt,
       // 'minNavCameraTilt': minNavCameraTilt,
