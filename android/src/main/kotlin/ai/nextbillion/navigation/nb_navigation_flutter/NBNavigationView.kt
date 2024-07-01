@@ -47,7 +47,7 @@ class NBNavigationView(
 
     private val viewId: Int = vId
     private val messenger: BinaryMessenger = binaryMessenger
-    private var navigationView: NavigationView = binding.navigationView
+    private var navigationView: NavigationView? = null
     private var lifecycleProvider: NbNavigationFlutterPlugin.LifecycleProvider? = null
 
     private var viewConfigBuilder: NavViewConfig.Builder = NavViewConfig.builder()
@@ -68,8 +68,8 @@ class NBNavigationView(
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
-        navigationView.onCreate(null)
-        navigationView.initialize(this)
+        navigationView?.onCreate(null)
+        navigationView?.initialize(this)
     }
 
     override fun onNavigationReady(isRunning: Boolean) {
@@ -86,7 +86,7 @@ class NBNavigationView(
             }
             configViewBuilder(configBuilder, config)
             extractRoute(configBuilder)
-            navigationView.startNavigation(viewConfigBuilder.build())
+            navigationView?.startNavigation(viewConfigBuilder.build())
 
             methodChannel?.invokeMethod("onNavigationReady", isRunning)
 
@@ -119,9 +119,10 @@ class NBNavigationView(
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             "stopNavigation" -> {
-                navigationView.onPause()
-                navigationView.onStop()
-                navigationView.onDestroy()
+                navigationView?.onPause()
+                navigationView?.onStop()
+                navigationView?.onDestroy()
+                navigationView = null
                 result.success(null)
             }
         }
@@ -214,27 +215,27 @@ class NBNavigationView(
 
     override fun onStart(owner: LifecycleOwner) {
         super.onStart(owner)
-        navigationView.onStart()
+        navigationView?.onStart()
     }
 
     override fun onResume(owner: LifecycleOwner) {
         super.onResume(owner)
-        navigationView.onResume()
+        navigationView?.onResume()
     }
 
     override fun onPause(owner: LifecycleOwner) {
         super.onPause(owner)
-        navigationView.onPause()
+        navigationView?.onPause()
     }
 
     override fun onStop(owner: LifecycleOwner) {
         super.onStop(owner)
-        navigationView.onStop()
+        navigationView?.onStop()
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
         super.onDestroy(owner)
-        navigationView.onDestroy()
+        navigationView?.onDestroy()
     }
 
 }

@@ -40,11 +40,9 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
       NavNextBillionMap.create(controller!).then((value) {
         navNextBillionMap = value;
         loadAssetImage();
-        Fluttertoast.showToast(
-            msg: "Long press to select a destination to fetch a route");
+        Fluttertoast.showToast(msg: "Long press to select a destination to fetch a route");
         if (currentLocation != null) {
-          controller?.animateCamera(
-              CameraUpdate.newLatLngZoom(currentLocation!.position, 14),
+          controller?.animateCamera(CameraUpdate.newLatLngZoom(currentLocation!.position, 14),
               duration: const Duration(milliseconds: 400));
         }
       });
@@ -60,18 +58,17 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
   }
 
   _onMapClick(Point<double> point, LatLng coordinates) {
-    navNextBillionMap.addRouteSelectedListener(coordinates,
-            (selectedRouteIndex) {
-          if (routes.isNotEmpty && selectedRouteIndex != 0) {
-            var selectedRoute = routes[selectedRouteIndex];
-            routes.removeAt(selectedRouteIndex);
-            routes.insert(0, selectedRoute);
-            setState(() {
-              routes = routes;
-            });
-            navNextBillionMap.drawRoute(routes);
-          }
+    navNextBillionMap.addRouteSelectedListener(coordinates, (selectedRouteIndex) {
+      if (routes.isNotEmpty && selectedRouteIndex != 0) {
+        var selectedRoute = routes[selectedRouteIndex];
+        routes.removeAt(selectedRouteIndex);
+        routes.insert(0, selectedRoute);
+        setState(() {
+          routes = routes;
         });
+        navNextBillionMap.drawRoute(routes);
+      }
+    });
   }
 
   _onUserLocationUpdate(UserLocation location) {
@@ -100,7 +97,8 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18, bottom: 25.0),
-            child: Text("arrivedAtWaypointInfo: ${waypoint?.arrivedWaypointIndex}===${waypoint?.arrivedWaypointLocation}"),
+            child:
+                Text("arrivedAtWaypointInfo: ${waypoint?.arrivedWaypointIndex}===${waypoint?.arrivedWaypointLocation}"),
           ),
           Expanded(
             child: Stack(
@@ -116,36 +114,36 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
   }
 
   Widget _buildNBNavigationView() {
-   return startNavigation
+    return startNavigation
         ? NBNavigationView(
-          onNavigationViewReady: _onNavigationViewReady,
-          navigationOptions: _buildNavigationViewConfig(),
-          onProgressChange: (progress) {
-            setState(() {
-              this.progress = progress;
-            });
-          },
-          onNavigationCancelling: () {
-            setState(() {
-              startNavigation = false;
-              waypoints.clear();
-              clearRouteResult();
-            });
-          },
-          onArriveAtWaypoint: (waypoint) {
-            setState(() {
-              this.waypoint = waypoint;
-            });
-          },
-          onRerouteFromLocation: (location) {
-          },
-        ) : Container();
+            onNavigationViewReady: _onNavigationViewReady,
+            navigationOptions: _buildNavigationViewConfig(),
+            onProgressChange: (progress) {
+              setState(() {
+                this.progress = progress;
+              });
+            },
+            onNavigationCancelling: () {
+              setState(() {
+                startNavigation = false;
+                waypoints.clear();
+                clearRouteResult();
+              });
+            },
+            onArriveAtWaypoint: (waypoint) {
+              setState(() {
+                this.waypoint = waypoint;
+              });
+            },
+            onRerouteFromLocation: (location) {},
+          )
+        : Container();
   }
 
   NavigationLauncherConfig _buildNavigationViewConfig() {
     NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.gps;
-    config.shouldSimulateRoute = true;
+    config.shouldSimulateRoute = false;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = false;
     return config;
@@ -185,8 +183,7 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
                       height: 28,
                     ),
                     onTap: () {
-                      controller?.updateMyLocationTrackingMode(
-                          MyLocationTrackingMode.Tracking);
+                      controller?.updateMyLocationTrackingMode(MyLocationTrackingMode.Tracking);
                       setState(() {
                         locationTrackImage = 'assets/location_on.png';
                       });
@@ -198,8 +195,7 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
                 children: [
                   ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(
-                              routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                          backgroundColor: WidgetStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
                           enableFeedback: routes.isNotEmpty),
                       onPressed: () {
                         clearRouteResult();
@@ -209,14 +205,15 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
                   const Padding(padding: EdgeInsets.only(left: 8)),
                   ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(
-                              routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                          backgroundColor: WidgetStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
                           enableFeedback: routes.isNotEmpty),
-                      onPressed: () {
-                        setState(() {
-                          startNavigation = true;
-                        });
-                      },
+                      onPressed: routes.isEmpty
+                          ? null
+                          : () {
+                              setState(() {
+                                startNavigation = true;
+                              });
+                            },
                       child: const Text("Start Navigation")),
                 ],
               ),
@@ -230,7 +227,6 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
         )
       ],
     );
-
   }
 
   void _fetchRoute(LatLng destination) async {
@@ -256,8 +252,7 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
       requestParams.waypoints = waypoints.sublist(0, waypoints.length - 1);
     }
 
-    DirectionsRouteResponse routeResponse =
-    await NBNavigation.fetchRoute(requestParams);
+    DirectionsRouteResponse routeResponse = await NBNavigation.fetchRoute(requestParams);
     if (routeResponse.directionsRoutes.isNotEmpty) {
       clearRouteResult();
       setState(() {
@@ -268,8 +263,7 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
       addImageFromAsset(destination);
     } else if (routeResponse.message != null) {
       if (kDebugMode) {
-        print(
-            "====error====${routeResponse.message}===${routeResponse.errorCode}");
+        print("====error====${routeResponse.message}===${routeResponse.errorCode}");
       }
     }
   }
@@ -282,21 +276,17 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
   void fitCameraToBounds(List<DirectionsRoute> routes) {
     List<LatLng> multiPoints = [];
     for (var route in routes) {
-      var routePoints =
-      decode(route.geometry ?? '', _getDecodePrecision(route.routeOptions));
+      var routePoints = decode(route.geometry ?? '', _getDecodePrecision(route.routeOptions));
       multiPoints.addAll(routePoints);
     }
     if (multiPoints.isNotEmpty) {
       var latLngBounds = LatLngBounds.fromMultiLatLng(multiPoints);
-      controller?.animateCamera(CameraUpdate.newLatLngBounds(latLngBounds,
-          top: 50, left: 50, right: 50, bottom: 50));
+      controller?.animateCamera(CameraUpdate.newLatLngBounds(latLngBounds, top: 50, left: 50, right: 50, bottom: 50));
     }
   }
 
   int _getDecodePrecision(RouteRequestParams? routeOptions) {
-    return routeOptions?.geometry == SupportedGeometry.polyline
-        ? precision
-        : precision6;
+    return routeOptions?.geometry == SupportedGeometry.polyline ? precision : precision6;
   }
 
   void clearRouteResult() async {

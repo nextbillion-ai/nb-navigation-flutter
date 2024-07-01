@@ -1,4 +1,4 @@
-## v0.6.0, July 1, 2024
+## v0.6.1, July 1, 2024
 * Introduce NBNavigationView widget to support Embedding NavigationView in Flutter app
   * NBNavigationView({
     super.key,
