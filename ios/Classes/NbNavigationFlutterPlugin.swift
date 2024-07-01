@@ -13,6 +13,10 @@ public class NbNavigationFlutterPlugin: NSObject, FlutterPlugin {
         MethodChannelManager.shared.navigationChannel = channel
         let instance = NbNavigationFlutterPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel!)
+
+        let viewFactory = NBNavigationViewFactory(messenger: registrar.messenger())
+           registrar.register(viewFactory, withId: "FlutterNBNavigationView")
+
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

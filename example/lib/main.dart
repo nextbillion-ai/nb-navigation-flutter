@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_navigation_flutter_example/custom_navigation_style.dart';
 import 'package:nb_navigation_flutter_example/draw_route_line.dart';
+import 'package:nb_navigation_flutter_example/launch_embedded_navigation_view.dart';
 import 'package:nb_navigation_flutter_example/launch_navigation.dart';
 import 'package:nb_navigation_flutter_example/map_view_style.dart';
 import 'package:nb_navigation_flutter_example/navigation_theme_mode.dart';
@@ -14,6 +15,7 @@ import 'full_navigation_example.dart';
 
 final Map<String, Widget> _allPages = <String, Widget>{
   FullNavigationExample.title: const FullNavigationExample(),
+  LaunchEmbeddedNavigationView.title: const LaunchEmbeddedNavigationView(),
   LaunchNavigation.title: const LaunchNavigation(),
   DrawRouteLine.title: const DrawRouteLine(),
   TrackCurrentLocation.title: const TrackCurrentLocation(),

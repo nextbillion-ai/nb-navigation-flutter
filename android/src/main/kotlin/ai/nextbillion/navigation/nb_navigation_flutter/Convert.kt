@@ -52,6 +52,11 @@ object Convert {
                 configBuilder.dissolvedRouteEnabled(dissolvedRouteLineStyle)
             }
 
+            val showArriveDialog = arguments["showArriveDialog"] as? Boolean
+            if (showArriveDialog != null) {
+                configBuilder.shouldShowArriveDialog(showArriveDialog)
+            }
+
 //            val maxNavCameraTilt = arguments["maxNavCameraTilt"] as? Float
 //            if (maxNavCameraTilt != null) {
 //                configBuilder.maxNavCameraTilt(maxNavCameraTilt)
