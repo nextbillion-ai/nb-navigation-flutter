@@ -207,6 +207,59 @@ NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, 
 NBNavigation.startNavigation(config);
 ```
 
+### Launch Embedded NavigationView
+`NBNavigationView` is a customizable navigation view widget designed to provide seamless navigation experiences in your Flutter application. It offers various configuration options to cater to different navigation requirements, such as theme modes, location layer render modes, and custom styles.
+```
+const NBNavigationView({
+  super.key,
+  required this.navigationOptions,
+  this.onNavigationViewReady,
+  this.onProgressChange,
+  this.onNavigationCancelling,
+  this.onArriveAtWaypoint,
+  this.onRerouteFromLocation,
+});
+```
+
+
+### Parameters
+By utilizing the *NavigationLauncherConfig* class, you can customize the navigation experience to meet your specific needs, from theme settings to location layer modes and custom styles. 
+* navigationOptions (required): This parameter provides the necessary configuration for the navigation view.
+* onNavigationViewReady: A callback that is triggered when the navigation view is ready.
+* onProgressChange: A callback that is triggered when there is a change in the navigation progress.
+* onNavigationCancelling: A callback that is triggered when navigation is being canceled.
+* onArriveAtWaypoint: A callback that is triggered when arriving at a waypoint.
+* onRerouteFromLocation: A callback that is triggered when rerouting from a specific location.
+  
+### Example Usage
+```
+NBNavigationView(
+  navigationOptions: NavigationLauncherConfig(
+    route: selectedRoute,
+    routes: allRoutes,
+    themeMode: NavigationThemeMode.system,
+  ),
+  onNavigationViewReady: (controller) {
+    // Handle navigation view ready
+  },
+  onProgressChange: (progress) {
+    // Handle progress change
+  },
+  onNavigationCancelling: () {
+    // Handle navigation canceling
+  },
+  onArriveAtWaypoint: (waypoint) {
+    // Handle arriving at waypoint
+  },
+  onRerouteFromLocation: (location) {
+    // Handle rerouting from location
+  },
+);
+```
+
+
+
+
 ## UI Components
 You can customize the styles of Navigation View
 
