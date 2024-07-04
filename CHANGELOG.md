@@ -1,3 +1,8 @@
+## v0.6.2, July 4, 2024
+* Updated the iOS navigation native framework to 1.5.1
+* Fix a iOS crash issue when on tap the  area outside the arrival dialog view
+  * Error: [NbmapNavigation.ArrivedViewController handleDismissTapWithSender:]: unrecognized selector sent to instance
+  * 
 ## v0.6.1, July 1, 2024
 * Introduce NBNavigationView widget to support Embedding NavigationView in Flutter app
   * NBNavigationView({
