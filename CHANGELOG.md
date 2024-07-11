@@ -1,3 +1,6 @@
+## v0.6.3, July 11, 2024
+* Updated the android navigation native framework to 1.3.5
+  * Fix the speedometer format issue on the navigation screen
 ## v0.6.2, July 4, 2024
 * Updated the iOS navigation native framework to 1.5.1
 * Fix a iOS crash issue when on tap the  area outside the arrival dialog view
