@@ -77,7 +77,7 @@ class RoadShield {
     this.label,
   });
 
-  factory RoadShield.fromJson(Map<String, dynamic> map) {
+  factory RoadShield.fromJson(Map<dynamic, dynamic> map) {
     return RoadShield(
       imageUrl: map['image_url'],
       label: map['label'],
