@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'nb_navigation_flutter'
-  s.version          = '0.6.2'
+  s.version          = '0.6.4'
   s.summary          = 'A new Flutter project.'
   s.description      = <<-DESC
 A new Flutter project.

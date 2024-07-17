@@ -1,6 +1,6 @@
 name: nb_navigation_flutter
 description: A Flutter plugin for integrating NB Navigation inside a Flutter application on Android, iOS platforms.
-version: 0.6.3
+version: 0.6.4
 homepage: https://github.com/nextbillion-ai/nb-navigation-flutter
 
 environment:
