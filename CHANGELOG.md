@@ -1,3 +1,8 @@
+## v0.6.4, July 17, 2024
+* Fix [DirectionsRoute.fromJson] issue
+  * Error: type 'Map<dynamic,dynamic>' is not a subtype of type 'Map<String,dynamic>' in type cast
+* Add [NavNextBillionMap.drawIndependentRoutes] method to support drawing a list of independent routes on the map
+
 ## v0.6.3, July 11, 2024
 * Updated the android navigation native framework to 1.3.5
   * Fix the speedometer format issue on the navigation screen
