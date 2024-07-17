@@ -52,7 +52,7 @@ class DrawRouteLineState extends State<DrawRouteLineWithRawJson> {
         setState(() {
           routes = routes;
         });
-        navNextBillionMap.drawRoute(routes);
+        navNextBillionMap.drawIndependentRoutes(routes);
       }
     });
   }
