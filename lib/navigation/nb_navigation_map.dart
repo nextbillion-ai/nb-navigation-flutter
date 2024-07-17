@@ -180,6 +180,26 @@ class NavNextBillionMap implements NavigationMap {
     await _drawRouteDurationSymbol(routes);
   }
 
+  /// Draws the route on the map based on the provided [routes].
+  /// it clears the previous route before drawing the new one.
+  /// and then draws the route line, waypoints, and route duration symbol.
+  /// This method is used when there are multiple origin and destination routes.
+  @override
+  Future<void> drawIndependentRoutes(List<DirectionsRoute> routes) async {
+    if (controller.disposed) {
+      return;
+    }
+
+    if (routes.isEmpty) {
+      return;
+    }
+
+    await clearRoute();
+    await _drawRoutesFeatureCollections(routes);
+    await _drawWayPointsWithRoutes(routes);
+    await _drawRouteDurationSymbol(routes);
+  }
+
   Future<void> _drawRoutesFeatureCollections(
       List<DirectionsRoute> routes) async {
     if (controller.disposed) {
@@ -235,7 +255,7 @@ class NavNextBillionMap implements NavigationMap {
         if (destination != null) {
           String waypointName = "$destinationMarkerName${i + 1}";
           var wayPointGeo =
-              _generateWaypointSymbolGeo(destination, waypointName);
+          _generateWaypointSymbolGeo(destination, waypointName);
           wayPoints.add(wayPointGeo);
           if (controller.disposed) {
             return;
@@ -250,6 +270,65 @@ class NavNextBillionMap implements NavigationMap {
 
     await safeSetGeoJsonSource(
         waypointSourceId, buildFeatureCollection(wayPoints));
+  }
+
+  Future<void> _drawWayPointsWithRoutes(List<DirectionsRoute> routes) async {
+    if (controller.disposed) {
+      return;
+    }
+
+    List<Map<String, dynamic>> wayPoints = [];
+    DirectionsRoute primaryRoute = routes.first;
+    Coordinate origin = primaryRoute.legs.first.steps!.first.maneuver!.coordinate!;
+    Coordinate destination = primaryRoute.legs.last.steps!.last.maneuver!.coordinate!;
+
+    _addWaypoint(wayPoints, origin, originMarkerName);
+    _addIntermediaryWaypoints(wayPoints, primaryRoute);
+    _addWaypoint(wayPoints, destination, destinationMarkerName);
+
+    for (var route in routes) {
+      Coordinate? startCoordinate = route.legs.first.steps?.first.maneuver?.coordinate;
+      Coordinate? endCoordinate = route.legs.last.steps?.last.maneuver?.coordinate;
+
+      if (!_coordinatesEqual(startCoordinate, origin)) {
+        _addWaypoint(wayPoints, startCoordinate, originMarkerName);
+      }
+
+      if (!_coordinatesEqual(endCoordinate, destination)) {
+        _addWaypoint(wayPoints, endCoordinate, destinationMarkerName);
+      }
+    }
+
+    await safeSetGeoJsonSource(waypointSourceId, buildFeatureCollection(wayPoints));
+  }
+
+  void _addWaypoint(List<Map<String, dynamic>> wayPoints, Coordinate? coordinate, String markerName) {
+    if (coordinate != null) {
+      var waypointGeo = _generateWaypointSymbolGeo(coordinate, markerName);
+      wayPoints.add(waypointGeo);
+    }
+  }
+
+  void _addIntermediaryWaypoints(List<Map<String, dynamic>> wayPoints, DirectionsRoute route) async {
+    for (int i = 0; i < route.legs.length - 1; i++) {
+      Leg leg = route.legs[i];
+      Coordinate? destination = leg.steps?.last.maneuver?.coordinate;
+      if (destination != null) {
+        String waypointName = "$destinationMarkerName${i + 1}";
+        _addWaypoint(wayPoints, destination, waypointName);
+        if (controller.disposed) {
+          return;
+        }
+        await _buildWaypointNumberView(waypointName, i + 1);
+      }
+    }
+  }
+
+  bool _coordinatesEqual(Coordinate? coord1, Coordinate? coord2) {
+    if (coord1 == null || coord2 == null) {
+      return false;
+    }
+    return coord1.latitude == coord2.latitude && coord1.longitude == coord2.longitude;
   }
 
   Map<String, dynamic> _generateWaypointSymbolGeo(
