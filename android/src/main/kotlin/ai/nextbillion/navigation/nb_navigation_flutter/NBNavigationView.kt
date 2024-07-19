@@ -146,6 +146,13 @@ class NBNavigationView(
             )
             resultMap["distanceRemaining"] = navProgress.distanceRemaining
             resultMap["durationRemaining"] = navProgress.durationRemaining
+            resultMap["currentLegIndex"] = navProgress.currentLegIndex
+            resultMap["currentStepIndex"] = navProgress.currentStepIndex
+            resultMap["distanceTraveled"] = navProgress.distanceTraveled
+            resultMap["fractionTraveled"] = navProgress.fractionTraveled
+            resultMap["remainingWaypoints"] = navProgress.remainingWaypoints
+            resultMap["currentStepPointIndex"] = navProgress.currentStepPointIndex
+            resultMap["isFinalLeg"] = navProgress.currentLegIndex == navProgress.route.legs()?.size?.minus(1)
             eventSink?.success(resultMap)
         } else {
             eventSink?.success(null)

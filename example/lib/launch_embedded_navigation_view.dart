@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 import 'package:nb_navigation_flutter_example/constants.dart';
+import 'package:nb_navigation_flutter_example/waypoint_dialog.dart';
 
 class LaunchEmbeddedNavigationView extends StatefulWidget {
   static const String title = "Launch Embedded NavigationView";
@@ -13,10 +14,12 @@ class LaunchEmbeddedNavigationView extends StatefulWidget {
   const LaunchEmbeddedNavigationView({super.key});
 
   @override
-  LaunchEmbeddedNavigationViewState createState() => LaunchEmbeddedNavigationViewState();
+  LaunchEmbeddedNavigationViewState createState() =>
+      LaunchEmbeddedNavigationViewState();
 }
 
-class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationView> {
+class LaunchEmbeddedNavigationViewState
+    extends State<LaunchEmbeddedNavigationView> {
   NextbillionMapController? controller;
   List<DirectionsRoute> routes = [];
   late NavNextBillionMap navNextBillionMap;
@@ -30,6 +33,7 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
   String locationTrackImage = "assets/location_on.png";
   UserLocation? currentLocation;
   List<LatLng> waypoints = [];
+  bool showArrivalDialog = true;
 
   void _onMapCreated(NextbillionMapController controller) {
     this.controller = controller;
@@ -40,9 +44,11 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
       NavNextBillionMap.create(controller!).then((value) {
         navNextBillionMap = value;
         loadAssetImage();
-        Fluttertoast.showToast(msg: "Long press to select a destination to fetch a route");
+        Fluttertoast.showToast(
+            msg: "Long press to select a destination to fetch a route");
         if (currentLocation != null) {
-          controller?.animateCamera(CameraUpdate.newLatLngZoom(currentLocation!.position, 14),
+          controller?.animateCamera(
+              CameraUpdate.newLatLngZoom(currentLocation!.position, 14),
               duration: const Duration(milliseconds: 400));
         }
       });
@@ -58,7 +64,8 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
   }
 
   _onMapClick(Point<double> point, LatLng coordinates) {
-    navNextBillionMap.addRouteSelectedListener(coordinates, (selectedRouteIndex) {
+    navNextBillionMap.addRouteSelectedListener(coordinates,
+        (selectedRouteIndex) {
       if (routes.isNotEmpty && selectedRouteIndex != 0) {
         var selectedRoute = routes[selectedRouteIndex];
         routes.removeAt(selectedRouteIndex);
@@ -88,17 +95,33 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 60, left: 18, bottom: 5.0),
+            padding: const EdgeInsets.only(top: 44.0, left: 18),
             child: Text("distanceRemaining: ${progress?.distanceRemaining}"),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 18, bottom: 5.0),
+            padding: const EdgeInsets.only(left: 18),
             child: Text("durationRemaining: ${progress?.durationRemaining}"),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 18, bottom: 25.0),
-            child:
-                Text("arrivedAtWaypointInfo: ${waypoint?.arrivedWaypointIndex}===${waypoint?.arrivedWaypointLocation}"),
+            padding: const EdgeInsets.only(left: 18),
+            child: Text(
+                "arrivedAtWaypointInfo: ${waypoint?.arrivedWaypointIndex}===${waypoint?.arrivedWaypointLocation}"),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, bottom: 5.0),
+            child: Row(
+              children: [
+                const Text("Show arrival dialog:"),
+                const Padding(padding: EdgeInsets.only(left: 8)),
+                Switch(
+                    value: showArrivalDialog,
+                    onChanged: (value) {
+                      setState(() {
+                        showArrivalDialog = value;
+                      });
+                    }),
+              ],
+            ),
           ),
           Expanded(
             child: Stack(
@@ -134,6 +157,9 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
               setState(() {
                 this.waypoint = waypoint;
               });
+              if (showArrivalDialog) {
+                _showArrivedDialog(waypoint, progress?.isFinalLeg ?? false);
+              }
             },
             onRerouteFromLocation: (location) {},
           )
@@ -141,12 +167,28 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
   }
 
   NavigationLauncherConfig _buildNavigationViewConfig() {
-    NavigationLauncherConfig config = NavigationLauncherConfig(route: routes.first, routes: routes);
+    NavigationLauncherConfig config =
+        NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.gps;
-    config.shouldSimulateRoute = false;
+    config.shouldSimulateRoute = true;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = false;
     return config;
+  }
+
+  void _showArrivedDialog(Waypoint? waypoint, bool isArrivedDestination) {
+    if (waypoint == null) {
+      return;
+    }
+
+    String title =
+        isArrivedDestination ? "Arrived Destination" : "Arrived Waypoint";
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return WaypointDialog(title: title, waypoint: waypoint);
+      },
+    );
   }
 
   Widget _buildNBMapView() {
@@ -183,7 +225,8 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
                       height: 28,
                     ),
                     onTap: () {
-                      controller?.updateMyLocationTrackingMode(MyLocationTrackingMode.Tracking);
+                      controller?.updateMyLocationTrackingMode(
+                          MyLocationTrackingMode.Tracking);
                       setState(() {
                         locationTrackImage = 'assets/location_on.png';
                       });
@@ -195,7 +238,8 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
                 children: [
                   ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                          backgroundColor: WidgetStateProperty.all(
+                              routes.isEmpty ? Colors.grey : Colors.blueAccent),
                           enableFeedback: routes.isNotEmpty),
                       onPressed: () {
                         clearRouteResult();
@@ -205,7 +249,8 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
                   const Padding(padding: EdgeInsets.only(left: 8)),
                   ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(routes.isEmpty ? Colors.grey : Colors.blueAccent),
+                          backgroundColor: WidgetStateProperty.all(
+                              routes.isEmpty ? Colors.grey : Colors.blueAccent),
                           enableFeedback: routes.isNotEmpty),
                       onPressed: routes.isEmpty
                           ? null
@@ -252,7 +297,8 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
       requestParams.waypoints = waypoints.sublist(0, waypoints.length - 1);
     }
 
-    DirectionsRouteResponse routeResponse = await NBNavigation.fetchRoute(requestParams);
+    DirectionsRouteResponse routeResponse =
+        await NBNavigation.fetchRoute(requestParams);
     if (routeResponse.directionsRoutes.isNotEmpty) {
       clearRouteResult();
       setState(() {
@@ -263,7 +309,8 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
       addImageFromAsset(destination);
     } else if (routeResponse.message != null) {
       if (kDebugMode) {
-        print("====error====${routeResponse.message}===${routeResponse.errorCode}");
+        print(
+            "====error====${routeResponse.message}===${routeResponse.errorCode}");
       }
     }
   }
@@ -276,17 +323,21 @@ class LaunchEmbeddedNavigationViewState extends State<LaunchEmbeddedNavigationVi
   void fitCameraToBounds(List<DirectionsRoute> routes) {
     List<LatLng> multiPoints = [];
     for (var route in routes) {
-      var routePoints = decode(route.geometry ?? '', _getDecodePrecision(route.routeOptions));
+      var routePoints =
+          decode(route.geometry ?? '', _getDecodePrecision(route.routeOptions));
       multiPoints.addAll(routePoints);
     }
     if (multiPoints.isNotEmpty) {
       var latLngBounds = LatLngBounds.fromMultiLatLng(multiPoints);
-      controller?.animateCamera(CameraUpdate.newLatLngBounds(latLngBounds, top: 50, left: 50, right: 50, bottom: 50));
+      controller?.animateCamera(CameraUpdate.newLatLngBounds(latLngBounds,
+          top: 50, left: 50, right: 50, bottom: 50));
     }
   }
 
   int _getDecodePrecision(RouteRequestParams? routeOptions) {
-    return routeOptions?.geometry == SupportedGeometry.polyline ? precision : precision6;
+    return routeOptions?.geometry == SupportedGeometry.polyline
+        ? precision
+        : precision6;
   }
 
   void clearRouteResult() async {
