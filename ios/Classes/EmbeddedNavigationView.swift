@@ -63,7 +63,7 @@ public class EmbeddedNavigationView : NSObject, FlutterPlatformView, FlutterStre
         let navigationOptions = Convert.convertNavigationOptions(args: args, routes: routes)
         navigationController = NavigationViewController(for: routes, navigationOptions: navigationOptions)
         navigationController?.delegate = self
-        navigationController?.navigationService?.delegate = self
+//        navigationController?.navigationService?.delegate = self
         navigationController?.routeLineTracksTraversal = enableDissolvedRoute
         
         navigationController?.showsArrivalWaypointSheet = false
@@ -120,7 +120,12 @@ extension EmbeddedNavigationView: NavigationViewControllerDelegate {
         
         resultMap["distanceRemaining"] = progress.distanceRemaining
         resultMap["durationRemaining"] = progress.durationRemaining
-        
+        resultMap["currentLegIndex"] = progress.legIndex
+        resultMap["currentStepIndex"] = progress.currentLegProgress.stepIndex
+        resultMap["distanceTraveled"] = progress.distanceTraveled
+        resultMap["fractionTraveled"] = progress.fractionTraveled
+        resultMap["remainingWaypoints"] = progress.remainingWaypoints.count
+        resultMap["isFinalLeg"] = progress.isFinalLeg
         _eventSink?(resultMap)
     }
     
@@ -136,23 +141,17 @@ extension EmbeddedNavigationView: NavigationViewControllerDelegate {
         channel.invokeMethod("willRerouteFromLocation", arguments: resultMap)
     }
     
-}
-
-
-extension EmbeddedNavigationView: NavigationServiceDelegate {
-    public func navigationService(_ service: NavigationService, didArriveAt waypoint: Waypoint) {
-        let waypointIndex = service.routeProgress.legIndex
+    public func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) {
+        let waypointIndex = navigationViewController.navigationService.routeProgress.legIndex
         let waypointLocation = waypoint.coordinate
         var resultMap = [String: Any?]()
-        
+    
         resultMap["location"] = [
-            "latitude": waypointLocation.latitude,
-            "longitude": waypointLocation.longitude]
-        
+                    "latitude": waypointLocation.latitude,
+                    "longitude": waypointLocation.longitude]
+    
         resultMap["arrivedWaypointIndex"] = waypointIndex
         channel.invokeMethod("onArriveAtWaypoint", arguments: resultMap)
-        
     }
-    
     
 }

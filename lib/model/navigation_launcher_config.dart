@@ -48,6 +48,12 @@ class NavigationLauncherConfig {
   /// the mapStyleURL of (`customDayStyle`, `customNightStyle`) set in the AppDelegate for iOS
   String? navigationMapStyleUrl;
 
+  /// Indicates whether to show the arrive dialog.
+  /// If set to true, the arrive dialog will be shown when the user arrives at the waypoints or destination.
+  /// If set to false, the arrive dialog will not be shown when the user arrives at the waypoints or destination.
+  /// This property is only available for call [NBNavigation.startNavigation] to launch the navigation.
+  /// It is not available for [NBNavigationView].If you want to show the arrive dialog in [NBNavigationView],
+  /// you need to custom the dialog by yourself in the [NBNavigationView.onArriveAtWaypoint].
   bool? showArriveDialog;
   // bool? showSpeedometer;
   // double? maxNavCameraTilt;
