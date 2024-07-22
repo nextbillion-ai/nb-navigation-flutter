@@ -11,12 +11,14 @@ import 'package:nb_navigation_flutter_example/track_current_location.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'custom_view_on_navigation_view.dart';
 import 'draw_route_line_with_raw_json.dart';
 import 'full_navigation_example.dart';
 
 final Map<String, Widget> _allPages = <String, Widget>{
   FullNavigationExample.title: const FullNavigationExample(),
   LaunchEmbeddedNavigationView.title: const LaunchEmbeddedNavigationView(),
+  CustomViewOnNavigationView.title: const CustomViewOnNavigationView(),
   LaunchNavigation.title: const LaunchNavigation(),
   DrawRouteLine.title: const DrawRouteLine(),
   DrawRouteLineWithRawJson.title: const DrawRouteLineWithRawJson(),

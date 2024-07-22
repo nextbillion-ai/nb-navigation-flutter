@@ -30,9 +30,6 @@ class NavigationViewController {
     if (arriveAtWaypointCallback != null) {
       _navViewPlatform.setOnArriveAtWaypointCallback(arriveAtWaypointCallback);
     }
-    if (arriveAtWaypointCallback != null) {
-      _navViewPlatform.setOnArriveAtWaypointCallback(arriveAtWaypointCallback);
-    }
     if (onRerouteFromLocationCallback != null) {
       _navViewPlatform.setOnRerouteFromLocationCallback(onRerouteFromLocationCallback);
     }
