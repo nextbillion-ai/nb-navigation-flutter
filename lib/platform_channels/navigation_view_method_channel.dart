@@ -30,6 +30,21 @@ class MethodChannelNavigationView extends NBNavigationViewPlatform {
           _rerouteFromLocationCallback!(_parseLocation(call.arguments));
         }
         break;
+      case 'onRerouteAlong':
+        if (_rerouteAlongCallback != null) {
+          if (call.arguments == null) {
+            _rerouteAlongCallback!(null);
+            return;
+          }
+          Map<String, dynamic> json = jsonDecode(call.arguments);
+          _rerouteAlongCallback!(DirectionsRoute.fromJson(json));
+        }
+        break;
+      case 'onRerouteFailure':
+        if (_rerouteFailureCallback != null) {
+          _rerouteFailureCallback!(call.arguments);
+        }
+        break;
       default:
         throw MissingPluginException();
     }
@@ -155,5 +170,15 @@ class MethodChannelNavigationView extends NBNavigationViewPlatform {
     _channel?.setMethodCallHandler(null);
     _channel = null;
     _eventChannel = null;
+  }
+
+  @override
+  void setOnRerouteAlongCallback(OnRerouteAlongCallback? callback) {
+    _rerouteAlongCallback = callback;
+  }
+
+  @override
+  void setOnRerouteFailureCallback(OnRerouteFailureCallback? callback) {
+    _rerouteFailureCallback = callback;
   }
 }

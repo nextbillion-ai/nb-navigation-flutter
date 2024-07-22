@@ -7,6 +7,8 @@ class NavigationViewController {
   late OnNavigationCancellingCallback? onNavigationCancelling;
   late OnArriveAtWaypointCallback? arriveAtWaypointCallback;
   late OnRerouteFromLocationCallback? onRerouteFromLocationCallback;
+  late OnRerouteAlongCallback? onRerouteAlongCallback;
+  late OnRerouteFailureCallback? onRerouteFailureCallback;
 
   NavigationViewController({
     required NBNavigationViewPlatform navViewPlatform,
@@ -14,6 +16,8 @@ class NavigationViewController {
     this.onNavigationCancelling,
     this.arriveAtWaypointCallback,
     this.onRerouteFromLocationCallback,
+    this.onRerouteAlongCallback,
+    this.onRerouteFailureCallback,
   }) : _navViewPlatform = navViewPlatform {
     _navProgressSubscription = _navViewPlatform.navProgressListener?.listen((navProgress) {
       if (onProgressChange != null) {
@@ -31,6 +35,14 @@ class NavigationViewController {
     }
     if (onRerouteFromLocationCallback != null) {
       _navViewPlatform.setOnRerouteFromLocationCallback(onRerouteFromLocationCallback);
+    }
+
+    if (onRerouteAlongCallback != null) {
+      _navViewPlatform.setOnRerouteAlongCallback(onRerouteAlongCallback);
+    }
+
+    if (onRerouteFailureCallback != null) {
+      _navViewPlatform.setOnRerouteFailureCallback(onRerouteFailureCallback);
     }
   }
 

@@ -11,6 +11,8 @@ class NBNavigationView extends StatefulWidget {
     this.onNavigationCancelling,
     this.onArriveAtWaypoint,
     this.onRerouteFromLocation,
+    this.onRerouteAlongCallback,
+    this.onRerouteFailureCallback,
   });
 
   final NavigationLauncherConfig? navigationOptions;
@@ -20,6 +22,8 @@ class NBNavigationView extends StatefulWidget {
   final OnNavigationCancellingCallback? onNavigationCancelling;
   final OnArriveAtWaypointCallback? onArriveAtWaypoint;
   final OnRerouteFromLocationCallback? onRerouteFromLocation;
+  final OnRerouteAlongCallback? onRerouteAlongCallback;
+  final OnRerouteFailureCallback? onRerouteFailureCallback;
 
   @override
   State<NBNavigationView> createState() => _NBNavigationViewState();
@@ -50,6 +54,8 @@ class _NBNavigationViewState extends State<NBNavigationView> {
       onNavigationCancelling: widget.onNavigationCancelling,
       arriveAtWaypointCallback: widget.onArriveAtWaypoint,
       onRerouteFromLocationCallback: widget.onRerouteFromLocation,
+      onRerouteAlongCallback: widget.onRerouteAlongCallback,
+      onRerouteFailureCallback: widget.onRerouteFailureCallback,
     );
     _controller.complete(controller);
 

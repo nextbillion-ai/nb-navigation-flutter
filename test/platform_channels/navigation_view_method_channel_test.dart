@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
@@ -7,7 +10,8 @@ void main() {
 
   group('MethodChannelNavigationView', () {
     const MethodChannel channel = MethodChannel('flutter_nb_navigation/1');
-    const EventChannel eventChannel = EventChannel('flutter_nb_navigation/1/events');
+    const EventChannel eventChannel =
+        EventChannel('flutter_nb_navigation/1/events');
 
     MethodChannelNavigationView navigationView = MethodChannelNavigationView();
 
@@ -58,6 +62,8 @@ void main() {
       bool navigationRunningCalled = false;
       bool arriveAtWaypointCalled = false;
       bool rerouteFromLocationCalled = false;
+      bool rerouteAlongCalled = false;
+      bool rerouteFailureCalled = false;
 
       navigationView.setOnNavigationCancellingCallback(() {
         navigationCancellingCalled = true;
@@ -75,17 +81,60 @@ void main() {
         rerouteFromLocationCalled = true;
       });
 
+      navigationView.setOnRerouteAlongCallback((_) {
+        rerouteAlongCalled = true;
+      });
+
+      navigationView.setOnRerouteFailureCallback((_) {
+        rerouteFailureCalled = true;
+      });
+
       await navigationView.initPlatform(1);
 
-      await navigationView.handleMethodCall(const MethodCall('onNavigationCancelling'));
-      await navigationView.handleMethodCall(const MethodCall('onNavigationReady'));
-      await navigationView.handleMethodCall(const MethodCall('onArriveAtWaypoint'));
-      await navigationView.handleMethodCall(const MethodCall('willRerouteFromLocation'));
-
+      await navigationView
+          .handleMethodCall(const MethodCall('onNavigationCancelling'));
+      await navigationView
+          .handleMethodCall(const MethodCall('onNavigationReady'));
+      await navigationView
+          .handleMethodCall(const MethodCall('onArriveAtWaypoint'));
+      await navigationView
+          .handleMethodCall(const MethodCall('willRerouteFromLocation'));
+      await navigationView.handleMethodCall(const MethodCall('onRerouteAlong'));
+      await navigationView
+          .handleMethodCall(const MethodCall('onRerouteFailure'));
       expect(navigationCancellingCalled, isTrue);
       expect(navigationRunningCalled, isTrue);
       expect(arriveAtWaypointCalled, isTrue);
       expect(rerouteFromLocationCalled, isTrue);
+      expect(rerouteAlongCalled, isTrue);
+      expect(rerouteFailureCalled, isTrue);
+    });
+
+    test('handleMethodCall result', () async {
+      String message = "Reroute failed";
+      final file = File('test/navigation/route_full_overview.json');
+      final routeString = await file.readAsString();
+
+      String? failureMessage;
+      DirectionsRoute? route;
+      navigationView.setOnRerouteAlongCallback((value) {
+        route = value;
+      });
+
+      navigationView.setOnRerouteFailureCallback((value) {
+        failureMessage = value;
+      });
+
+      await navigationView.initPlatform(1);
+
+      await navigationView.handleMethodCall(const MethodCall('onRerouteAlong'));
+      await navigationView
+          .handleMethodCall( MethodCall('onRerouteFailure',message),);
+      await navigationView.handleMethodCall( MethodCall('onRerouteAlong',routeString));
+
+      expect(failureMessage, message);
+      expect(route, isNotNull);
+
     });
   });
 }
