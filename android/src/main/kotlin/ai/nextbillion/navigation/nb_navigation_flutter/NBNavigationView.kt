@@ -106,6 +106,7 @@ class NBNavigationView(
             viewConfigBuilder.locationLayerRenderMode(it.locationLayerRenderMode())
             viewConfigBuilder.darkModeInTunnel(it.darkModeInTunnel())
             viewConfigBuilder.shouldSimulateRoute(it.shouldSimulateRoute())
+            viewConfigBuilder.showSpeedometer(it.showSpeedometer())
         }
     }
 

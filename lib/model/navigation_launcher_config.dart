@@ -55,7 +55,7 @@ class NavigationLauncherConfig {
   /// It is not available for [NBNavigationView].If you want to show the arrive dialog in [NBNavigationView],
   /// you need to custom the dialog by yourself in the [NBNavigationView.onArriveAtWaypoint].
   bool? showArriveDialog;
-  // bool? showSpeedometer;
+  bool? showSpeedometer;
   // double? maxNavCameraTilt;
   // double? minNavCameraTilt;
   // double? maxNavCameraZoom;
@@ -71,7 +71,7 @@ class NavigationLauncherConfig {
     this.useCustomNavigationStyle = true,
     this.navigationMapStyleUrl,
     this.showArriveDialog = true,
-    // this.showSpeedometer = true,
+    this.showSpeedometer = true,
     // this.maxNavCameraTilt,
     // this.minNavCameraTilt,
     // this.maxNavCameraZoom,
@@ -89,7 +89,7 @@ class NavigationLauncherConfig {
       'useCustomNavigationStyle': useCustomNavigationStyle,
       'navigationMapStyleUrl': navigationMapStyleUrl,
       'showArriveDialog': showArriveDialog,
-      // 'showSpeedometer': showSpeedometer,
+      'showSpeedometer': showSpeedometer,
       // 'maxNavCameraTilt': maxNavCameraTilt,
       // 'minNavCameraTilt': minNavCameraTilt,
       // 'maxNavCameraZoom': maxNavCameraZoom,

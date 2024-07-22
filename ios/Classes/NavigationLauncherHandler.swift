@@ -35,6 +35,7 @@ class NavigationLauncherHandler: MethodChannelHandler {
             }
             var enableDissolvedRoute = true
             var showsArrivalWaypointSheet = true
+            var showSpeed = true
 
             if let config = args["launcherConfig"] as? [String : Any] {
                 if let dissolvedRoute = config["enableDissolvedRouteLine"] as? Bool {
@@ -42,6 +43,9 @@ class NavigationLauncherHandler: MethodChannelHandler {
                 }
                 if let showArrivalSheet = config["showArriveDialog"] as? Bool {
                     showsArrivalWaypointSheet = showArrivalSheet
+                }
+                if let showSpeedometer = config["showSpeedometer"] as? Bool {
+                    showSpeed = showSpeedometer
                 }
             }
             
@@ -52,6 +56,7 @@ class NavigationLauncherHandler: MethodChannelHandler {
             navigationViewController.modalPresentationStyle = .fullScreen
             navigationViewController.routeLineTracksTraversal = enableDissolvedRoute
             navigationViewController.showsArrivalWaypointSheet = showsArrivalWaypointSheet
+            navigationViewController.showsSpeed = showSpeed
             viewController?.present(navigationViewController, animated: true)
             break
             
