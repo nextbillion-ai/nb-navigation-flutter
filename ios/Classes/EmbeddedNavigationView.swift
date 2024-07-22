@@ -53,10 +53,14 @@ public class EmbeddedNavigationView : NSObject, FlutterPlatformView, FlutterStre
             return
         }
         var enableDissolvedRoute = true
+        var showSpeed = true
 
         if let config = args["launcherConfig"] as? [String : Any] {
             if let dissolvedRoute = config["enableDissolvedRouteLine"] as? Bool {
                 enableDissolvedRoute = dissolvedRoute
+            }
+            if let showSpeedometer = config["showSpeedometer"] as? Bool {
+                showSpeed = showSpeedometer
             }
         }
         
@@ -67,6 +71,7 @@ public class EmbeddedNavigationView : NSObject, FlutterPlatformView, FlutterStre
         navigationController?.routeLineTracksTraversal = enableDissolvedRoute
         
         navigationController?.showsArrivalWaypointSheet = false
+        navigationController?.showsSpeed = showSpeed
         if let navigationView = navigationController?.view {
             let insets = navigationView.safeAreaInsets
             if let label = (navigationView.subviews.first) {
