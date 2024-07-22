@@ -1,3 +1,11 @@
+## v0.7.0, July 23, 2024
+* Update the android navigation native framework to 1.3.6 to fix the speedometer view shown issue on the [NBNavigationView]
+  * Fix speedometer not shown on Android when use [NBNavigationView] 
+* Add [showSpeedometer] property to [NavigationLauncherConfig] to support showing the speedometer on the navigation screen
+* Fix [NBNavigationView.onArriveAtWaypoint] callback not triggered on iOS when arrive at waypoint
+* Add [NBNavigationView.onRerouteFailureCallback] callback to support listening to the navigation reroute failure event
+* Add [NBNavigationView.onRerouteAlongCallback] callback to support listening to the navigation reroute along event
+
 ## v0.6.4, July 17, 2024
 * Fix [DirectionsRoute.fromJson] issue
   * Error: type 'Map<dynamic,dynamic>' is not a subtype of type 'Map<String,dynamic>' in type cast

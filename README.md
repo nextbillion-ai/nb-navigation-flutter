@@ -209,19 +209,23 @@ NBNavigation.startNavigation(config);
 
 ### Launch Embedded NavigationView
 `NBNavigationView` is a customizable navigation view widget designed to provide seamless navigation experiences in your Flutter application. It offers various configuration options to cater to different navigation requirements, such as theme modes, location layer render modes, and custom styles.
-```
-const NBNavigationView({
-  super.key,
-  required this.navigationOptions,
-  this.onNavigationViewReady,
-  this.onProgressChange,
-  this.onNavigationCancelling,
-  this.onArriveAtWaypoint,
-  this.onRerouteFromLocation,
-});
-```
-
-
+* Important :If you want to use the NavigationView, you need to to make the `MainActivity` extend `FlutterFragmentActivity` instead of `FlutterActivity` in the Android project.
+  ```
+  class MainActivity: FlutterFragmentActivity() {
+  }
+  ```
+### NBNavigationView constructor
+  ```
+  const NBNavigationView({
+    super.key,
+    required this.navigationOptions,
+    this.onNavigationViewReady,
+    this.onProgressChange,
+    this.onNavigationCancelling,
+    this.onArriveAtWaypoint,
+    this.onRerouteFromLocation,
+  });
+  ```
 ### Parameters
 By utilizing the *NavigationLauncherConfig* class, you can customize the navigation experience to meet your specific needs, from theme settings to location layer modes and custom styles. 
 * navigationOptions (required): This parameter provides the necessary configuration for the navigation view.

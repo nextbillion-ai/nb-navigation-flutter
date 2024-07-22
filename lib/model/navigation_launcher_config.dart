@@ -55,6 +55,10 @@ class NavigationLauncherConfig {
   /// It is not available for [NBNavigationView].If you want to show the arrive dialog in [NBNavigationView],
   /// you need to custom the dialog by yourself in the [NBNavigationView.onArriveAtWaypoint].
   bool? showArriveDialog;
+
+  /// Indicates whether to show the speedometer.
+  /// If set to true, the speedometer will be shown during navigation.
+  /// If set to false, the speedometer will not be shown during navigation.
   bool? showSpeedometer;
   // double? maxNavCameraTilt;
   // double? minNavCameraTilt;

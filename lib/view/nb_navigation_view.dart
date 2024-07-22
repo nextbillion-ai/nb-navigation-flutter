@@ -15,14 +15,22 @@ class NBNavigationView extends StatefulWidget {
     this.onRerouteFailureCallback,
   });
 
+  /// The configuration for the navigation view.
   final NavigationLauncherConfig? navigationOptions;
 
+  /// Callback to be invoked when the navigation view is ready.
   final OnNavigationViewReadyCallBack? onNavigationViewReady;
+  /// Callback to be invoked when progress change if the user has set the callback when initializing the navigation view.
   final ProgressChangeCallback? onProgressChange;
+  /// Callback to be invoked when navigation is cancelled if the user has set the callback when initializing the navigation view.
   final OnNavigationCancellingCallback? onNavigationCancelling;
+  /// Callback to be invoked when arrive at waypoint if the user has set the callback when initializing the navigation view.
   final OnArriveAtWaypointCallback? onArriveAtWaypoint;
+  /// Callback to be invoked when reroute from location if the user has set the callback when initializing the navigation view.
   final OnRerouteFromLocationCallback? onRerouteFromLocation;
+  /// Callback to be invoked when reroute along the route if the user has set the callback when initializing the navigation view.
   final OnRerouteAlongCallback? onRerouteAlongCallback;
+  /// Callback to be invoked when reroute fails if the user has set the callback when initializing the navigation view.
   final OnRerouteFailureCallback? onRerouteFailureCallback;
 
   @override
