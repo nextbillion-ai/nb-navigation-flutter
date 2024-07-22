@@ -146,6 +146,14 @@ extension EmbeddedNavigationView: NavigationViewControllerDelegate {
         channel.invokeMethod("willRerouteFromLocation", arguments: resultMap)
     }
     
+    public func navigationViewController(_ navigationViewController: NavigationViewController, didRerouteAlong route: Route) {
+        channel.invokeMethod("onRerouteAlong", arguments: route.json)
+    }
+    
+    public func navigationViewController(_ navigationViewController: NavigationViewController, didFailToRerouteWith error: any Error) {
+        channel.invokeMethod("onRerouteFailure", arguments: error.localizedDescription)
+    }
+    
     public func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) {
         let waypointIndex = navigationViewController.navigationService.routeProgress.legIndex
         let waypointLocation = waypoint.coordinate

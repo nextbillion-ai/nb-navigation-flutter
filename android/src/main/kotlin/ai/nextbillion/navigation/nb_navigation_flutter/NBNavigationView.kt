@@ -187,10 +187,11 @@ class NBNavigationView(
     }
 
     override fun onRerouteAlong(p0: DirectionsRoute?) {
+        methodChannel?.invokeMethod("onRerouteAlong", p0?.toJson())
     }
 
     override fun onFailedReroute(p0: String?) {
-
+        methodChannel?.invokeMethod("onFailedReroute", p0)
     }
 
     override fun onArrival(navProgress: NavProgress?, waypointIndex: Int) {
