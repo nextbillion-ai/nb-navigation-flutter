@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_navigation_flutter_example/custom_navigation_style.dart';
 import 'package:nb_navigation_flutter_example/draw_route_line.dart';
@@ -30,7 +29,7 @@ final Map<String, Widget> _allPages = <String, Widget>{
 };
 
 class NavigationDemo extends StatefulWidget {
-  static const String accessKey = String.fromEnvironment("ACCESS_KEY");
+  static const String accessKey = "opensesame";//String.fromEnvironment("ACCESS_KEY");
 
   const NavigationDemo({super.key});
 
@@ -49,16 +48,12 @@ class _NavigationDemoState extends State<NavigationDemo> {
 
     // Check user ID If needed
     NBNavigation.getUserId().then((value) {
-      if (kDebugMode) {
-        print("User ID: $value");
-      }
+
     });
 
     // Get NB ID If needed
     NBNavigation.getNBId().then((value) {
-      if (kDebugMode) {
-        print("NB ID: $value");
-      }
+
     });
   }
 

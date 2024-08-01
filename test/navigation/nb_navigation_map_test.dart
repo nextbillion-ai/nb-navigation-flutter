@@ -131,7 +131,7 @@ void main() {
       NBNavigation.setNBNavigationPlatform(mockNBNavigationPlatform);
 
       WidgetsFlutterBinding.ensureInitialized();
-      final file = File('test/navigation/route.json');
+      final file = File('test/navigation/route');
       final jsonString = await file.readAsString();
       Map<String, dynamic> json = jsonDecode(jsonString);
       DirectionsRoute route = DirectionsRoute.fromJson(json);
@@ -156,7 +156,7 @@ void main() {
       NBNavigation.setNBNavigationPlatform(mockNBNavigationPlatform);
 
       WidgetsFlutterBinding.ensureInitialized();
-      final file = File('test/navigation/route.json');
+      final file = File('test/navigation/route');
       final jsonString = await file.readAsString();
       Map<String, dynamic> json = jsonDecode(jsonString);
       DirectionsRoute route = DirectionsRoute.fromJson(json);
