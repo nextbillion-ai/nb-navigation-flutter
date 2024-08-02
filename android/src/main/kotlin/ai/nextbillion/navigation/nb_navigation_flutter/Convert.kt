@@ -13,8 +13,21 @@ import android.text.TextUtils
 object Convert {
     fun convertLauncherConfig(arguments: Map<*, *>): NavLauncherConfig.Builder? {
         val routesJson = arguments["routes"] as? List<*>
-        if (!routesJson.isNullOrEmpty()) {
-            val routes = routesJson.map { json -> DirectionsRoute.fromJson(json as String) }
+        val singleRouteJson = arguments["route"] as? String
+        if (!TextUtils.isEmpty(singleRouteJson)) {
+            val route = DirectionsRoute.fromJson(singleRouteJson)
+            var routes: MutableList<DirectionsRoute> = mutableListOf()
+            if (!routesJson.isNullOrEmpty()) {
+                routes = routesJson.map { json -> DirectionsRoute.fromJson(json as String) }.toMutableList()
+                val primaryIndex = routes.indexOfFirst { it.geometry() == route.geometry() }
+                if (primaryIndex >= 0) {
+                    routes.removeAt(primaryIndex)
+                    routes.add(0, route)
+                }
+            } else {
+                routes.add(route)
+            }
+
             val configBuilder = NavLauncherConfig.builder(routes[0])
             configBuilder.routes(routes)
 
