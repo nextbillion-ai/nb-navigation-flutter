@@ -12,6 +12,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'custom_view_on_navigation_view.dart';
 import 'draw_route_line_with_raw_json.dart';
+import 'embedded_navigation_view_intergration.dart';
 import 'full_navigation_example.dart';
 
 final Map<String, Widget> _allPages = <String, Widget>{
@@ -26,10 +27,16 @@ final Map<String, Widget> _allPages = <String, Widget>{
   CustomNavigationStyle.title: const CustomNavigationStyle(),
   MapViewStyle.title: const MapViewStyle(),
   NavigationTheme.title: const NavigationTheme(),
+  EmbeddedNavigationViewIntegration.title: const EmbeddedNavigationViewIntegration(),
+};
+
+final Map<String,bool> _requiredPermission = <String,bool>{
+
+
 };
 
 class NavigationDemo extends StatefulWidget {
-  static const String accessKey = "opensesame";//String.fromEnvironment("ACCESS_KEY");
+  static const String accessKey = String.fromEnvironment("ACCESS_KEY");
 
   const NavigationDemo({super.key});
 
@@ -57,22 +64,24 @@ class _NavigationDemoState extends State<NavigationDemo> {
     });
   }
 
-  void _pushPage(BuildContext context, Widget page) async {
+  void _pushPage(BuildContext context, Widget page,bool isRequiredPermission) async {
     if (!mounted) {
       return;
     }
 
-    var status = await Permission.location.status;
-
-    if (!mounted) {
-      return;
-    }
-
-    if (status.isDenied) {
-      await [Permission.location].request();
+    if(isRequiredPermission) {
+      var status = await Permission.location.status;
 
       if (!mounted) {
         return;
+      }
+
+      if (status.isDenied) {
+        await [Permission.location].request();
+
+        if (!mounted) {
+          return;
+        }
       }
     }
 
@@ -100,8 +109,10 @@ class _NavigationDemoState extends State<NavigationDemo> {
                   const Divider(height: 1),
               itemBuilder: (_, int index) => ListTile(
                 title: Text(_allPages.keys.toList()[index]),
-                onTap: () =>
-                    _pushPage(context, _allPages.values.toList()[index]),
+                onTap: () {
+                  _pushPage(context, _allPages.values.toList()[index],_requiredPermission[_allPages.keys.toList()[index]]??false);
+                }
+
               ),
             ),
     );
