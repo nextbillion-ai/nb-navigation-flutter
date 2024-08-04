@@ -38,3 +38,10 @@ jobs:
           name: codecov-report
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Run integration tests
+        run: |
+          cd example/
+          flutter drive \
+            --driver=test_driver/integration_test.dart \
+            --target=integration_test/app_test.dart
