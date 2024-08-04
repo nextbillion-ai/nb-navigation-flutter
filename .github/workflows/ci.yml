@@ -39,9 +39,17 @@ jobs:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Run integration tests
+      - name: CD into example and run integration tests
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.22.0"
         run: |
+          flutter pub get
+          pwd
+          cd ..
+          cd ..
           cd example/
-          flutter drive \
-            --driver=test_driver/integration_test.dart \
-            --target=integration_test/app_test.dart
+          flutter pub get
+          flutter build apk --debug
+          flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
+      
