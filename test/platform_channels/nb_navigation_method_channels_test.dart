@@ -21,7 +21,7 @@ void main() {
     nbNavMethodChannel = NBNavigationMethodChannel();
     nbNavMethodChannel.setMethodChanenl(channel);
 
-    final file = File('test/navigation/route');
+    final file = File('test/navigation/route.json');
     final jsonString = await file.readAsString();
     Map<String, dynamic> json = jsonDecode(jsonString);
     route = DirectionsRoute.fromJson(json);

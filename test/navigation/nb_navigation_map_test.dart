@@ -5,7 +5,6 @@ import 'dart:typed_data';
 import 'package:flutter/widgets.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:nb_maps_flutter/nb_maps_flutter.dart';
 import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart';
 import 'package:nb_navigation_flutter/util/asset_manager.dart';
 import 'package:test/test.dart';
@@ -131,7 +130,7 @@ void main() {
       NBNavigation.setNBNavigationPlatform(mockNBNavigationPlatform);
 
       WidgetsFlutterBinding.ensureInitialized();
-      final file = File('test/navigation/route');
+      final file = File('test/navigation/route.json');
       final jsonString = await file.readAsString();
       Map<String, dynamic> json = jsonDecode(jsonString);
       DirectionsRoute route = DirectionsRoute.fromJson(json);
@@ -156,7 +155,7 @@ void main() {
       NBNavigation.setNBNavigationPlatform(mockNBNavigationPlatform);
 
       WidgetsFlutterBinding.ensureInitialized();
-      final file = File('test/navigation/route');
+      final file = File('test/navigation/route.json');
       final jsonString = await file.readAsString();
       Map<String, dynamic> json = jsonDecode(jsonString);
       DirectionsRoute route = DirectionsRoute.fromJson(json);
