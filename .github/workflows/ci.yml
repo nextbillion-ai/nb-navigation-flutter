@@ -39,13 +39,11 @@ jobs:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: CD into example and run integration tests
+      - name: Android integration tests
         uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.22.0"
         run: |
-          flutter pub get
-          pwd
           cd ..
           cd ..
           cd example/
