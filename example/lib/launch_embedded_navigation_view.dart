@@ -96,16 +96,16 @@ class LaunchEmbeddedNavigationViewState
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 44.0, left: 18),
-            child: Text("distanceRemaining: ${progress?.distanceRemaining}"),
+            child: Text(startNavigation ? "distanceRemaining: ${progress?.distanceRemaining}" : ""),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18),
-            child: Text("durationRemaining: ${progress?.durationRemaining}"),
+            child: Text(startNavigation ? "durationRemaining: ${progress?.durationRemaining}" : ""),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18),
             child: Text(
-                "arrivedAtWaypointInfo: ${waypoint?.arrivedWaypointIndex}===${waypoint?.arrivedWaypointLocation}"),
+                startNavigation ? "arrivedAtWaypointInfo: ${waypoint?.arrivedWaypointIndex}===${waypoint?.arrivedWaypointLocation}" : ""),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18, bottom: 5.0),

@@ -17,6 +17,21 @@ class NavNextBillionMap implements NavigationMap {
   NavNextBillionMap._create(this.controller,
       {this.routeLineProperties = const RouteLineProperties()});
 
+  /// Creates a new instance of [NavNextBillionMap] with the specified [NextbillionMapController].
+  ///
+  /// This method initializes a [NavNextBillionMap] object using the given [NextbillionMapController].
+  /// Optionally, you can provide [RouteLineProperties] to customize the route line appearance.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// RouteLineProperties routeLineProperties = RouteLineProperties(routeDefaultColor: Colors.blue);
+  /// NavNextBillionMap navMap = await NavNextBillionMap.create(controller, routeLineProperties: routeLineProperties);
+  /// ```
+  ///
+  /// [controller] The [NextbillionMapController] to be used for map interactions.
+  /// [routeLineProperties] Optional parameter to customize the route line properties. Defaults to [RouteLineProperties].
+  ///
+  /// Returns a [Future] that completes with the newly created [NavNextBillionMap] instance.
   static Future<NavNextBillionMap> create(NextbillionMapController controller,
       {RouteLineProperties routeLineProperties =
           const RouteLineProperties()}) async {

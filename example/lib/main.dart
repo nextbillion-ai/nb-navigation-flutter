@@ -15,7 +15,7 @@ import 'custom_view_on_navigation_view.dart';
 import 'draw_route_line_with_raw_json.dart';
 import 'full_navigation_example.dart';
 
-final Map<String, Widget> _allPages = <String, Widget>{
+final Map<String, Widget> allPages = <String, Widget>{
   FullNavigationExample.title: const FullNavigationExample(),
   LaunchEmbeddedNavigationView.title: const LaunchEmbeddedNavigationView(),
   CustomViewOnNavigationView.title: const CustomViewOnNavigationView(),
@@ -100,13 +100,13 @@ class _NavigationDemoState extends State<NavigationDemo> {
       body: NavigationDemo.accessKey.isEmpty
           ? buildAccessTokenWarning()
           : ListView.separated(
-              itemCount: _allPages.length,
+              itemCount: allPages.length,
               separatorBuilder: (BuildContext context, int index) =>
                   const Divider(height: 1),
               itemBuilder: (_, int index) => ListTile(
-                title: Text(_allPages.keys.toList()[index]),
+                title: Text(allPages.keys.toList()[index]),
                 onTap: () =>
-                    _pushPage(context, _allPages.values.toList()[index]),
+                    _pushPage(context, allPages.values.toList()[index]),
               ),
             ),
     );

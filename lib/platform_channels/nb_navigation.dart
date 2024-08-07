@@ -59,6 +59,13 @@ class NBNavigation {
     return await _nbNavigationPlatform.getFormattedDuration(durationSeconds);
   }
 
+  /// Sets a callback that will be invoked when navigation exits.
+  ///
+  /// This method registers a callback function that will be called
+  /// when the navigation process exits.
+  ///
+  /// The callback function should be of type [OnNavigationExitCallback].
+  ///
   static Future<void> setOnNavigationExitCallback(
       OnNavigationExitCallback navigationExitCallback) async {
     return await _nbNavigationPlatform
