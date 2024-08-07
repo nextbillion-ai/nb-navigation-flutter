@@ -18,7 +18,7 @@ class Convert {
     
     static let mapOptions = [
         "flexible": NBMapOption.valhalla,
-        "none": NBMapOption.none
+        "fast": NBMapOption.none
     ]
     
     static let measurements = [
