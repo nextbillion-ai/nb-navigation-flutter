@@ -89,11 +89,13 @@ enum SupportedGeometry {
 }
 
 enum SupportedOption {
-  flexible;
+  flexible,
+  fast;
 
   static SupportedOption? fromValue(String? s) => switch (s) {
         "flexible" => flexible,
-        _ => null,
+        "fast" => fast,
+        _ => fast,
       };
 }
 

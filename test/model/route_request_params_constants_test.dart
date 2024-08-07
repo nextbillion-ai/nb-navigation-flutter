@@ -54,8 +54,8 @@ void main() {
   test('SupportedOption.fromValue should return SupportedOption', () {
     expect(SupportedOption.fromValue('flexible'),
         equals(SupportedOption.flexible));
-    expect(SupportedOption.fromValue(null), equals(null));
-    expect(SupportedOption.fromValue('invalid'), equals(null));
+    expect(SupportedOption.fromValue(null), equals(SupportedOption.fast));
+    expect(SupportedOption.fromValue('invalid'), equals(SupportedOption.fast));
   });
 
   test('SupportedHazmatType.fromValue should return SupportedHazmatType', () {

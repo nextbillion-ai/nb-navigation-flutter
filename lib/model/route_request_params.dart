@@ -71,8 +71,15 @@ class RouteRequestParams {
   /// waypoints that these are the non-snapped coordinates.
   List<LatLng>? waypoints;
 
-  ///Use this option to switch to truck-specific routing or time based routing
-  ///or if you want to choose between the fastest and shortest route types
+  /// Allowed Values:
+  /// [SupportedOption.fast] gets the directions and route guidance in real time for trips starting at current time.
+  /// The routes returned through this service have the traffic conditions factored in to avoid any delays under usual circumstances.
+  ///
+  /// [SupportedOption.flexible] offers customizable features for advanced navigation experience.
+  /// It serves requests for truck specific routing, time based routing, allows choosing between fastest and shortest route types and also offers to return segment-wise speed limits of the route suggested.
+  /// The traffic conditions are also factored in by the service to avoid delays under usual circumstances.
+  ///
+  /// The default is [SupportedOption.fast].
   SupportedOption? option;
 
   /// The format of the returned geometry. Allowed values are:

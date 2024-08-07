@@ -13,6 +13,7 @@ import ai.nextbillion.navigation.ui.route.DefaultWayPointStyle
 import ai.nextbillion.navigation.ui.view.DurationSymbol
 import android.app.Activity
 import android.graphics.Bitmap
+import android.text.TextUtils
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import org.json.JSONException
@@ -126,7 +127,11 @@ class RouteFetcherHandler(methodChannel: MethodChannel?) : MethodChannelHandler(
             return
         }
         val params = RouteRequestParams.fromJson(data.toString())
-        RouteFetcher.getRoute(params, object : Callback<DirectionsResponse> {
+        val paramsBuilder = params.toBuilder()
+        if (TextUtils.equals(params.option(), "fast")) {
+            paramsBuilder.option(null)
+        }
+        RouteFetcher.getRoute(paramsBuilder.build(), object : Callback<DirectionsResponse> {
             override fun onResponse(call: Call<DirectionsResponse>, response: Response<DirectionsResponse>) {
                 val args = mutableMapOf<String, Any>()
                 if (response.code() >= 200 && response.code() < 300) {
