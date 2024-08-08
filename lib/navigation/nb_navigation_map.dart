@@ -13,6 +13,9 @@ class NavNextBillionMap implements NavigationMap {
   List<List<LatLng>> routeLines = [];
 
   OnRouteSelectedCallback? onRouteSelectedCallback;
+  bool _isIndependentRoute = false;
+  int _primaryRouteIndex = 0;
+  final List<DirectionsRoute> _routes = [];
 
   NavNextBillionMap._create(this.controller,
       {this.routeLineProperties = const RouteLineProperties()});
@@ -164,8 +167,13 @@ class NavNextBillionMap implements NavigationMap {
   /// Draws the route on the map based on the provided [routes].
   /// it clears the previous route before drawing the new one.
   /// and then draws the route line, waypoints, and route duration symbol.
+  /// The [primaryRouteIndex] parameter is used to determine the primary route to be drawn. Default is 0.
   @override
-  Future<void> drawRoute(List<DirectionsRoute> routes) async {
+  Future<void> drawRoute(List<DirectionsRoute> routes,
+      {int primaryRouteIndex = 0}) async {
+    assert(primaryRouteIndex >= 0 && primaryRouteIndex < routes.length,
+        "primaryRouteIndex should be between 0 and routes.length - 1 inclusive.");
+
     if (controller.disposed) {
       return;
     }
@@ -175,17 +183,25 @@ class NavNextBillionMap implements NavigationMap {
     }
 
     await clearRoute();
-    await _drawRoutesFeatureCollections(routes);
-    await _drawWayPoints(routes.first);
-    await _drawRouteDurationSymbol(routes);
+    _routes.addAll(routes);
+    _primaryRouteIndex = primaryRouteIndex;
+    _isIndependentRoute = false;
+    await _drawRoutesFeatureCollections();
+    await _drawWayPoints();
+    await _drawRouteDurationSymbol();
   }
 
   /// Draws the route on the map based on the provided [routes].
   /// it clears the previous route before drawing the new one.
   /// and then draws the route line, waypoints, and route duration symbol.
   /// This method is used when there are multiple origin and destination routes.
+  /// The [primaryRouteIndex] parameter is used to determine the primary route to be drawn. Default is 0.
   @override
-  Future<void> drawIndependentRoutes(List<DirectionsRoute> routes) async {
+  Future<void> drawIndependentRoutes(List<DirectionsRoute> routes,
+      {int primaryRouteIndex = 0}) async {
+    assert(primaryRouteIndex >= 0 && primaryRouteIndex < routes.length,
+        "primaryRouteIndex should be between 0 and routes.length - 1 inclusive.");
+
     if (controller.disposed) {
       return;
     }
@@ -195,21 +211,23 @@ class NavNextBillionMap implements NavigationMap {
     }
 
     await clearRoute();
-    await _drawRoutesFeatureCollections(routes);
-    await _drawWayPointsWithRoutes(routes);
-    await _drawRouteDurationSymbol(routes);
+    _routes.addAll(routes);
+    _primaryRouteIndex = primaryRouteIndex;
+    _isIndependentRoute = true;
+    await _drawRoutesFeatureCollections();
+    await _drawWayPointsWithRoutes();
+    await _drawRouteDurationSymbol();
   }
 
-  Future<void> _drawRoutesFeatureCollections(
-      List<DirectionsRoute> routes) async {
+  Future<void> _drawRoutesFeatureCollections() async {
     if (controller.disposed) {
       return;
     }
     List<Map<String, dynamic>> routeLineFeatures = [];
 
-    for (int i = 0; i < routes.length; i++) {
-      DirectionsRoute route = routes[i];
-      bool isPrimary = i == 0;
+    for (int i = 0; i < _routes.length; i++) {
+      DirectionsRoute route = _routes[i];
+      bool isPrimary = i == _primaryRouteIndex;
 
       List<LatLng> line =
           decode(route.geometry ?? '', _getDecodePrecision(route.routeOptions));
@@ -220,6 +238,10 @@ class NavNextBillionMap implements NavigationMap {
           isPrimary ? "true" : "false";
       routeLineFeatures.add(geoJson);
     }
+
+    var primaryRouteFeature = routeLineFeatures[_primaryRouteIndex];
+    routeLineFeatures.removeAt(_primaryRouteIndex);
+    routeLineFeatures.insert(0, primaryRouteFeature);
 
     if (routeLineFeatures.isEmpty) {
       return;
@@ -237,11 +259,11 @@ class NavNextBillionMap implements NavigationMap {
         : precision6;
   }
 
-  Future<void> _drawWayPoints(DirectionsRoute route) async {
+  Future<void> _drawWayPoints() async {
     if (controller.disposed) {
       return;
     }
-
+    var route = _routes[_primaryRouteIndex];
     List<Map<String, dynamic>> wayPoints = [];
     Coordinate origin = route.legs.first.steps!.first.maneuver!.coordinate!;
     Coordinate destination = route.legs.last.steps!.last.maneuver!.coordinate!;
@@ -255,7 +277,7 @@ class NavNextBillionMap implements NavigationMap {
         if (destination != null) {
           String waypointName = "$destinationMarkerName${i + 1}";
           var wayPointGeo =
-          _generateWaypointSymbolGeo(destination, waypointName);
+              _generateWaypointSymbolGeo(destination, waypointName);
           wayPoints.add(wayPointGeo);
           if (controller.disposed) {
             return;
@@ -272,13 +294,13 @@ class NavNextBillionMap implements NavigationMap {
         waypointSourceId, buildFeatureCollection(wayPoints));
   }
 
-  Future<void> _drawWayPointsWithRoutes(List<DirectionsRoute> routes) async {
+  Future<void> _drawWayPointsWithRoutes() async {
     if (controller.disposed) {
       return;
     }
 
     List<Map<String, dynamic>> wayPoints = [];
-    DirectionsRoute primaryRoute = routes.first;
+    DirectionsRoute primaryRoute = _routes[_primaryRouteIndex];
     Coordinate origin = primaryRoute.legs.first.steps!.first.maneuver!.coordinate!;
     Coordinate destination = primaryRoute.legs.last.steps!.last.maneuver!.coordinate!;
 
@@ -286,7 +308,7 @@ class NavNextBillionMap implements NavigationMap {
     _addIntermediaryWaypoints(wayPoints, primaryRoute);
     _addWaypoint(wayPoints, destination, destinationMarkerName);
 
-    for (var route in routes) {
+    for (var route in _routes) {
       Coordinate? startCoordinate = route.legs.first.steps?.first.maneuver?.coordinate;
       Coordinate? endCoordinate = route.legs.last.steps?.last.maneuver?.coordinate;
 
@@ -353,14 +375,14 @@ class NavNextBillionMap implements NavigationMap {
     }
   }
 
-  Future<void> _drawRouteDurationSymbol(List<DirectionsRoute> routes) async {
+  Future<void> _drawRouteDurationSymbol() async {
     if (controller.disposed) {
       return;
     }
     List<Map<String, dynamic>> durationSymbols = [];
-    for (int i = 0; i < routes.length; i++) {
-      DirectionsRoute route = routes[i];
-      bool isPrimary = i == 0;
+    for (int i = 0; i < _routes.length; i++) {
+      DirectionsRoute route = _routes[i];
+      bool isPrimary = i == _primaryRouteIndex;
       List<LatLng> line =
           decode(route.geometry ?? '', _getDecodePrecision(route.routeOptions));
       LatLng centerPoint = line[line.length ~/ 2];
@@ -386,8 +408,8 @@ class NavNextBillionMap implements NavigationMap {
     if (controller.disposed) {
       return;
     }
-    var image =
-        await NBNavigation.captureRouteDurationSymbol(route, index == 0);
+    var image = await NBNavigation.captureRouteDurationSymbol(
+        route, index == _primaryRouteIndex);
 
     if (controller.disposed) {
       return;
@@ -456,6 +478,9 @@ class NavNextBillionMap implements NavigationMap {
   Future<void> clearRoute() async {
     await clearSources();
     routeLines.clear();
+    _primaryRouteIndex = 0;
+    _routes.clear();
+    _isIndependentRoute = false;
   }
 
   Future<void> clearSources() async {
@@ -487,6 +512,17 @@ class NavNextBillionMap implements NavigationMap {
     NBNavigationPlatform.instance
         .findSelectedRouteIndex(clickedPoint, routeLines)
         .then((routeIndex) {
+      if (routeIndex != _primaryRouteIndex) {
+        if (routeIndex >= 0 && routeIndex < routeLines.length) {
+          _primaryRouteIndex = routeIndex;
+        }
+        if (_isIndependentRoute) {
+          drawIndependentRoutes(List.from(_routes), primaryRouteIndex: _primaryRouteIndex);
+        } else {
+          drawRoute(List.from(_routes), primaryRouteIndex: _primaryRouteIndex);
+        }
+      }
+
       if (onRouteSelectedCallback != null) {
         onRouteSelectedCallback!(routeIndex);
       }
@@ -517,5 +553,15 @@ class NavNextBillionMap implements NavigationMap {
     if (!controller.disposed) {
       await controller.setGeoJsonSource(sourceId, geoJson);
     }
+  }
+
+  /// Returns the primary route index.
+  int retrievePrimaryRouteIndex() {
+    return _primaryRouteIndex;
+  }
+
+  /// Returns the list of routes.
+  List<DirectionsRoute> retrieveRoutes() {
+    return _routes;
   }
 }

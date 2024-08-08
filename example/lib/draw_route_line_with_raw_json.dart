@@ -25,6 +25,7 @@ class DrawRouteLineState extends State<DrawRouteLineWithRawJson> {
 
   bool enableAlternativeRoutes = true;
   bool enableRouteDurationSymbol = true;
+  var primaryIndex = 0;
 
   void _onMapCreated(NextbillionMapController controller) {
     this.controller = controller;
@@ -45,15 +46,9 @@ class DrawRouteLineState extends State<DrawRouteLineWithRawJson> {
   _onMapClick(Point<double> point, LatLng coordinates) {
     navNextBillionMap.addRouteSelectedListener(coordinates,
         (selectedRouteIndex) {
-      if (routes.isNotEmpty && selectedRouteIndex != 0) {
-        var selectedRoute = routes[selectedRouteIndex];
-        routes.removeAt(selectedRouteIndex);
-        routes.insert(0, selectedRoute);
-        setState(() {
-          routes = routes;
-        });
-        navNextBillionMap.drawIndependentRoutes(routes);
-      }
+          if (routes.isNotEmpty) {
+            primaryIndex = selectedRouteIndex;
+          }
     });
   }
 
@@ -111,7 +106,7 @@ class DrawRouteLineState extends State<DrawRouteLineWithRawJson> {
   void _startNavigation() {
     if (routes.isEmpty) return;
     NavigationLauncherConfig config =
-        NavigationLauncherConfig(route: routes.first, routes: routes);
+        NavigationLauncherConfig(route: routes[primaryIndex], routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.gps;
     config.themeMode = NavigationThemeMode.system;
     config.useCustomNavigationStyle = false;

@@ -183,16 +183,20 @@ class Convert {
             guard let routeOptions = routeOptions else {
                 return []
             }
-            
-            if let routeJosn = launcherConfig["routes"] as? [String], !routeJosn.isEmpty {
+            if let singleRouteJson = launcherConfig["route"] as? String, !singleRouteJson.isEmpty {
+                let singleRoute = modifyRoute(routeOptions: routeOptions, routeJson: singleRouteJson)
                 var routes: [Route] = []
-                routeJosn.forEach { jsonString in
-                    let json = jsonStringToDictionary(jsonString)
-                    let countryCode = json["countryCode"] as? String ?? ""
-                    let route = Route.init(json: json, waypoints: routeOptions.waypoints, options: routeOptions, countryCode: countryCode)
-                    route.speechLocale = routeOptions.locale
-                    route.modifyRoute()
-                    routes.append(route)
+                if let routeJosn = launcherConfig["routes"] as? [String], !routeJosn.isEmpty {
+                    routeJosn.forEach { jsonString in
+                        let route = modifyRoute(routeOptions: routeOptions, routeJson: jsonString)
+                        routes.append(route)
+                    }
+                    if let primaryIndex = routes.firstIndex(where: { $0.shape == singleRoute.shape } ), primaryIndex >= 0 {
+                        routes.remove(at: primaryIndex)
+                        routes.insert(singleRoute, at: 0)
+                    }
+                } else {
+                    routes.append(singleRoute)
                 }
                 return routes
             }
@@ -201,20 +205,23 @@ class Convert {
         
     }
     
+    class func modifyRoute(routeOptions: NBNavRouteOptions, routeJson: String) -> Route {
+        let json = jsonStringToDictionary(routeJson)
+        let countryCode = json["countryCode"] as? String ?? ""
+        let route = Route.init(json: json, waypoints: routeOptions.waypoints, options: routeOptions, countryCode: countryCode)
+        route.speechLocale = routeOptions.locale
+        route.modifyRoute()
+
+        return route
+    }
+    
     class func convertDirectionsRoute(arguments: [String: Any]) -> Route? {
         if let options = arguments["routeOptions"] as? String, let routeJson = arguments["route"] as? String {
             let routeOptions = convertRouteRequestParams(arguments: options)
             guard let routeOptions = routeOptions else {
                 return nil
             }
-
-            let json = jsonStringToDictionary(routeJson)
-            let countryCode = json["countryCode"] as? String ?? ""
-            let route = Route.init(json: json, waypoints: routeOptions.waypoints, options: routeOptions, countryCode: countryCode)
-            route.speechLocale = routeOptions.locale
-            route.modifyRoute()
-
-            return route
+            return modifyRoute(routeOptions: routeOptions, routeJson: routeJson)
         }
         return nil
         
