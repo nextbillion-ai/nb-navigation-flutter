@@ -1,3 +1,23 @@
+## v0.7.1, August 7, 2024
+* Optimization: Simplified Route Switching Handling, by removing unnecessary list operations, the new code is more efficient.
+  * Previous Implementation:
+    * When a route was selected, the code moved the selected route to the beginning of the list and redrew the routes.
+  * New Implementation:
+    * Simplified the logic to just set primaryIndex to selectedRouteIndex.
+      ```
+        navNextBillionMap.addRouteSelectedListener(coordinates, (selectedRouteIndex) {
+           if (routes.isNotEmpty) {
+             primaryIndex = selectedRouteIndex;
+           }
+        });
+      ```
+* Bug Fix: Primary Route Selection
+  * Issue: The selected route was not being used as the primary route; the default behavior was always using routes.first.
+  * Fix: Updated the configuration to support the selected route as the primary route.
+    ```
+      NavigationLauncherConfig config = NavigationLauncherConfig(route: selectedRoute, routes: routes);
+    ```
+
 ## v0.7.0, July 23, 2024
 * Update the android navigation native framework to 1.3.6 to fix the speedometer view shown issue on the [NBNavigationView]
   * Fix speedometer not shown on Android when use [NBNavigationView] 
