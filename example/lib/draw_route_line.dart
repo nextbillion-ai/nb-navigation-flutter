@@ -103,7 +103,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
       // truckWeight: 100,
       // unit: SupportedUnits.imperial,
       alternatives: true,
-      mode: ValidModes.car,
+      mode: ValidModes.truck,
     );
 
     DirectionsRouteResponse routeResponse =
