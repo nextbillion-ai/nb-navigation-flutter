@@ -7,7 +7,6 @@
 
 import Foundation
 import Nbmap
-import NbmapDirections
 import NbmapCoreNavigation
 
 class NBNavRouteOptions: NavigationRouteOptions {

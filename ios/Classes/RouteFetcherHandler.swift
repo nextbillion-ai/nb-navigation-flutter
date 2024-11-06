@@ -7,8 +7,8 @@
 
 import Foundation
 import Flutter
-import NbmapDirections
 import NbmapNavigation
+import NbmapCoreNavigation
 import Turf
 
 class RouteFetcherHandler: MethodChannelHandler {

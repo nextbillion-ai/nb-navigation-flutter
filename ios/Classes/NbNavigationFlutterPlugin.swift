@@ -1,6 +1,5 @@
 import Flutter
 import UIKit
-import NbmapDirections
 import NbmapNavigation
 import NbmapCoreNavigation
 import Nbmap
@@ -15,8 +14,13 @@ public class NbNavigationFlutterPlugin: NSObject, FlutterPlugin {
         registrar.addMethodCallDelegate(instance, channel: channel!)
 
         let viewFactory = NBNavigationViewFactory(messenger: registrar.messenger())
-           registrar.register(viewFactory, withId: "FlutterNBNavigationView")
-
+        registrar.register(viewFactory, withId: "FlutterNBNavigationView")
+        
+        let libraryBundle = Bundle(for: NbNavigationFlutterPlugin.self)
+        let version = libraryBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") ?? "Unknown"
+        let buildNumber = libraryBundle.object(forInfoDictionaryKey: "CFBundleVersion") ?? "Unknown"
+        let crossPlatformInfo: String = "Flutter-\(version)-\(buildNumber)"
+        Directions.shared.crossInfo = crossPlatformInfo
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

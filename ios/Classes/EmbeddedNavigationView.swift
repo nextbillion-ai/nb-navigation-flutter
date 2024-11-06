@@ -9,7 +9,6 @@ import Foundation
 import Flutter
 import NbmapNavigation
 import NbmapCoreNavigation
-import NbmapDirections
 import UIKit
 import Foundation
 import UserNotifications

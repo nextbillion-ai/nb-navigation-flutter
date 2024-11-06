@@ -8,7 +8,6 @@
 import Foundation
 import Flutter
 import Nbmap
-import NbmapDirections
 
 class NBNavigationHandler: MethodChannelHandler {
     override init() {

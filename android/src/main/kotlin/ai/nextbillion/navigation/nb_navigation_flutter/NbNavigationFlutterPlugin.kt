@@ -1,14 +1,10 @@
 package ai.nextbillion.navigation.nb_navigation_flutter
 
+import ai.nextbillion.navigation.core.routefetcher.RoutingAPIUtils
 import ai.nextbillion.navigation.factory.EmbeddedNavigationViewFactory
 import android.app.Activity
-import android.app.Application
-import android.os.Bundle
 import androidx.annotation.NonNull
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -20,6 +16,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.platform.PlatformViewRegistry
+import java.lang.String
 
 /** NbNavigationFlutterPlugin */
 class NbNavigationFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -37,6 +34,8 @@ class NbNavigationFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware
     navigationChannel.setMethodCallHandler(this)
     platformViewRegistry = flutterPluginBinding.platformViewRegistry
     binaryMessenger = flutterPluginBinding.binaryMessenger
+    val crossPlatformName = String.format("Flutter-%s-%s", BuildConfig.NBNAV_FLUTTER_VERSION, BuildConfig.GIT_REVISION_SHORT)
+    RoutingAPIUtils.setCrossPlatformInfo(crossPlatformName)
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {

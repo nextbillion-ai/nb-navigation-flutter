@@ -25,6 +25,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
   String locationTrackImage = "assets/location_on.png";
   UserLocation? currentLocation;
   List<LatLng> waypoints = [];
+  var primaryIndex = 0;
 
   void _onMapCreated(NextbillionMapController controller) {
     this.controller = controller;
@@ -53,15 +54,9 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
   _onMapClick(Point<double> point, LatLng coordinates) {
     navNextBillionMap.addRouteSelectedListener(coordinates,
         (selectedRouteIndex) {
-      if (routes.isNotEmpty && selectedRouteIndex != 0) {
-        var selectedRoute = routes[selectedRouteIndex];
-        routes.removeAt(selectedRouteIndex);
-        routes.insert(0, selectedRoute);
-        setState(() {
-          routes = routes;
-        });
-        navNextBillionMap.drawRoute(routes);
-      }
+          if (routes.isNotEmpty) {
+            primaryIndex = selectedRouteIndex;
+          }
     });
   }
 
@@ -232,7 +227,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
   void _startNavigation() {
     if (routes.isEmpty) return;
     NavigationLauncherConfig config =
-        NavigationLauncherConfig(route: routes.first, routes: routes);
+        NavigationLauncherConfig(route: routes[primaryIndex], routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.gps;
     config.shouldSimulateRoute = false;
     config.themeMode = NavigationThemeMode.system;
