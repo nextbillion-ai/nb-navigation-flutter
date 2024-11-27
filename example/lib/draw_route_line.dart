@@ -127,6 +127,7 @@ class DrawRouteLineState extends State<DrawRouteLine> {
   }
 
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
+    primaryIndex = 0;
     navNextBillionMap.clearRoute();
     navNextBillionMap.drawRoute(routes);
   }
