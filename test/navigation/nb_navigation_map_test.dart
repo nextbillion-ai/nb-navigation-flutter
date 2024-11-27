@@ -10,6 +10,7 @@ import 'package:nb_navigation_flutter/navigation/nb_map_controller_wrapper.dart'
 import 'package:nb_navigation_flutter/util/asset_manager.dart';
 import 'package:test/test.dart';
 import 'package:nb_navigation_flutter/nb_navigation_flutter.dart';
+import 'package:flutter_test/flutter_test.dart' as flutter_test;
 
 import 'nb_navigation_map_test.mocks.dart';
 
@@ -121,8 +122,10 @@ void main() {
 
     test('should return if routes are empty', () async {
       when(mockMapController.disposed).thenReturn(false);
-      await navNextBillionMap.drawRoute([]);
-      verifyNever(mockMapController.setGeoJsonSource(routeShieldSourceId, any));
+      expect(
+            () async => await navNextBillionMap.drawRoute([]),
+        flutter_test.throwsAssertionError,
+      );
     });
 
     test('should drawRoute if routes are not empty', () async {

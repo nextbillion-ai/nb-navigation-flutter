@@ -217,6 +217,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
   }
 
   void clearRouteResult() async {
+    primaryIndex = 0;
     navNextBillionMap.clearRoute();
     controller?.clearSymbols();
     setState(() {

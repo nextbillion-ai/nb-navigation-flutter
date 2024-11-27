@@ -114,6 +114,7 @@ class DrawRouteLineState extends State<DrawRouteLineWithRawJson> {
   }
 
   Future<void> drawRoutes(List<DirectionsRoute> routes) async {
+    primaryIndex = 0;
     navNextBillionMap.clearRoute();
     navNextBillionMap.drawIndependentRoutes(routes);
   }
