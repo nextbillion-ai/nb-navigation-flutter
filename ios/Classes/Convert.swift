@@ -84,8 +84,8 @@ class Convert {
             routeOptions.routeShapeResolution = overviewValue
         }
         
-        if let avoid = options["avoid"] as? [String], let avoidClasses = RoadClasses(descriptions: avoid) {
-            routeOptions.roadClassesToAvoid = avoidClasses
+        if let avoidType = options["avoid"] as? [String] {
+            routeOptions.avoid = avoidType
         }
 
         if let hazmatType = options["hazmatType"] as? [String], let hazmatTypes = NavigationHazmatTypes(descriptions: hazmatType) {
@@ -104,6 +104,17 @@ class Convert {
             routeOptions.truckWeight = truckWeight
         }
         
+        if let crossBorder = options["crossBorder"] as? Bool {
+            routeOptions.crossBorder = crossBorder
+        }
+
+        if let truckAxleLoad = options["truckAxleLoad"] as? Double {
+            routeOptions.truckAxleLoad = truckAxleLoad
+        }
+
+        if let allow = options["allow"] as? String {
+            routeOptions.allow = allow
+        }
         //            routeOptions.apiEndpoint
         //            routeOptions.accessToken
         
@@ -157,11 +168,12 @@ class Convert {
         options["option"] = routeOptions.mapOption.rawValue
         options["departureTime"] = routeOptions.departureTime
         options["overview"] = routeOptions.routeShapeResolution.description
-        options["avoid"] = routeOptions.roadClassesToAvoid.description.components(separatedBy: "|")
+        options["avoid"] = routeOptions.avoid
         options["geometry"] = routeOptions.shapeFormat.description
         options["truckSize"] = routeOptions.truckSize
         options["truckWeight"] = routeOptions.truckWeight
-        
+        options["allow"] = routeOptions.allow
+
         if (!routeOptions.hazmatTypes.isEmpty) {
             options["hazmatType"] = routeOptions.hazmatTypes.description.components(separatedBy: ";")
         }
@@ -169,6 +181,9 @@ class Convert {
         if (!approaches.isEmpty) {
             options["approaches"] = approaches
         }
+
+        options["crossBorder"] = routeOptions.crossBorder
+        options["truckAxleLoad"] = routeOptions.truckAxleLoad
         return options
     }
     

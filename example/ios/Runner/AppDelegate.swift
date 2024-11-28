@@ -2,7 +2,7 @@ import UIKit
 import Flutter
 import nb_navigation_flutter
 
-@UIApplicationMain
+@main
 @objc class AppDelegate: FlutterAppDelegate, UINavigationControllerDelegate {
     override func application(
         _ application: UIApplication,

@@ -301,7 +301,7 @@ class LaunchEmbeddedNavigationViewState
       });
       drawRoutes(routes);
       fitCameraToBounds(routes);
-      addImageFromAsset(destination);
+      // addImageFromAsset(destination);
     } else if (routeResponse.message != null) {
       if (kDebugMode) {
         print(

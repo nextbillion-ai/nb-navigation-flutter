@@ -54,7 +54,6 @@ class EmbeddedNavigationViewExampleState
   ];
 
   int selectedUnit = 0;
-  var primaryIndex = 0;
 
   void _onMapCreated(NextbillionMapController controller) {
     this.controller = controller;
@@ -77,9 +76,16 @@ class EmbeddedNavigationViewExampleState
   }
 
   _onMapClick(Point<double> point, LatLng coordinates) {
-    navNextBillionMap.addRouteSelectedListener(coordinates, (selectedRouteIndex) {
-          if (routes.isNotEmpty) {
-            primaryIndex = selectedRouteIndex;
+    navNextBillionMap.addRouteSelectedListener(coordinates,
+            (selectedRouteIndex) {
+          if (routes.isNotEmpty && selectedRouteIndex != 0) {
+            var selectedRoute = routes[selectedRouteIndex];
+            routes.removeAt(selectedRouteIndex);
+            routes.insert(0, selectedRoute);
+            setState(() {
+              routes = routes;
+            });
+            navNextBillionMap.drawRoute(routes);
           }
         });
   }
@@ -204,7 +210,7 @@ class EmbeddedNavigationViewExampleState
 
   NavigationLauncherConfig _buildNavigationViewConfig() {
     NavigationLauncherConfig config =
-    NavigationLauncherConfig(route: routes[primaryIndex], routes: routes);
+    NavigationLauncherConfig(route: routes.first, routes: routes);
     config.locationLayerRenderMode = LocationLayerRenderMode.gps;
     config.shouldSimulateRoute = true;
     config.themeMode = NavigationThemeMode.system;
@@ -323,7 +329,7 @@ class EmbeddedNavigationViewExampleState
       });
       drawRoutes(routes);
       fitCameraToBounds(routes);
-      addImageFromAsset(destination);
+      // addImageFromAsset(destination);
     } else if (routeResponse.message != null) {
       if (kDebugMode) {
         print(

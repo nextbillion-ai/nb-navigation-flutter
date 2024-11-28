@@ -160,7 +160,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
       origin: origin,
       destination: waypoints.last,
       // overview: ValidOverview.simplified,
-      // avoid: [SupportedAvoid.toll, SupportedAvoid.ferry],
+      // avoidType: ["bbox: 17.453016,78.395004, 17.463005,78.413029|toll"],
       // option: SupportedOption.flexible,
       // truckSize: [200, 200, 600],
       // truckWeight: 100,
@@ -182,7 +182,7 @@ class FullNavigationExampleState extends State<FullNavigationExample> {
       });
       drawRoutes(routes);
       fitCameraToBounds(routes);
-      addImageFromAsset(destination);
+      // addImageFromAsset(destination);
     } else if (routeResponse.message != null) {
       if (kDebugMode) {
         print(

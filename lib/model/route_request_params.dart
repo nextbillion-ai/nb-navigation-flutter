@@ -26,7 +26,15 @@ class RouteRequestParams {
   /// [SupportedAvoid.none]
   /// Please note that when this parameter is not provided in the input, [SupportedAvoid.ferry] are set to be avoided by default.
   /// When this parameter is provided, only the mentioned objects are avoided.
+  @Deprecated("This property is deprecated. Use [avoidType] instead.")
   List<SupportedAvoid>? avoid;
+
+  /// The route classes that the calculated routes will avoid.
+  /// Possible values are:
+  /// [toll], [highway], [ferry], [sharp_turn], [turn], [service_road], [left_turn], [right_turn], [bbox], [geofence_id], [none]
+  /// Please note that when this parameter is not provided in the input, [ferry] are set to be avoided by default.
+  /// When this parameter is provided, only the mentioned objects are avoided.
+  List<String>? avoidType;
 
   ///The same base URL which was used during the request that resulted in this root directions
   String? baseUrl;
@@ -109,12 +117,30 @@ class RouteRequestParams {
   /// @return a string representing approaches for each waypoint
   List<SupportedApproaches>? approaches;
 
+  /// Specify if crossing an international border is expected for operations near border areas.
+  /// When set to false, the API will prohibit routes going back & forth between countries.
+  /// Consequently, routes within the same country will be preferred if they are feasible for the given set of destination or waypoints.
+  /// When set to true, the routes will be allowed to go back & forth between countries as needed.
+  ///
+  /// This feature is available in North America region only. Please get in touch with support@nextbillion.ai to enquire/enable other areas.
+  bool? crossBorder;
+
+  /// Specify the total load per axle (including the weight of trailers and shipped goods) of the truck, in tonnes.
+  /// When used, the service will return routes which are legally allowed to carry the load specified per axle.
+  ///
+  /// Please note this parameter is effective only when `mode=truck`.
+  num? truckAxleLoad;
+
+  /// Possible values are: [taxi], [hov]
+  String? allow;
+
   RouteRequestParams({
     required this.origin,
     required this.destination,
     this.altCount,
     this.alternatives,
     this.avoid,
+    this.avoidType,
     this.baseUrl,
     this.departureTime,
     this.key,
@@ -130,6 +156,9 @@ class RouteRequestParams {
     this.geometry,
     this.hazmatType,
     this.approaches,
+    this.crossBorder,
+    this.truckAxleLoad,
+    this.allow,
   });
 
   factory RouteRequestParams.fromJson(Map<String, dynamic> map) {
@@ -145,6 +174,7 @@ class RouteRequestParams {
       avoid: List<SupportedAvoid>.from((map['avoid'] as List<dynamic>?)
               ?.map((x) => SupportedAvoid.fromValue(x)) ??
           []),
+      avoidType: List<String>.from(map['avoid'] ?? []),
       baseUrl: map['baseUrl'],
       departureTime: map['departureTime'],
       destination: LatLng(map['destination'][1], map['destination'][0]),
@@ -171,6 +201,9 @@ class RouteRequestParams {
           ?.map((x) => SupportedApproaches.fromValue(x))
           .whereType<SupportedApproaches>()
           .toList(),
+      crossBorder: map['crossBorder'],
+      truckAxleLoad: map['truckAxleLoad'],
+      allow: map['allow'],
     );
   }
 
@@ -178,7 +211,7 @@ class RouteRequestParams {
     return {
       'altCount': altCount,
       'alternatives': alternatives,
-      'avoid': avoid?.map((e) => e.description).toList(),
+      'avoid': avoidType?.isNotEmpty == true ? avoidType : avoid?.map((e) => e.description).toList(),
       'approaches': approaches?.map((e) => e.description).toList(),
       'baseUrl': baseUrl,
       'departureTime': departureTime,
@@ -196,6 +229,9 @@ class RouteRequestParams {
       'geometry': geometry?.description,
       'waypoints': waypoints?.map((e) => e.toGeoJsonCoordinates()).toList(),
       'hazmatType': hazmatType?.map((e) => e.description).toList(),
+      'crossBorder': crossBorder,
+      'truckAxleLoad': truckAxleLoad,
+      'allow': allow,
     };
   }
 }

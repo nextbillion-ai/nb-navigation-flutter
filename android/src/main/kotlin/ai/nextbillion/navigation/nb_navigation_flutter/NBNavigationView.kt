@@ -12,10 +12,8 @@ import ai.nextbillion.navigation.ui.NavigationView
 import ai.nextbillion.navigation.ui.OnNavigationReadyCallback
 import ai.nextbillion.navigation.ui.listeners.NavigationListener
 import ai.nextbillion.navigation.ui.listeners.RouteListener
-import ai.nextbillion.navigation.ui.utils.AttributeConstants.k
 import android.app.Activity
 import android.location.Location
-import android.preference.PreferenceManager
 import android.view.View
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner

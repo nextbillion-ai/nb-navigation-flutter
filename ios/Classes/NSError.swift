@@ -10,7 +10,7 @@ extension NSError {
     func toastError() -> String {
         var errorStr = ""
         if let failedReason = self.userInfo[NSLocalizedFailureReasonErrorKey] {
-            errorStr += "\(failedReason) \n"
+            errorStr += "\(failedReason)"
         } else {
             errorStr += self.localizedDescription
         }

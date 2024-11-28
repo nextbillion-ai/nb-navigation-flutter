@@ -144,16 +144,18 @@ class RouteFetcherHandler(methodChannel: MethodChannel?) : MethodChannelHandler(
                         args["routeResult"] = routeArray
                     }
                 } else {
+                    val errorMessage = response.errorBody()!!.charStream().readText()
+                    val httpErrorCode = response.code()
                     var jsonObj: JSONObject? = null
                      try {
-                        jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
-                        val errorMsg = jsonObj.getString("msg")
-                        val errorCode = jsonObj.getInt("status")
+                         jsonObj = JSONObject(errorMessage)
+                         val errorMsg = jsonObj.getString("msg")
+                         val errorCode = jsonObj.getInt("status")
                          args["message"] = errorMsg
                          args["errorCode"] = errorCode
                     } catch (e: JSONException) {
-                         args["message"] = "Request failed"
-                         args["errorCode"] = -1
+                         args["message"] = errorMessage.ifEmpty { "Request failed" }
+                         args["errorCode"] = httpErrorCode
                      }
                 }
                 result.success(args)
