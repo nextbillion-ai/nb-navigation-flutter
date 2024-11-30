@@ -35,6 +35,7 @@ jobs:
         with:
           files: coverage/lcov.info
           flags: unittests
+          version: "v0.1.15"
           name: codecov-report
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
