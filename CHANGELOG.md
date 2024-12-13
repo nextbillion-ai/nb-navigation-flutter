@@ -1,3 +1,17 @@
+## v2.0.0, Sept 26, 2024
+### Breaking Changes
+#### Bitcode Disabled:
+The iOS navigation native framework has been updated to version v2.1.0, and Bitcode support has been disabled. This change is breaking for projects that require Bitcode.
+- Ensure you update your project settings to account for the disabled Bitcode when integrating this framework version.
+#### Android Gradle Plugin 8.0+ Required:
+The Android navigation native framework has been updated to version v1.4.0, and it now requires Android Gradle Plugin 8.0+ as a minimum. This is a breaking change for projects using older versions of the plugin.
+- Update your project settings to use Android Gradle Plugin 8.0+ before integrating this framework version.
+### Changes
+* Updated the iOS navigation native framework to version v2.1.0.
+* Updated the Android navigation native framework to version v1.4.0.
+* Added support for the 'allow' parameter in route request options.
+* Add an avoidType field in the route request parameters to accept a List<String> as its type, which enhances support for the 'avoid' parameter.
+
 ## v1.0.1, Sept 6, 2024
 * Update android native framework to 1.3.10
   * Disable automatic theme switching in tunnel mode on Android to fix the crash issue occurring during navigation

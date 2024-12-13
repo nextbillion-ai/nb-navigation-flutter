@@ -60,12 +60,18 @@ class RouteRequestParams {
   bool? simulation;
 
   /// This parameter defines the weight of the truck including trailers and shipped goods in kilograms (kg).
+  /// Minimum: 1
+  /// Maximum: 100000
   /// This parameter is effective only when the mode=[ValidModes.truck] and option = [SupportedOption.flexible]
   int? truckWeight;
 
   /// This defines the dimensions of a truck in centimeters (cm).
   /// This should be specified if the route involves a truck, and the size restrictions may affect the route calculation.
   /// The list contains the dimensions of the truck in the order [height, width, length].
+  /// Maximum dimensions are as follows:
+  /// Height = 1000 cm
+  /// Width = 5000 cm
+  /// Length = 5000 cm
   /// This parameter is effective only when the mode=[ValidModes.truck] and option = [SupportedOption.flexible]
   List<int>? truckSize;
 
