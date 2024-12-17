@@ -1,11 +1,15 @@
-## v2.0.0, Sept 26, 2024
+## v2.1.0, Dec 16, 2024
+* Adapting to Android Gradle Plugin 8.0 Without Using the AGP Upgrading Assistant
+* Adapting to Android Kotlin Plugin 1.8.0+
+
+## v2.0.0, Dec 13, 2024
 ### Breaking Changes
 #### Bitcode Disabled:
 The iOS navigation native framework has been updated to version v2.1.0, and Bitcode support has been disabled. This change is breaking for projects that require Bitcode.
 - Ensure you update your project settings to account for the disabled Bitcode when integrating this framework version.
-#### Android Gradle Plugin 8.0+ Required:
-The Android navigation native framework has been updated to version v1.4.0, and it now requires Android Gradle Plugin 8.0+ as a minimum. This is a breaking change for projects using older versions of the plugin.
-- Update your project settings to use Android Gradle Plugin 8.0+ before integrating this framework version.
+#### Android Gradle Plugin 8.0+ Support:
+The Android navigation native framework has been updated to version v1.4.0 and now supports Android Gradle Plugin (AGP) 8.0+.
+- If your project is using AGP 8.0 or above, please upgrade to this version.
 ### Changes
 * Updated the iOS navigation native framework to version v2.1.0.
 * Updated the Android navigation native framework to version v1.4.0.
